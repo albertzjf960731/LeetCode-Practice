@@ -56,19 +56,25 @@ class Solution(object):
         :type n: int
         :rtype: int
         """
-        matrix = [[1]*n for _ in range(m)]
+        # matrix = [[1]*n for _ in range(m)]
 
         # for i in range(m):
         #     matrix[i][0] = i 
         # for j in range(n):
         #     matrix[0][j] = j
 
+        # for i in range(1, m):
+        #     for j in range(1, n):
+        #         matrix[i][j] = matrix[i-1][j] + matrix[i][j-1]
+        # return matrix[m-1][n-1]
+
+
+        dp = [1 for _ in range(n)]
         for i in range(1, m):
             for j in range(1, n):
-                matrix[i][j] = matrix[i-1][j] + matrix[i][j-1]
-        return matrix[m-1][n-1]
+                dp[j] = dp[j] + dp[j-1]
+        return dp[-1]
 
-        
 # @lc code=end
 
 sol = Solution()

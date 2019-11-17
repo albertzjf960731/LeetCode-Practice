@@ -52,6 +52,8 @@ class Solution(object):
         #         else:
         #             min_path[i][j] = grid[i-1][j-1] + min(min_path[i][j-1], min_path[i-1][j])
         # return min_path[n][m]
+
+        
         for i in range(1, n):
             grid[i][0] = grid[i-1][0] + grid[i][0]
         for j in range(1, m): 
