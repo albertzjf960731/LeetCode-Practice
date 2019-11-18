@@ -54,28 +54,28 @@ class Solution(object):
 
         # return l_merged
 
-        if len(lists) == 0:
-            return None
-        interval = 1    
-        while interval < len(lists):
-            for i in range(0, len(lists)-interval, interval*2):
-                lists[i] = self.merge2Lists(lists[i], lists[i+interval])
-            interval *= 2
-        return lists[0]
+    #     if len(lists) == 0:
+    #         return None
+    #     interval = 1    
+    #     while interval < len(lists):
+    #         for i in range(0, len(lists)-interval, interval*2):
+    #             lists[i] = self.merge2Lists(lists[i], lists[i+interval])
+    #         interval *= 2
+    #     return lists[0]
 
-    def merge2Lists(self, l1, l2):
-        dummy = cur = ListNode(0)
+    # def merge2Lists(self, l1, l2):
+    #     dummy = cur = ListNode(0)
 
-        while l1 and l2: 
-            if l1.val < l2.val:
-                cur.next = l1 
-                l1 = l1.next
-            else:
-                cur.next = l2 
-                l2 = l2.next 
-            cur = cur.next 
-        cur.next = l1 or l2 
-        return dummy.next
+    #     while l1 and l2: 
+    #         if l1.val < l2.val:
+    #             cur.next = l1 
+    #             l1 = l1.next
+    #         else:
+    #             cur.next = l2 
+    #             l2 = l2.next 
+    #         cur = cur.next 
+    #     cur.next = l1 or l2 
+    #     return dummy.next
 
         # ln = []
         # for l in lists:
@@ -92,6 +92,21 @@ class Solution(object):
         #     cur = cur.next  
         # return head.next
 
+
+        from heapq import heappush, heappop, heapreplace, heapify
+
+        dummy = cur = ListNode(0)
+
+        min_heap = [(node.val, node) for node in lists if node]
+        heapify(min_heap)
+
+        while min_heap:
+            val, node = heappop(min_heap)
+            if node.next:
+                heappush(min_heap, (node.next.val, node.next))
+            cur.next = node 
+            cur = cur.next
+        return dummy.next
 
 # @lc code=end
 
