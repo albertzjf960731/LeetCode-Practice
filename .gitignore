@@ -6,4 +6,4 @@ out
 a.out.*/
 *~
 *.bak
-.DS_Store
+*/.DS_Store
