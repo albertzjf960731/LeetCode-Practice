@@ -1,0 +1,103 @@
+#
+# @lc app=leetcode id=190 lang=python
+#
+# [190] Reverse Bits
+#
+# https://leetcode.com/problems/reverse-bits/description/
+#
+# algorithms
+# Easy (33.48%)
+# Likes:    690
+# Dislikes: 245
+# Total Accepted:    207.7K
+# Total Submissions: 616.7K
+# Testcase Example:  '00000010100101000001111010011100'
+#
+# Reverse bits of a given 32 bits unsigned integer.
+# 
+# 
+# 
+# Example 1:
+# 
+# 
+# Input: 00000010100101000001111010011100
+# Output: 00111001011110000010100101000000
+# Explanation: The input binary string 00000010100101000001111010011100
+# represents the unsigned integer 43261596, so return 964176192 which its
+# binary representation is 00111001011110000010100101000000.
+# 
+# 
+# Example 2:
+# 
+# 
+# Input: 11111111111111111111111111111101
+# Output: 10111111111111111111111111111111
+# Explanation: The input binary string 11111111111111111111111111111101
+# represents the unsigned integer 4294967293, so return 3221225471 which its
+# binary representation is 10111111111111111111111111111111.
+# 
+# 
+# 
+# Note:
+# 
+# 
+# Note that in some languages such as Java, there is no unsigned integer type.
+# In this case, both input and output will be given as signed integer type and
+# should not affect your implementation, as the internal binary representation
+# of the integer is the same whether it is signed or unsigned.
+# In Java, the compiler represents the signed integers using 2's complement
+# notation. Therefore, in Example 2 above the input represents the signed
+# integer -3 and the output represents the signed integer -1073741825.
+# 
+# 
+# 
+# 
+# Follow up:
+# 
+# If this function is called many times, how would you optimize it?
+# 
+#
+
+# @lc code=start
+class Solution:
+    def __init__(self):
+        self.cache = dict()
+    # @param n, an integer
+    # @return an integer
+    def reverseBits(self, n):
+
+        # ans = '{0:032b}'.format(n)
+        # return int(ans[::-1], 2)
+
+        # ans = 0
+        # for i in range(32):
+        #     ans <<= 1
+        #     ans |= (n&1)
+        #     n >>= 1
+        # return ans 
+
+        res = 0
+        for i in range(4):
+            res <<= 8
+            res |= self.reverseByte(n&255)
+            n >>= 8
+        return res 
+
+    
+    def reverseByte(self, n):
+        if n in self.cache:
+            return self.cache[n]
+        res = 0
+        m = n
+        for i in range(8):
+            res <<= 1
+            res |= m & 1
+            m >>= 1 
+        self.cache[n] = res 
+        return res 
+        
+# @lc code=end
+
+sol = Solution()
+n = 1 
+print(sol.reverseBits(1))
