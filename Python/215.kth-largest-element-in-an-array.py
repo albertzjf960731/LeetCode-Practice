@@ -44,38 +44,50 @@ class Solution(object):
         """
         # return sorted(nums)[-k]
 
-        from queue import PriorityQueue
-        queue = PriorityQueue()
+        # from queue import PriorityQueue
+        # queue = PriorityQueue()
 
-        for num in nums:
-            queue.put(num)
-            if queue.qsize() > k:
-                queue.get() 
-        return queue.get()
+        # for num in nums:
+        #     queue.put(num)
+        #     if queue.qsize() > k:
+        #         queue.get() 
+        # return queue.get()
 
-    #     return self.findKthSmallest(nums, len(nums)+1-k)
+        return self.findKthSmallest(nums, len(nums)-k+1)
 
-    # def findKthSmallest(self, nums, k):
-    #     if nums:
-    #         pos = self.partition(nums, 0, len(nums)-1)
+    def findKthSmallest(self, nums, k):
+        l, r = 0, len(nums)-1
 
-    #         if k > pos+1:
-    #             return self.findKthSmallest(nums[pos+1:], k-pos-1)
-    #         elif k < pos+1:
-    #             return self.findKthSmallest(nums[:pos], k)
-    #         else:
-    #             return nums[pos]
+        while l<=r:
+            pos = self.partition(nums, l, r)
+
+            if pos+1==k:
+                return nums[pos]
+            elif pos+1<k:
+                l = pos+1
+            else:
+                r = pos-1
+
+        # if k > pos+1:
+        #     return self.findKthSmallest(nums[pos+1:], k-pos-1)
+        # elif k < pos+1:
+        #     return self.findKthSmallest(nums[:pos], k)
+        # else:
+        #     return nums[pos]
     
-    # # choose the right-most element as pivot   
-    # def partition(self, nums, l, r):
-    #     low = l
-    #     while l<r:
-    #         if nums[l] < nums[r]:
-    #             nums[l], nums[low] = nums[low], nums[l]
-    #             low += 1
-    #         l += 1
-    #     nums[low], nums[r] = nums[r], nums[low]
-    #     return low
+    # choose the right-most element as pivot   
+    def partition(self, nums, l, r):
+        pos = l
+
+        while l<r:
+            if nums[l] < nums[r]:
+                nums[l], nums[pos] = nums[pos], nums[l]
+                pos += 1
+            l += 1
+
+        nums[pos], nums[r] = nums[r], nums[pos]
+        return pos
+
 
         
 
@@ -84,5 +96,5 @@ class Solution(object):
 
 sol = Solution()
 nums = [3,2,1,5,6,4]
-k = 2
-sol.findKthSmallest(nums, k)
+k = 6
+print(sol.findKthLargest(nums, k))

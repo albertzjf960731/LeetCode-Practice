@@ -45,6 +45,8 @@ class Solution(object):
         """
         people = sorted(people, key=lambda x:(x[0]*-1,x[1]))
         
+        # 为了使插入操作不影响后续的操作，身高较高的学生应该先做插入操作，否则身高较小的学生原先正确插入的第 k 个位置可能会变成第 k+1 个位置。
+        
         res = []
         for p in people:
             res.insert(p[1], p)

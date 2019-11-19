@@ -66,16 +66,40 @@ class Solution(object):
     #         m = max(m, s)
     #     return m
 
-        if not prices or len(prices)==1:
-            return 0 
+        # if not prices or len(prices)==1:
+        #     return 0 
             
-        sofar_min = prices[0]
+        # sofar_min = prices[0]
+        # max_profit = 0
+        # for i in range(1, len(prices)):
+        #     if sofar_min > prices[i]:
+        #         sofar_min = prices[i]
+        #     else:
+        #         max_profit = max(max_profit, prices[i] - sofar_min)
+        # return max_profit
+
+
+        if not prices:
+            return 0
+            
+        profits = []
         max_profit = 0
-        for i in range(1, len(prices)):
-            if sofar_min > prices[i]:
-                sofar_min = prices[i]
-            else:
-                max_profit = max(max_profit, prices[i] - sofar_min)
+        cur_min = prices[0] 
+        for price in prices:
+            cur_min = min(cur_min, price)
+            max_profit = max(max_profit, price-cur_min)
+            # profits.append(max_profit)
         return max_profit
+
+        # if not prices:
+        #     return 0
+        # s1 = -prices[0]
+        # s2 = float('-inf')
+
+        # for i in range(len(prices)):
+        #     s1 = max(s1, -prices[i])
+        #     s2 = max(s2, s1+prices[i])
+        # return max(0, s2)
+        
 # @lc code=end
 

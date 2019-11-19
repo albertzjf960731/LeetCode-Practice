@@ -63,13 +63,20 @@ class Solution(object):
         :type prices: List[int]
         :rtype: int
         """
-        profits = [prices[i+1]-prices[i] for i in range(len(prices)-1)]
+        # profits = [prices[i+1]-prices[i] for i in range(len(prices)-1)]
 
-        max_profit = 0
-        for p in profits:
-            if p > 0:
-                max_profit += p
-        return max_profit
+        # max_profit = 0
+        # for p in profits:
+        #     if p > 0:
+        #         max_profit += p
+        # return max_profit
+
+        ans = 0
+        for i in range(len(prices)-1):
+            if prices[i+1]>prices[i]:
+                ans += prices[i+1] - prices[i]
+        return ans 
+
 
   # @lc code=end
 

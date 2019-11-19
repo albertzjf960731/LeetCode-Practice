@@ -73,6 +73,7 @@ class Solution(object):
                 num2counnt[c] = 0
             num2counnt[c] += 1
         
+        # bucket
         count2num = dict()
         for num, count in num2counnt.items():
             if count not in count2num:

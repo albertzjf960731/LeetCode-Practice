@@ -44,21 +44,32 @@ class Solution(object):
         :rtype: List[List[int]]
         """
 
-        intervals.sort()
+        # intervals.sort()
         
-        i = 0
-        while i < len(intervals)-1:
-        # for i in range(len(intervals)-1):
+        # i = 0
+        # while i < len(intervals)-1:
+        # # for i in range(len(intervals)-1):
 
-            if intervals[i][1] >= intervals[i+1][0] and intervals[i][1] < intervals[i+1][1]:
-                intervals[i+1][0] = intervals[i][0]
-                intervals.pop(i)
-            elif intervals[i][1] >= intervals[i+1][1]:
-                intervals[i+1] = intervals[i]
-                intervals.pop(i)
+        #     if intervals[i][1] >= intervals[i+1][0] and intervals[i][1] < intervals[i+1][1]:
+        #         intervals[i+1][0] = intervals[i][0]
+        #         intervals.pop(i)
+        #     elif intervals[i][1] >= intervals[i+1][1]:
+        #         intervals[i+1] = intervals[i]
+        #         intervals.pop(i)
+        #     else:
+        #         i += 1
+        # return intervals
+
+        res = []
+        intervals.sort()
+
+        for item in intervals:
+            if res and item[0] <= res[-1][1]:
+                res[-1][1] = max(res[-1][1], item[1])
             else:
-                i += 1
-        return intervals
+                res.append(item)
+                
+        return res 
 # @lc code=end
 
 sol = Solution()
