@@ -46,8 +46,9 @@ class Solution(object):
         :type n: int
         :rtype: None Do not return anything, modify nums1 in-place instead.
         """
-
+        # i, j 进行索引，end 填充
         i, j, end = m-1, n-1, m+n-1
+
         while i>=0 and j>=0:
             if nums1[i] < nums2[j]:
                 nums1[end] = nums2[j]

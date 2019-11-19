@@ -65,10 +65,10 @@
 
 # @lc code=start
 # Definition for singly-linked list.
-class ListNode(object):
-    def __init__(self, x):
-        self.val = x
-        self.next = None
+# class ListNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.next = None
 
 class Solution(object):
     def detectCycle(self, head):
@@ -102,22 +102,25 @@ class Solution(object):
         #     slow = slow.next
 
         # return head
-        
+
         slow = fast = head
-        while fast:
-            if not fast.next:
-                return None
+        while fast and fast.next:
             slow = slow.next
             fast = fast.next.next
 
-            if fast == slow:
-                meet = fast
-                while head is not meet:
-                    head = head.next
-                    meet = meet.next
-                return head
+            if fast is slow:
+                # meet = fast
+                # while head is not meet: # is 比 == 快
+                #     head = head.next
+                #     meet = meet.next
+                # return head
+                fast = head
+                while slow is not fast:
+                    slow = slow.next
+                    fast = fast.next
+                return slow
+ 
         return None
-
 
 # @lc code=end
 
