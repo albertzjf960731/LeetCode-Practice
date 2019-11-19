@@ -57,7 +57,10 @@ class MinStack(object):
         :type x: int
         :rtype: None
         """
-        self.stack.append(x)
+        if not self.stack:
+            self.stack.append((x, x))
+        else:
+            self.stack.append((x, min(x, self.stack[-1][1])))
 
     def pop(self):
         """
@@ -69,7 +72,7 @@ class MinStack(object):
         """
         :rtype: int
         """
-        return self.stack[-1]
+        return self.stack[-1][0]
 
     def getMin(self):
         """
@@ -77,7 +80,7 @@ class MinStack(object):
         """
         if not self.stack:
             return []
-        return min(self.stack)
+        return self.stack[-1][1]
 
 
 # Your MinStack object will be instantiated and called as such:
