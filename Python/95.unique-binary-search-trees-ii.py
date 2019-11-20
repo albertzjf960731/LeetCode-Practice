@@ -55,7 +55,7 @@ class Solution(object):
         :rtype: List[TreeNode]
         """
 
-        # 递s归
+        # 递归
         res = []
         if n == 0:
             return res 

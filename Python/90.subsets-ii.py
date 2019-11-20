@@ -56,28 +56,28 @@ class Solution(object):
 
 
         # 递归
-    #     nums.sort()
-    #     result = []
-    #     self.dfs(nums, 0, [], result)
-    #     return result
-
-    # def dfs(self, nums, index, path, result):
-    #     if path not in result:
-    #         result.append(path)
-    #     for i in range(index, len(nums)):
-    #         self.dfs(nums, i+1, path+[nums[i]], result)
-
-        # 位操作
         nums.sort()
         result = []
-        for i in range(1<<len(nums)):
-            temp = []
-            for j in range(len(nums)):
-                if i & 1 << j:
-                    temp.append(nums[j])
-            if temp not in result:
-                result.append(temp)
+        self.dfs(nums, 0, [], result)
         return result
+
+    def dfs(self, nums, index, path, result):
+        if path not in result:
+            result.append(path)
+        for i in range(index, len(nums)):
+            self.dfs(nums, i+1, path+[nums[i]], result)
+
+        # # 位操作
+        # nums.sort()
+        # result = []
+        # for i in range(1<<len(nums)):
+        #     temp = []
+        #     for j in range(len(nums)):
+        #         if i & 1 << j:
+        #             temp.append(nums[j])
+        #     if temp not in result:
+        #         result.append(temp)
+        # return result
 
 # @lc code=end
 

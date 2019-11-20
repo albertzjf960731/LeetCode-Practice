@@ -82,7 +82,7 @@ class Solution(object):
         for i in range(1<<len(nums)):
             temp = []
             for j in range(len(nums)):
-                if i & 1 << j:
+                if i & (1<<j):
                     temp.append(nums[j])
             result.append(temp)
         return result

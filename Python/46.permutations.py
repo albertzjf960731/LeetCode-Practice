@@ -40,21 +40,29 @@ class Solution(object):
         :rtype: List[List[int]]
         """
 
-        # === 回溯 ===
-        res = []
-        self.dfs(nums, res, [])
-        return res
+    #     # === 回溯 ===
+    #     res = []
+    #     self.dfs(nums, res, [])
+    #     return res
    
-    def dfs(self, nums, res, path):
-        if len(path) == len(nums):
-            res.append(path)
-            return 
+    # def dfs(self, nums, res, path):
+    #     if len(path) == len(nums):
+    #         res.append(path)
+    #         return 
 
+    #     for i in range(len(nums)):
+    #         if nums[i] not in path:
+    #             self.dfs(nums, res, path+[nums[i]])
+
+        res = [[]]
         for i in range(len(nums)):
-            if nums[i] not in path:
-                self.dfs(nums, res, path+[nums[i]])
-
-
+            temp = []
+            for item in res:
+                for j in range(len(item)+1):
+                    # 插入
+                    temp.append(item[:j] + [nums[i]] + item[j:])
+            res = temp
+        return res
 # @lc code=end
 
 sol = Solution()

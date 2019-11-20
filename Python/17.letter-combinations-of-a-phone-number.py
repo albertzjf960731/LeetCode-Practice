@@ -71,11 +71,14 @@ class Solution(object):
         ans.append('')
         for i in range(len(digits)):
             x = int(digits[i])
+            
+            # queue_len 
             while len(ans[0]) == i:
                 t = ans.pop(0)
                 for s in mapping[x]:
                     ans.append(t+s)
         return ans
+        
 # @lc code=end
 
 sol = Solution()

@@ -60,18 +60,18 @@ class Solution(object):
         #     # print(combs)
         # return combs
         
-    #     self.result = []
-    #     self.n = n
-    #     self.k = k
-    #     self.helper([], 1)
-    #     return self.result
+        self.result = []
+        self.n = n
+        self.k = k
+        self.dfs([], 1)
+        return self.result
 
-    # def helper(self, temp, start):
-    #     if len(temp) == self.k:
-    #         self.result.append(temp)
-    #         return None
-    #     for i in range(start, self.n+1):
-    #         self.helper(temp+[i], i+1)
+    def dfs(self, temp, start):
+        if len(temp) == self.k:
+            self.result.append(temp)
+            return None
+        for i in range(start, self.n+1):
+            self.dfs(temp+[i], i+1)
 
         
 
