@@ -51,6 +51,8 @@ class Solution(object):
         #     return num 
         # else:
         #     num += 1
+        
+        # 在循环条件为 l <= h 并且循环退出时，h 总是比 l 小 1，也就是说 h = 2，l = 3，因此最后的返回值应该为 h 而不是 l
         low, high = 1, x
         while low <= high:
             mid = (low + high) // 2

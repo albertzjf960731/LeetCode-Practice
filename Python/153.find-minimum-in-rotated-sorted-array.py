@@ -45,21 +45,32 @@ class Solution(object):
         :type nums: List[int]
         :rtype: int
         """
-        res = float('inf')
+        # res = float('inf')
+        # left, right = 0, len(nums) - 1
+        # while left <= right:
+        #     mid = (left + right) // 2
+        #     res = min(nums[mid], res)
+
+        #     if nums[mid] < nums[right]:
+        #         right = mid - 1 
+        #     else:
+        #         left = mid + 1
+
+        # return res        
+
         left, right = 0, len(nums) - 1
-        while left <= right:
+        while left < right:
             mid = (left + right) // 2
-            res = min(nums[mid], res)
+            # res = min(nums[mid], res)
 
             if nums[mid] < nums[right]:
-                right = mid - 1 
+                right = mid
             else:
                 left = mid + 1
 
-        return res        
-
+        return nums[left]       
 # @lc code=end
 
 sol = Solution()
-nums = [2, 1]
+nums = [4,5,6,7,0,1,2]
 print(sol.findMin(nums))
