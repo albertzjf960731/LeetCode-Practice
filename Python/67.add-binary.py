@@ -44,8 +44,13 @@ class Solution(object):
         i = len(a) - 1
         j = len(b) - 1
         c = []
-        while i >=0 and j>=0:
-            s = int(a[i]) + int(b[j]) + carry
+        while i >=0 or j>=0 or carry:
+            s = carry 
+            if i>=0:
+                s += int(a[i])
+            if j>=0:
+                s += int(b[j])
+            # s = int(a[i]) + int(b[j]) + carry
             carry = s // 2
             s = s % 2
 
@@ -53,25 +58,25 @@ class Solution(object):
 
             i -= 1
             j -= 1
-        while i >= 0:
-            s = int(a[i]) + carry
-            carry = s // 2
-            s = s % 2
+        # while i >= 0:
+        #     s = int(a[i]) + carry
+        #     carry = s // 2
+        #     s = s % 2
 
-            c.insert(0, str(s))
+        #     c.insert(0, str(s))
 
-            i -= 1
+        #     i -= 1
         
-        while j >= 0:
-            s = int(b[j]) + carry
-            carry = s // 2
-            s = s % 2
+        # while j >= 0:
+        #     s = int(b[j]) + carry
+        #     carry = s // 2
+        #     s = s % 2
 
-            c.insert(0, str(s))
+        #     c.insert(0, str(s))
 
-            j -= 1
-        if carry:
-            c.insert(0, str(carry))
+        #     j -= 1
+        # if carry:
+        #     c.insert(0, str(carry))
 
 
         return ''.join(c)
