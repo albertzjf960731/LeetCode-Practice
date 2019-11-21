@@ -51,15 +51,15 @@ class Solution(object):
         #             return ans 
 
         # dp[n] = Min{ dp[n - i*i] + 1 },  n - i*i >=0 && i >= 1
-        # dp = [0] * (n+1)
-        # for i in range(1, n+1):
-        #     cur_min = n
-        #     j = 1
-        #     while j*j <= i:
-        #         cur_min = min(cur_min, dp[i-j*j] + 1)
-        #         j += 1
-        #     dp[i] = cur_min
-        # return dp[-1]
+        dp = [0] * (n+1)
+        for i in range(1, n+1):
+            cur_min = n
+            j = 1
+            while j*j <= i:
+                cur_min = min(cur_min, dp[i-j*j] + 1)
+                j += 1
+            dp[i] = cur_min
+        return dp[-1]
 
 
         # temp 暂存 方便计数

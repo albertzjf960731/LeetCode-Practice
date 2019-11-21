@@ -1,0 +1,91 @@
+#
+# @lc app=leetcode id=377 lang=python
+#
+# [377] Combination Sum IV
+#
+# https://leetcode.com/problems/combination-sum-iv/description/
+#
+# algorithms
+# Medium (44.06%)
+# Likes:    991
+# Dislikes: 119
+# Total Accepted:    99.2K
+# Total Submissions: 225K
+# Testcase Example:  '[1,2,3]\n4'
+#
+# Given an integer array with all positive numbers and no duplicates, find the
+# number of possible combinations that add up to a positive integer target.
+# 
+# Example:
+# 
+# 
+# nums = [1, 2, 3]
+# target = 4
+# 
+# The possible combination ways are:
+# (1, 1, 1, 1)
+# (1, 1, 2)
+# (1, 2, 1)
+# (1, 3)
+# (2, 1, 1)
+# (2, 2)
+# (3, 1)
+# 
+# Note that different sequences are counted as different combinations.
+# 
+# Therefore the output is 7.
+# 
+# 
+# 
+# 
+# Follow up:
+# What if negative numbers are allowed in the given array?
+# How does it change the problem?
+# What limitation we need to add to the question to allow negative numbers?
+# 
+# Credits:
+# Special thanks to @pbrother for adding this problem and creating all test
+# cases.
+# 
+#
+
+# @lc code=start
+class Solution(object):
+    def combinationSum4(self, nums, target):
+        """
+        :type nums: List[int]
+        :type target: int
+        :rtype: int
+        """
+    #     res = []
+    #     self.dfs(nums, 0, target, [], res)
+    #     return res 
+
+    # def dfs(self, nums, index, target, path, res):
+    #     if target == 0:
+    #         res.append(path)
+    #         # return 
+    #     for i in range(index, len(nums)):
+    #         if nums[i]<=target:
+    #             self.dfs(nums, i, target-nums[i], path+[nums[i]], res)
+        
+
+
+        # 涉及顺序的完全背包。
+
+        dp = [0 for _ in range(target+1)]
+        dp[0] = 1
+
+        # 爬楼梯
+        for i in range(target+1):
+            for num in nums:
+                if i>= num:
+                    dp[i] += dp[i-num]
+        return dp[-1]
+
+# @lc code=end
+
+sol = Solution()
+nums = [1, 2, 3]
+target = 4
+print(sol.combinationSum4(nums, target))

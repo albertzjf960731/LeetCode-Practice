@@ -62,15 +62,26 @@ class Solution(object):
         :rtype: bool
         """
         # dp[i] means s[:i+1] can be segmented into words in the wordDicts 
+        # dp = [False] * (len(s) + 1)
+        # dp[0] = True
+        # for i in range(len(s)):
+        #     for j in range(i, len(s)):
+        #         if dp[i] and s[i: j+1] in wordDict:
+        #             dp[j+1] = True
+                    
+        # return dp[-1]
+
+        # dict 中的单词没有使用次数的限制，因此这是一个完全背包问题。
+        # 求解顺序的完全背包问题时，对物品的迭代应该放在最里层，对背包的迭代放在外层，只有这样才能让物品按一定顺序放入背包中。
+
         dp = [False] * (len(s) + 1)
         dp[0] = True
-        for i in range(len(s)):
-            for j in range(i, len(s)):
-                if dp[i] and s[i: j+1] in wordDict:
-                    dp[j+1] = True
-                    
+        for i in range(1, len(s)+1):
+            for word in wordDict:
+                l = len(word)
+                if l <= i and word == s[i-l:i]:
+                    dp[i] = dp[i] or dp[i-l]
         return dp[-1]
-
 
 # @lc code=end
 

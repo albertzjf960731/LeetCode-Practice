@@ -60,6 +60,10 @@ class Solution(object):
             grid[0][j] = grid[0][j - 1] + grid[0][j]
         for i in range(1, n):
             for j in range(1, m):
+                # if i == 0:
+                #     pass 
+                # if j == 0:
+                #     pass
                 grid[i][j] = grid[i][j] + min(grid[i][j-1], grid[i-1][j])
 
         return grid[-1][-1]

@@ -74,42 +74,44 @@ class Solution(object):
         # return min(x, y, z)
 
         # 动态规划
-        # l1, l2 = len(word1)+1, len(word2) + 1
-        # dp = [[0 for _ in range(l2)] for _ in range(l1)]
-        # # dp = [[0] *  l2 ] * l1
-        # for i in range(l1):
-        #     dp[i][0] = i 
-        # for j in range(l2):
-        #     dp[0][j] = j 
-        # for i in range(1, l1):
-        #     for j in range(1, l2):
-        #         if word1[i-1] == word2[j-1]:
-        #             dp[i][j] = min(dp[i-1][j]+1, dp[i][j-1]+1, dp[i-1][j-1])
-        #         else:
-        #             dp[i][j] = min(dp[i-1][j]+1, dp[i][j-1]+1, dp[i-1][j-1]+1)
-        #         # dp[i][j] = min(
-        #         #     dp[i-1][j]+1, 
-        #         #     dp[i][j-1]+1, 
-        #         #     dp[i-1][j-1]+(word1[i-1]!=word2[j-1]))
-        # return dp[-1][-1]
-        
-        # 求 dp[i][*] 的时候，我们只用到 pd[i - 1][*] 的情况
         l1, l2 = len(word1)+1, len(word2) + 1
-        pre = [0 for _ in range(l2)]
+        dp = [[0 for _ in range(l2)] for _ in range(l1)]
+        # dp = [[0] *  l2 ] * l1
+        for i in range(l1):
+            dp[i][0] = i 
         for j in range(l2):
-            pre[j] = j 
+            dp[0][j] = j 
+
         for i in range(1, l1):
-            cur = [i] * l2
             for j in range(1, l2):
                 if word1[i-1] == word2[j-1]:
-                    cur[j] = min(cur[j-1]+1, pre[j]+1, pre[j-1])
+                    # dp[i][j] = min(dp[i-1][j]+1, dp[i][j-1]+1, dp[i-1][j-1])
+                    dp[i][j] = dp[i-1][j-1]
                 else:
-                    cur[j] = min(cur[j-1]+1, pre[j]+1, pre[j-1]+1)
-                # cur[j] = min(cur[j-1]+1, pre[j]+1, pre[j-1]+(word1[i-1]!=word2[j-1]))
+                    dp[i][j] = min(dp[i-1][j]+1, dp[i][j-1]+1, dp[i-1][j-1]+1)
+                # dp[i][j] = min(
+                #     dp[i-1][j]+1, 
+                #     dp[i][j-1]+1, 
+                #     dp[i-1][j-1]+(word1[i-1]!=word2[j-1]))
+        return dp[-1][-1]
+        
+        # # 求 dp[i][*] 的时候，我们只用到 pd[i - 1][*] 的情况
+        # l1, l2 = len(word1)+1, len(word2) + 1
+        # pre = [0 for _ in range(l2)]
+        # for j in range(l2):
+        #     pre[j] = j 
+        # for i in range(1, l1):
+        #     cur = [i] * l2
+        #     for j in range(1, l2):
+        #         if word1[i-1] == word2[j-1]:
+        #             cur[j] = min(cur[j-1]+1, pre[j]+1, pre[j-1])
+        #         else:
+        #             cur[j] = min(cur[j-1]+1, pre[j]+1, pre[j-1]+1)
+        #         # cur[j] = min(cur[j-1]+1, pre[j]+1, pre[j-1]+(word1[i-1]!=word2[j-1]))
 
-            pre = cur[:]
+        #     pre = cur[:]
 
-        return pre[-1]
+        # return pre[-1]
 # @lc code=end
 
 sol = Solution()

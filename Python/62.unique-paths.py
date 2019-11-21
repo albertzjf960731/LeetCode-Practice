@@ -68,12 +68,19 @@ class Solution(object):
         #         matrix[i][j] = matrix[i-1][j] + matrix[i][j-1]
         # return matrix[m-1][n-1]
 
+        # # 按行更新
+        # dp = [1 for _ in range(n)]
+        # for i in range(1, m):
+        #     for j in range(1, n):
+        #         dp[j] = dp[j] + dp[j-1]
+        # return dp[-1]
 
-        dp = [1 for _ in range(n)]
-        for i in range(1, m):
-            for j in range(1, n):
-                dp[j] = dp[j] + dp[j-1]
-        return dp[-1]
+        all = m+n-2
+        down = m-1
+        ans = 1
+        for i in range(1, down+1):
+            ans = ans * (all-down+i)/i
+        return ans 
 
 # @lc code=end
 

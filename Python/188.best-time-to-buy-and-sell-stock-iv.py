@@ -77,6 +77,19 @@ class Solution(object):
         return dp[-1][-1]
 
 
+        # # buy[i]  = max(sell[i-1]-price, buy[i-1]) 
+        # # sell[i] = max(buy[i-1]+price, sell[i-1])
+
+        # if len(prices) < 2:
+        #     return 0
+        # sell, buy, prev_sell, prev_buy = 0, -prices[0], 0, 0
+        # for price in prices:
+        #     prev_buy = buy
+        #     prev_sell = sell
+
+        #     buy = max(prev_sell - price, prev_buy)
+        #     sell = max(prev_buy + price, prev_sell)
+        # return sell
 
 
 
