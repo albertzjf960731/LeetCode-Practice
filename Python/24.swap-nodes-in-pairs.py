@@ -64,8 +64,8 @@ class Solution(object):
 
         dummy = ListNode(0)
         dummy.next = head
+        
         point = dummy
-
         while point.next and point.next.next:
             first = point.next
             second = point.next.next
