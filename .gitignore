@@ -8,4 +8,4 @@ a.out.*/
 *.bak
 */.DS_Store
 [core]
-excludesfile =/Users/duofei/.gitignore_global
+excludesfile = ~/.gitignore_global
