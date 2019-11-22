@@ -43,8 +43,14 @@ class Solution(object):
         :rtype: str
         """
         
-        from collections import Counter
-        count_t = Counter(t)
+        # 滑动窗口前后指针都从起始位置开始，先移动后指针使得窗口内数组符合要求，然后移动前指针直到窗口内数组不再符合要求，随后再次移动后指针，依此类推。
+
+        # from collections import Counter
+        # count_t = Counter(t)
+        
+        count_t = {}
+        for c in t:
+            count_t[c] = count_t.get(c, 0) + 1
 
         ans_l, ans_r = 0, -1
         ans_len = len(s)+1
@@ -57,6 +63,8 @@ class Solution(object):
             missing -= count_t[c_r] > 0
             count_t[c_r] -= 1
 
+            # 如果当前窗口包含所有字母，就进入循环
+            # 开始移动左指针，减小窗口
             while missing == 0:
 
                 temp_len = r-l+1

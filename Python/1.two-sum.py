@@ -61,12 +61,12 @@ class Solution(object):
         #         return [hash_table[sub], index]
         #     hash_table[value] = index
 
-        map = {}
+        hash_dict = {}
         for i in range(len(nums)):
-            if nums[i] not in map:
-                map[target - nums[i]] = i 
+            if nums[i] not in hash_dict:
+                hash_dict[target - nums[i]] = i 
             else:
-                return map[nums[i]], i 
+                return hash_dict[nums[i]], i 
         return -1, -1
 # @lc code=end
 

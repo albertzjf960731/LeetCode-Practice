@@ -50,17 +50,20 @@ class Solution(object):
         #         m = max(m, min(height[i], height[j]) * (j-i))
         # return m
 
-        max_area = 0
-        left, right = 0, len(height)-1  
-        while(left < right):
-            max_area = max(max_area, min(height[left], height[right]) * (right - left))
-            
-            if height[left] < height[right]:
-                left += 1
-            else:
-                right -= 1
 
-        return max_area
+        # 前指针、后指针中间的区域为一个桶，桶的面积为高乘以宽，当i、j为两端时，桶宽最大，当i、j向中间滑动时，只有桶高增加，桶面积才有可能增大。若移动长板，桶高不可能增大，因此只能移动短板对应的指针。
+        
+        ans = 0
+        l, r = 0, len(height)-1  
+        while(l < r):
+            ans = max(ans, min(height[l], height[r]) * (r - l))
+            
+            if height[l] < height[r]:
+                l += 1
+            else:
+                r -= 1
+
+        return ans
 
 # @lc code=end
 

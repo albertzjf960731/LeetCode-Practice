@@ -56,26 +56,26 @@ class Solution(object):
         elif target > s_max:
             return s_max
         else: 
-            res = 0
+            ans = 0
             d_min = float('inf')
-            for i in range(len(nums) -2 ):
-                j, k = i+1, len(nums)-1 
-                while j != k:
-                    s = nums[i] + nums[j] + nums[k]
+            for i in range(len(nums)-2):
+                l, r = i+1, len(nums)-1 
+                while l != r:
+                    s = nums[i] + nums[l] + nums[r]
                     d = abs(s - target)
 
                     if d < d_min:
                         d_min = d
-                        res = s 
+                        ans = s 
 
                     if s < target:
-                        j += 1
+                        l += 1
                     elif s == target:
                         return s 
                     else:
-                        k -= 1
+                        r -= 1
 
-        return res
+        return ans
 
 # @lc code=end
 

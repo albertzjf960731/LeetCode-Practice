@@ -81,6 +81,7 @@ class Solution(object):
         nums.sort()
         result = []
         for i in range(len(nums)-3):
+            # 为了保证不加入重复的 list,因为是有序的，所以如果和前一个元素相同，只需要继续后移就可以
             if i == 0 or (i>0 and nums[i] != nums[i-1]):
                 
                 for j in range(i+1, len(nums)-2):

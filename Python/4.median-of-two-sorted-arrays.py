@@ -48,14 +48,16 @@ class Solution(object):
         :type nums2: List[int]
         :rtype: float
         """
-        nums3 = nums1 + nums2
-        nums3.sort()
+        # 简单把两个数组归并后找中位数，但需要用到额外的空间
 
-        n = len(nums3)
-        if n % 2 == 0:
-            return (nums3[n//2] + nums3[n//2-1]) / 2
-        else:
-            return nums3[n//2]
+        # nums3 = nums1 + nums2
+        # nums3.sort()
+
+        # n = len(nums3)
+        # if n % 2 == 0:
+        #     return (nums3[n//2] + nums3[n//2-1]) / 2
+        # else:
+        #     return nums3[n//2]
         
         # n = len(nums1)
         # m = len(nums2)
@@ -79,31 +81,31 @@ class Solution(object):
         #     return right
 
 
-    #     l = len(nums1) + len(nums2)
-    #     if l & 1 == 0:
-    #         return (self.kth(nums1, nums2, l//2) + self.kth(nums1, nums2, l//2-1))/2
-    #     else:
-    #         return self.kth(nums1, nums2, l//2)  
+        l = len(nums1) + len(nums2)
+        if l & 1 == 0:
+            return (self.kth(nums1, nums2, l//2) + self.kth(nums1, nums2, l//2-1))/2
+        else:
+            return self.kth(nums1, nums2, l//2)  
             
-    # def kth(self, nums1, nums2, k):
-    #     if not nums1:
-    #         return nums2[k]
-    #     if not nums2:
-    #         return nums1[k]
+    def kth(self, nums1, nums2, k):
+        if not nums1:
+            return nums2[k]
+        if not nums2:
+            return nums1[k]
         
-    #     i, j = len(nums1)//2, len(nums2)//2
-    #     m1, m2 = nums1[i], nums2[j]
+        i, j = len(nums1)//2, len(nums2)//2
+        m1, m2 = nums1[i], nums2[j]
 
-    #     if i+j <k:
-    #         if m1>m2:
-    #             return self.kth(nums1, nums2[j+1:], k-j-1)
-    #         else:
-    #             return self.kth(nums1[i+1:], nums2, k-i-1)
-    #     else:
-    #         if m1>m2:
-    #             return self.kth(nums1[:i], nums2, k)
-    #         else:
-    #             return self.kth(nums1, nums2[:j], k) 
+        if i+j <k:
+            if m1>m2:
+                return self.kth(nums1, nums2[j+1:], k-j-1)
+            else:
+                return self.kth(nums1[i+1:], nums2, k-i-1)
+        else:
+            if m1>m2:
+                return self.kth(nums1[:i], nums2, k)
+            else:
+                return self.kth(nums1, nums2[:j], k) 
 
 # @lc code=end
 

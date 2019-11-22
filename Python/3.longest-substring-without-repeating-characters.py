@@ -57,6 +57,12 @@ class Solution(object):
         :type s: str
         :rtype: int
         """
+        # 思路1：
+        # 后指针向后滑动以添加新的元素，前指针向后滑动保证滑动窗口内无重复字符
+        # 思路2：
+        # 维护每个字符最后一次出现的位置，后指针发现一个前面出现过的字符时，前指针可以直接跳到该字符最后出现的位置后面，i = max(i, lastpos[s[j]])，效率更高一些
+
+        # 暴力
     #     ans = 0
     #     for i in range(len(s)):
     #         for j in range(i+1, len(s)+1):
@@ -86,19 +92,23 @@ class Solution(object):
         #         i += 1
         # return ans
 
+        # 双指针
         ans = 0
-        i = 0
-        char_dict = {}
-        # while (i < len(s) and j < len(s)):
+        i = -1
+        hash_dict = {}
         for j in range(len(s)):
-            if s[j] in char_dict:
-                i = max(char_dict[s[j]], i)
-            ans = max(ans, j - i + 1)
-            char_dict[s[j]] = j + 1 # 修改
+            if s[j] in hash_dict:
+                i = max(hash_dict[s[j]], i) # 只能往后跳，不能往前跳
+            ans = max(ans, j - i)
+            hash_dict[s[j]] = j
         return ans 
+
 
 # @lc code=end
 
 sol = Solution()
-s = "tmmzuxt"
+# s = "tmmzuxt"
+# s = 'pwwkew'
+# s = 'abba'
+s = ' '
 print(sol.lengthOfLongestSubstring(s))
