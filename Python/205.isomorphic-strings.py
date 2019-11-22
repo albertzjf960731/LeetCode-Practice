@@ -56,6 +56,8 @@ class Solution(object):
 
         # return len(set(zip(s, t))) == len(set(s)) == len(set(t))
 
+        # 记录一个字符上次出现的位置，如果两个字符串中的字符上次出现的位置一样，那么就属于同构。
+
         # dict_s, dict_t = dict(), dict() 
         # for index, val in enumerate(s):
         #     dict_s[val] = dict_s.get(val, []) + [index] 

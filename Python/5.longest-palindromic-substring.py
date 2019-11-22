@@ -80,22 +80,22 @@ class Solution(object):
 
         # return s[max_end-max_len+1: max_end+1]
 
-        arr = [[False for i in range(len(s)+1)]
-                  for j in range(len(s)+1)]
-        max_len = 0
-        max_pal = ''
-        for length in range(1, len(s)+1):
-            for start in range(len(s)):
-                end = start + length -1 
-                if end >= len(s):
-                    break
+        # arr = [[False for i in range(len(s)+1)]
+        #           for j in range(len(s)+1)]
+        # max_len = 0
+        # max_pal = ''
+        # for length in range(1, len(s)+1):
+        #     for start in range(len(s)):
+        #         end = start + length -1 
+        #         if end >= len(s):
+        #             break
                 
-                arr[start][end] = length==1 or (length==2 or arr[start+1][end-1]) and s[start]==s[end]
+        #         arr[start][end] = length==1 or (length==2 or arr[start+1][end-1]) and s[start]==s[end]
 
-                if arr[start][end] and length > max_len:
-                    max_pal = s[start: end+1]
-                    max_len = length
-        return max_pal
+        #         if arr[start][end] and length > max_len:
+        #             max_pal = s[start: end+1]
+        #             max_len = length
+        # return max_pal
 
 
         res = ''
