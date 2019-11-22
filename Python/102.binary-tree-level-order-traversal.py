@@ -62,6 +62,7 @@ class Solution(object):
         # queue = deque([root])
         
         # while queue:
+            # temp 控制每一层遍历
         #     temp = []
         #     for _ in range(len(queue)):
         #         node = queue.popleft()

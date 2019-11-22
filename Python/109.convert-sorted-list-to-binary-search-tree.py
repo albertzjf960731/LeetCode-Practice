@@ -57,9 +57,9 @@ class Solution(object):
         :type head: ListNode
         :rtype: TreeNode
         """
-        return self.helper(head, None)
+        return self.dfs(head, None)
     
-    def helper(self, head, tail):
+    def dfs(self, head, tail):
 
         if head == tail:
             return None
@@ -72,8 +72,8 @@ class Solution(object):
 
         root = TreeNode(slow.val)
 
-        root.left = self.helper(head, slow)
-        root.right = self.helper(slow.next, tail)
+        root.left = self.dfs(head, slow)
+        root.right = self.dfs(slow.next, tail)
         return root
 
     #     nums = []

@@ -46,15 +46,15 @@ class Solution(object):
         :rtype: List[int]
         """
     #     ret = []
-    #     self.traverse(root, ret)
+    #     self.inorder(root, ret)
     #     return ret  
     
-    # def traverse(self, node, ret):
+    # def inorder(self, node, ret):
     #     if not node:
     #         return 
-    #     self.traverse(node.left, ret)
+    #     self.inorder(node.left, ret)
     #     ret.append(node.val)
-    #     self.traverse(node.right, ret)
+    #     self.inorder(node.right, ret)
 
         res = []
 

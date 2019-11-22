@@ -61,6 +61,7 @@ class Solution(object):
         queue = deque([root])
         while queue:
             temp = []
+            # 控制遍历
             for _ in range(len(queue)):
                 node = queue.popleft()
                 temp.append(node.val)

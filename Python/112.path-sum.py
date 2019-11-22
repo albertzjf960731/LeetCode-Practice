@@ -84,20 +84,27 @@ class Solution(object):
     #     return s
 
     # === 递归 === 
+    #     if not root:
+    #         return False
+
+    #     return self.dfs(root, target)
+    
+    # def dfs(self, root, target):
+    #     if not root.left and not root.right:
+    #         return root.val == target
+    #     elif not root.left:
+    #         return self.dfs(root.right, target-root.val)
+    #     elif not root.right:
+    #         return self.dfs(root.left, target-root.val)
+    #     else:
+    #         return self.dfs(root.left, target-root.val) or self.helper(root.right, target-root.val)
+
+
         if not root:
             return False
-
-        return self.helper(root, target)
-    
-    def helper(self, root, target):
         if not root.left and not root.right:
             return root.val == target
-        elif not root.left:
-            return self.helper(root.right, target-root.val)
-        elif not root.right:
-            return self.helper(root.left, target-root.val)
-        else:
-            return self.helper(root.left, target-root.val) or self.helper(root.right, target-root.val)
+        return self.hasPathSum(root.left, target-root.val) or self.hasPathSum(root.right, target-root.val) 
 
 
 # @lc code=end

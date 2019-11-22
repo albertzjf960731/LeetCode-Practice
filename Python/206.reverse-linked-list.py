@@ -42,7 +42,7 @@ class Solution(object):
         :type head: ListNode
         :rtype: ListNode
         """
-        pre = ListNode(None)
+        pre = None
         cur = head
         while cur:
             nex = cur.next

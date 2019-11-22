@@ -69,8 +69,8 @@ class Solution(object):
         :type root: TreeNode
         :rtype: bool
         """
-        if not root:
-            return True
+        # if not root:
+        #     return True
 
         # left_depth = self.depth(root.left)
         # right_depth = self.depth(root.right)
@@ -79,21 +79,25 @@ class Solution(object):
         #     return False
 
         # return self.isBalanced(root.left) and self.isBalanced(root.right)
-        return self.depth(root) != -1
+
+        self.ans = True
+        self.depth(root)
+        return self.ans 
         
     def depth(self, root):
         if not root:
             return 0 
-        left_depth = self.depth(root.left)
-        if left_depth == -1:
-            return -1
 
+        left_depth = self.depth(root.left)
         right_depth = self.depth(root.right)
-        if right_depth == -1:
-            return -1    
+        
+        # if left_depth == -1:
+        #     return -1
+        # if right_depth == -1:
+        #     return -1    
     
         if abs(left_depth - right_depth) > 1:
-            return -1
+            self.ans = False
 
         return max(left_depth, right_depth) + 1
 

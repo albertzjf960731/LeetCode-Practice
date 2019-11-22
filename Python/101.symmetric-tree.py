@@ -59,19 +59,22 @@ class Solution(object):
         :type root: TreeNode
         :rtype: bool
         """
-    #     if not root:
-    #         return True  
-    #     return self.helper(root.left, root.right)
+        if not root:
+            return True  
+        return self.dfs(root.left, root.right)
     
-    # def helper(self, left, right):
-    #     if (not left and right) or (not right and left):
-    #         return False
+    def dfs(self, left, right):
+        if not left and not right:
+            return True
+        # if (not left and right) or (not right and left):
+        if not left or not right:
+            return False
         
-    #     if left and right:
-    #         if left.val != right.val:
-    #             return False
-    #         return self.helper(left.left, right.right) and self.helper(left.right, right.left)
-    #     return True
+        # if left and right:
+        if left.val != right.val:
+            return False
+        return self.dfs(left.left, right.right) and self.dfs(left.right, right.left)
+        return True
 
         # if not root:
         #     return True
@@ -102,32 +105,32 @@ class Solution(object):
 
         # return True 
 
-        if not root:
-            return True 
+        # if not root:
+        #     return True 
 
-        from collections import deque
-        left_queue = deque([root.left])
-        right_queue = deque([root.right])
+        # from collections import deque
+        # left_queue = deque([root.left])
+        # right_queue = deque([root.right])
 
-        while left_queue and right_queue:
-            cur_left = left_queue.popleft()
-            cur_right = right_queue.popleft()
+        # while left_queue and right_queue:
+        #     cur_left = left_queue.popleft()
+        #     cur_right = right_queue.popleft()
 
-            if (not cur_left and cur_right) or (not cur_right and cur_left):
-                return False
+        #     if (not cur_left and cur_right) or (not cur_right and cur_left):
+        #         return False
             
-            if cur_left and cur_right:
-                if cur_left.val != cur_right.val:
-                    return False
-                left_queue.append(cur_left.left)
-                left_queue.append(cur_left.right)
+        #     if cur_left and cur_right:
+        #         if cur_left.val != cur_right.val:
+        #             return False
+        #         left_queue.append(cur_left.left)
+        #         left_queue.append(cur_left.right)
 
-                right_queue.append(cur_right.right)
-                right_queue.append(cur_right.left)
+        #         right_queue.append(cur_right.right)
+        #         right_queue.append(cur_right.left)
 
-        if left_queue or right_queue:
-            return False
-        return True
+        # if left_queue or right_queue:
+        #     return False
+        # return True
     
 # @lc code=end
 

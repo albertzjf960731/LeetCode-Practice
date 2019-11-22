@@ -64,26 +64,34 @@ class Solution(object):
 
     #     return min(self.min_depth(root.left), self.min_depth(root.right)) + 1
 
-
         if not root:
-            return 0 
+            return 0
+        left_depth = self.minDepth(root.left)
+        right_depth = self.minDepth(root.right)
+        if not left_depth or not right_depth:
+            return left_depth + right_depth + 1
+        return min(left_depth, right_depth)+1
+
+
+        # if not root:
+        #     return 0 
         
-        from collections import deque 
-        queue = deque([root])
+        # from collections import deque 
+        # queue = deque([root])
 
-        level = 1
-        while queue:
-            for _ in range(len(queue)):
-                node = queue.popleft()
-                if not node.left and not node.right:
-                    return level
-                # if node:
-                if node.left:
-                    queue.append(node.left)
-                if node.right:
-                    queue.append(node.right)
+        # level = 1
+        # while queue:
+        #     for _ in range(len(queue)):
+        #         node = queue.popleft()
+        #         if not node.left and not node.right:
+        #             return level
+        #         # if node:
+        #         if node.left:
+        #             queue.append(node.left)
+        #         if node.right:
+        #             queue.append(node.right)
 
-            level += 1
-        return level
+        #     level += 1
+        # return level
 # @lc code=end
 
