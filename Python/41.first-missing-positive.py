@@ -59,7 +59,3 @@ class Solution(object):
             i += 1
 
 # @lc code=end
-
-
-sol = Solution()
-nums = 

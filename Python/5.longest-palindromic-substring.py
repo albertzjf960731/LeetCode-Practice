@@ -97,21 +97,23 @@ class Solution(object):
         #             max_len = length
         # return max_pal
 
+        # 扩展中心法
+        # 遍历所有的回文串中心（考虑奇数、偶数长度），从中心向外扩展可以用O(n)的时间找到该中心位置对应的最长回文串，这个思路其实相当直接，但时空复杂度相对于上面两个动规反而更好
 
         res = ''
         for i in range(len(s)):
             # odd case
-            tmp = self.helper(s, i, i)
+            tmp = self.expand(s, i, i)
             if len(tmp) > len(res):
                 res = tmp 
             
             # even case
-            tmp = self.helper(s, i, i+1)
+            tmp = self.expand(s, i, i+1)
             if len(tmp) > len(res):
                 res = tmp 
         return res
     
-    def helper(self, s, l, r):
+    def expand(self, s, l, r):
         while l >= 0 and r < len(s) and s[l] == s[r]:
             l -= 1
             r += 1

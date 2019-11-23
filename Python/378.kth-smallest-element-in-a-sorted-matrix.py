@@ -39,7 +39,6 @@
 #
 
 # @lc code=start
-# from heapq import * 
 
 class Solution(object):
 
@@ -50,20 +49,21 @@ class Solution(object):
         :rtype: int
         """
 
-        # min_heap = []
-        # for i in range(min(k, len(matrix))):
-        #     heappush(min_heap, (matrix[i][0], 0, matrix[i]))
+        from heapq import heappush, heappop
+        min_heap = []
+        for i in range(min(k, len(matrix))):
+            heappush(min_heap, (matrix[i][0], 0, matrix[i]))
 
-        # count = 0
-        # while min_heap:
-        #     num, col, row_num = heappop(min_heap)
-        #     count += 1
-        #     if count == k:
-        #         break   
-        #     if col < len(row_num)-1:
-        #         heappush(min_heap, (row_num[col+1], col+1, row_num))
+        count = 0
+        while min_heap:
+            num, col, row_num = heappop(min_heap)
+            count += 1
+            if count == k:
+                break   
+            if col < len(row_num)-1:
+                heappush(min_heap, (row_num[col+1], col+1, row_num))
             
-        # return num
+        return num
 
         # TypeError: '<' not supported between instances of 'int' and 'tuple'
 

@@ -44,13 +44,25 @@ class Solution(object):
         #     m = max(m, s)
         # return m
 
-        s, m = nums[0], nums[0]
-        for num in nums[1:]:
-            if s < 0:
-                s = num
+        dp = [0 for _ in range(len(nums))]
+        dp[0] = nums[0] 
+        ans = nums[0]
+        for i in range(1, len(nums)):
+            if dp[i-1] < 0:
+                dp[i] = nums[i]
             else:
-                s = s + num
-            m = max(m, s)
-        return m
+                dp[i] = dp[i-1] + nums[i]
+            ans = max(ans, dp[i])
+        return ans
+
+
+        pre, ans = nums[0], nums[0]
+        for num in nums[1:]:
+            if pre < 0:
+                pre = num
+            else:
+                pre = pre + num
+            ans = max(ans, pre)
+        return ans
 # @lc code=end
 

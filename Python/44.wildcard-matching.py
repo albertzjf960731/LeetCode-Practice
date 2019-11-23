@@ -117,6 +117,7 @@ class Solution(object):
         # return False
 
         # # 动态规划
+        # 索引在字符串和dp 中的含义是不同的
         dp = [[False for _ in range(len(p)+1)] for _ in range(len(s)+1)]
 
         dp[0][0] = True
@@ -127,12 +128,13 @@ class Solution(object):
         for i in range(len(s)):
             for j in range(len(p)):
                 if p[j] == '*':
+                    # * 表示空 or * 表示任意值
                     dp[i+1][j+1] = dp[i][j+1] or dp[i+1][j]
                 if p[j] == s[i] or p[j] == '?':
                     dp[i+1][j+1] = dp[i][j]
         return dp[-1][-1]
 
-        
+        # 贪心
         i, j = 0, 0
         match = 0
         start = -1

@@ -88,9 +88,12 @@ class Solution(object):
         for k in range(1, 3):
             cur_min = prices[0]
             for i in range(1, len(prices)):
+                # i 天之前的最小价格
                 cur_min = min(cur_min, prices[i]-dp[k-1][i-1])
                 dp[k][i] = max(dp[k][i-1], prices[i]-cur_min)
-        return dp[2][-1]
+        return dp[-1][-1]
+
+
 
 
         # if not prices:

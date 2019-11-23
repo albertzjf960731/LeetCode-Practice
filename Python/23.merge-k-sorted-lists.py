@@ -93,7 +93,7 @@ class Solution(object):
         # return head.next
 
 
-        from heapq import heappush, heappop, heapreplace, heapify
+        from heapq import heappush, heappop, heapify
 
         dummy = cur = ListNode(0)
 

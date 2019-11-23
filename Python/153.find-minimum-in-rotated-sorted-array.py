@@ -63,12 +63,17 @@ class Solution(object):
             mid = (left + right) // 2
             # res = min(nums[mid], res)
 
-            if nums[mid] < nums[right]:
-                right = mid
-            else:
+            if nums[mid] > nums[right]:
                 left = mid + 1
+            else:
+                right = mid
+            # if nums[mid] < nums[right]:
+            #     right = mid
+            # else:
+            #     left = mid + 1
 
-        return nums[left]       
+        return nums[left]   
+
 # @lc code=end
 
 sol = Solution()

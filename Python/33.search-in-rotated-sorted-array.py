@@ -89,26 +89,52 @@ class Solution(object):
 
         # return -1
         
-        left, right = 0, len(nums) - 1
-        while left <= right:
-            mid = (left + right) // 2
-            if target == nums[mid]:
-                return mid
-            
-            # 左半段是有序的
-            if nums[left] <= nums[mid]:
-                if nums[left] <= target and target <=nums[mid]:
-                    right = mid - 1
-                else:
-                    left = mid + 1
-            
-            # 右半段是有序的
+
+        l, r = 0, len(nums)-1
+        while l<r:
+            m = (l+r)//2 
+            if nums[m] > nums[r]:
+                l = m+1
             else:
-                if nums[mid] <= target and target <= nums[right]:
-                    left = mid + 1  
-                else:
-                    right = mid - 1
+                r = m
+
+        # l=r is the index of the smallest value and the number of places rotated
+        rotated = l 
+        l, r = 0, len(nums)-1
+        while l<=r:
+            m = (l+r)//2 
+            real_m = (m+rotated) % len(nums)
+            if nums[real_m] == target:
+                return real_m
+            if nums[real_m]<target:
+                l = (m+1) #% len(nums)
+            else:
+                r = (m-1) #% len(nums)
         return -1
+
+
+        # left, right = 0, len(nums) - 1
+        # while left <= right:
+        #     mid = (left + right) // 2
+        #     if target == nums[mid]:
+        #         return mid
+            
+        #     # 左半段是有序的
+        #     if nums[left] <= nums[mid]:
+        #         if nums[left] <= target and target <=nums[mid]:
+        #             right = mid - 1
+        #         else:
+        #             left = mid + 1
+            
+        #     # 右半段是有序的
+        #     else:
+        #         if nums[mid] <= target and target <= nums[right]:
+        #             left = mid + 1  
+        #         else:
+        #             right = mid - 1
+        # return -1
+
+
 
 # @lc code=end
 

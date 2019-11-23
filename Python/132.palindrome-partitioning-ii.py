@@ -36,21 +36,25 @@ class Solution(object):
         :type s: str
         :rtype: int
         """
-        # 在i后分割
-        # dp = [i for i in range(-1, len(s))]
-        # for i in range(len(s)):
-        #     for j in range(i, len(s)):
-        #         if s[i:j] == s[j:i:-1]:
-        #             dp[j+1] = min(dp[j+1], dp[i]+1) 
-        # return dp[-1]
 
-        # 分割i之前的数
-        dp = [i for i in range(len(s))] + [-1]
+        # 一个更好的办法是用一个O(n^2)的动规，以dp[i]表示i…n - 1段的最小切数，那么若i…j段为回文串时，则dp[i] = max(dp[i], dp[j + 1] + 1)，相当于在j后面切一刀
+
+
+        # 在i后分割
+        dp = [i for i in range(-1, len(s))]
         for i in range(len(s)):
             for j in range(i, len(s)):
-                if s[i:j+1] == s[i:j+1][::-1]: # s[j:i-1:-1]: # 
-                    dp[j] = min(dp[j], dp[i-1]+1) 
-        return dp[len(s)-1]
+                if s[i:j] == s[j:i:-1]:
+                    dp[j+1] = min(dp[j+1], dp[i]+1) 
+        return dp[-1]
+
+        # 分割i之前的数
+        # dp = [i for i in range(len(s))] + [-1]
+        # for i in range(len(s)):
+        #     for j in range(i, len(s)):
+        #         if s[i:j+1] == s[i:j+1][::-1]: # s[j:i-1:-1]: # 
+        #             dp[j] = min(dp[j], dp[i-1]+1) 
+        # return dp[len(s)-1]
 
         # if s==s[::-1]:
         #     return 0
@@ -70,21 +74,21 @@ class Solution(object):
 
 
         # # algorithm
-        # dp = [i for i in range(-1,len(s))] 
-        # for i in range(len(s)):
-        #     r1, r2 = 0, 0
+        dp = [i for i in range(-1,len(s))] 
+        for i in range(len(s)):
+            r1, r2 = 0, 0
 
-        #     # odd palindrome
-        #     while i-r1 >= 0 and i+r1 < len(s) and s[i-r1] == s[i+r1]:
-        #         dp[i+r1+1] = min(dp[i+r1+1], dp[i-r1]+1)
-        #         r1 += 1
+            # odd palindrome
+            while i-r1 >= 0 and i+r1 < len(s) and s[i-r1] == s[i+r1]:
+                dp[i+r1+1] = min(dp[i+r1+1], dp[i-r1]+1)
+                r1 += 1
 
-        #     # even palindrome
-        #     while i-r2 >= 0 and i+r2+1 < len(s) and s[i-r2] == s[i+r2+1]:
-        #         dp[i+r2+2] = min(dp[i+r2+2], dp[i-r2]+1)
-        #         r2 += 1
+            # even palindrome
+            while i-r2 >= 0 and i+r2+1 < len(s) and s[i-r2] == s[i+r2+1]:
+                dp[i+r2+2] = min(dp[i+r2+2], dp[i-r2]+1)
+                r2 += 1
 
-        # return dp[-1]
+        return dp[-1]
 
 # @lc code=end
 

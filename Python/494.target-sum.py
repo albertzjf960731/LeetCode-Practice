@@ -75,6 +75,7 @@ class Solution(object):
         return dp[target]
 
 
+
         s = sum(nums)
         if s < target or (s+target) % 2==1:
             return 0 

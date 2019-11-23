@@ -42,6 +42,12 @@ class Solution(object):
         :rtype: int
         """
         ans = 0
+        # dp[i]表示以i为结尾的最长合法括号子串长度
+        # 当s[i] == '('时，dp[i] = 0
+        # 当s[i] == ')'时，
+        # ①若s[i - 1] == '('，则dp[i] = dp[i - 2] + 2
+        # ②若s[i - 1] == ')' && s[i - dp[i - 1] - 1] == '('，则dp[i] = dp[i - 1] + 2 + dp[i - dp[i - 1] - 2]
+
         dp = [0 for _ in range(len(s))]
         for i in range(1, len(s)):
             if s[i] == ')':

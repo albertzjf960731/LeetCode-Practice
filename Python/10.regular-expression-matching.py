@@ -128,7 +128,7 @@ class Solution(object):
         # 动态规划
         dp = [[False for _ in range(len(p)+1)] for _ in range(len(s)+1)]
 
-        dp[0][0] = True
+        dp[0][0] = True # 两个空字符串
         for j in range(1, len(p)):
             dp[0][j+1] = (p[j] == '*' and dp[0][j-1])
 

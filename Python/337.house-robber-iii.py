@@ -110,6 +110,7 @@ class Solution(object):
         return max(self.dfs(root))
 
     def dfs(self, root):
+        # [抢， 不抢]
         if not root:
             return (0, 0)
             

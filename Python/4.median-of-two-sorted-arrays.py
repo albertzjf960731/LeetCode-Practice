@@ -80,7 +80,7 @@ class Solution(object):
         # else: 
         #     return right
 
-
+        # 两个sorted list 的 kth 问题
         l = len(nums1) + len(nums2)
         if l & 1 == 0:
             return (self.kth(nums1, nums2, l//2) + self.kth(nums1, nums2, l//2-1))/2

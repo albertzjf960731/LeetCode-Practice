@@ -64,23 +64,25 @@ class Solution(object):
         # dp[i][j] = dp[i-1][s] or (s >= nums[i] and dp[i-1][s-nums[i]])
 
 
-        # target, n = sum(nums), len(nums)
+        target, n = sum(nums), len(nums)
         
-        # if target & 1: 
-        #     return False
-        # target >>= 1
+        if target & 1: 
+            return False
+        target >>= 1
         
-        # dp = [True] + [False]*target
+        dp = [True] + [False]*target
 
-        # for num in nums:
-        #     for w in range(target, 0, -1):
-        #         if (num<=w and dp[w-num]):
-        #             dp[w] = True
-        #     # dp = [dp[w] or (w >= num and dp[w-num]) for w in range(target+1)]
+        for num in nums: # 0-1 背包一个物品只能用一次
+            for w in range(target, num-1, -1): # 从后往前，先计算 dp[i] 再计算 dp[i-num]
+                # if (num<=w and dp[w-num]):
+                #     dp[w] = True
+                dp[w] = dp[w] or dp[w-num]
+            # dp = [dp[w] or (w >= num and dp[w-num]) for w in range(target+1)]
 
-        #     if dp[target]: 
-        #         return True
+            # if dp[target]: 
+            #     return True
         # return False
+        return dp[-1]
 
 
         target, n = sum(nums), len(nums)
@@ -110,5 +112,6 @@ class Solution(object):
 # @lc code=end
 
 sol = Solution()
-nums = [1, 5, 11, 5]
+# nums = [1, 5, 11, 5]
+nums = [2,2,3,5]
 print(sol.canPartition(nums))

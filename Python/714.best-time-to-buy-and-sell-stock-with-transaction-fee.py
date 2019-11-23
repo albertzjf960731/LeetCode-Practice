@@ -49,14 +49,16 @@ class Solution(object):
         if len(prices) < 2:
             return 0 
         
-        # n = len(prices)
-        # buy = [0 for _ in range(n)]
-        # sell = [0 for _ in range(n)]
-        # buy[0] = -prices[0] 
-        # for i in range(1, n):
-        #     buy[i] = max(buy[i-1], sell[i-1]-prices[i])
-        #     sell[i] = max(sell[i-1], buy[i-1] + prices[i]-fee)  
-        # return sell[-1]
+        n = len(prices)
+        buy = [0 for _ in range(n)]
+        sell = [0 for _ in range(n)]
+        buy[0] = -prices[0] 
+        for i in range(1, n):
+            buy[i] = max(buy[i-1], sell[i-1]-prices[i])
+            sell[i] = max(sell[i-1], buy[i-1] + prices[i]-fee)  
+        return sell[-1]
+
+
 
         n = len(prices)
         pre_buy = -prices[0] 

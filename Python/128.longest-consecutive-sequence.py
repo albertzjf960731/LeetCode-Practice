@@ -67,6 +67,7 @@ class Solution(object):
                     count += 1
                     num += 1
                 ans = max(ans, count)
+            # hash_set.remove(num)
         return ans 
         
 # @lc code=end

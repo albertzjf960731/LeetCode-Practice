@@ -94,17 +94,22 @@ class Solution(object):
         # return max_area
 
         # 栈
+        # 只需要遍历所有直方柱，寻找以这个直方柱为高，可向左右扩展出的最大长方形面积，那么我们只需要找到对于每个 i ，其左/右边第一个比他矮的直方柱的下标，相当于就找到了以第 i 个直方柱为高，可向左右扩展的最远距离。
+
+        # 如果当前栈空，或者当前柱子大于栈顶柱子的高度，就将当前柱子的下标入栈
+        # 当前柱子的高度小于栈顶柱子的高度。那么就把栈顶柱子出栈，当做解法四中的当前要求面积的柱子。而右边第一个小于当前柱子的下标就是当前在遍历的柱子，左边第一个小于当前柱子的下标就是当前新的栈顶。
+
         heights.append(0)   
         stack = [-1]    
-        max_area = 0    
+        ans = 0    
         for i in range(len(heights)):
             while heights[i] < heights[stack[-1]]:
                 h = heights[stack.pop()]
                 w = i - stack[-1] - 1
-                max_area = max(max_area, h*w)
+                ans = max(ans, h*w)
             stack.append(i)
-        heights.pop()
-        return max_area
+        # heights.pop()
+        return ans
 
 # @lc code=end
 

@@ -57,6 +57,8 @@ class Solution(object):
         #     last, now = now, max(last +num, now)   
         # return now
 
+        # 个人感觉和前面的Best Time to Buy and Sell Stock是同一类型的题目，都是在每个时间步有两种不同的状态，区别在于Stock题目两种状态之间必须相互转移，而Robber这道题状态转移不一定发生在两种状态之间。
+
         cur = 0
         pre1, pre2 = 0, 0 
         for num in nums:
