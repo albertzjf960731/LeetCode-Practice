@@ -65,19 +65,19 @@ class Solution(object):
         #     return 0  
         # return x_rev
 
-        pos = 1 
+        sign = 1 
         if x == 0:
             return 0
         elif x < 0:
             x = -x 
-            pos = -1 
+            sign = -1 
         
         x_rev = 0
         while x > 0:
             x_rev = x_rev * 10 + x % 10
             x = x // 10 
         
-        x_rev *= pos
+        x_rev *= sign
         if x_rev > 2**31-1 or x_rev < -2**31:
             return 0  
         return x_rev

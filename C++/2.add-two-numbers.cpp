@@ -1,7 +1,7 @@
 /*
  * @lc app=leetcode.cn id=2 lang=cpp
  *
- * [2] 两数相加
+ * [2] Add Two Numbers
  */
 
 #include<iostream>  

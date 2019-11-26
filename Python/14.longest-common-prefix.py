@@ -47,11 +47,13 @@ class Solution(object):
         :rtype: str
         """
 
-        # sz, ret = zip(*strs), ""
+        # sz = zip(*strs)
+        # res = ''
         # for c in sz:
-        #     if len(set(c)) > 1: break
-        #     ret += c[0]
-        # return ret
+        #     if len(set(c)) > 1: 
+        #          break
+        #     res += c[0]
+        # return res
 
         if len(strs) == 0:
             return ''

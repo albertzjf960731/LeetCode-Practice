@@ -60,8 +60,7 @@ class Solution(object):
         else:
             if self.reverse(x) == x:
                 return True
-            else:
-                return False
+        return False
                 
     def reverse(self, x):
         x_rev = 0

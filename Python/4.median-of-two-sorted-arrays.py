@@ -59,26 +59,27 @@ class Solution(object):
         # else:
         #     return nums3[n//2]
         
-        # n = len(nums1)
-        # m = len(nums2)
+        n = len(nums1)
+        m = len(nums2)
 
-        # left, right = -1, -1
-        # i, j = 0, 0
+        left, right = -1, -1
+        i, j = 0, 0
 
-        # for _ in range((n+m)//2+1):
+        for _ in range((n+m)//2+1):
 
-        #     left = right
-        #     if i < n and (j>=m or nums1[i]<nums2[j]):
-        #         right = nums1[i]
-        #         i += 1
-        #     else:
-        #         right = nums2[j]
-        #         j += 1
+            left = right
+            if i < n and (j>=m or nums1[i]<nums2[j]):
+                right = nums1[i]
+                i += 1
+            else:
+                right = nums2[j]
+                j += 1
 
-        # if (n+m) & 1 == 0:
-        #     return (left + right) / 2
-        # else: 
-        #     return right
+        if (n+m) & 1 == 0:
+            return (left + right) / 2
+        else: 
+            return right
+
 
         # 两个sorted list 的 kth 问题
         l = len(nums1) + len(nums2)
