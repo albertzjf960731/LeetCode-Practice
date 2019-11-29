@@ -63,21 +63,24 @@ class Solution(object):
         # addintional = digit2char[digits[-1]]
         # return [s+c for s in prev for c in addintional]
 
-        ans = []
+        # ans = []
         if not digits:
-            return ans
-
+            return []
+        import collections 
+        queue = collections.deque([''])
+        
         mapping = ["0", "1", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"]
-        ans.append('')
+        # ans.append('')
+        
         for i in range(len(digits)):
-            x = int(digits[i])
+            num = int(digits[i])
             
             # queue_len 
-            while len(ans[0]) == i:
-                t = ans.pop(0)
-                for s in mapping[x]:
-                    ans.append(t+s)
-        return ans
+            while len(queue[0]) == i:
+                temp = queue.popleft()
+                for ch in mapping[num]:
+                    queue.append(temp+ch)
+        return queue
         
 # @lc code=end
 

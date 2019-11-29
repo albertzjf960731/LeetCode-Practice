@@ -84,13 +84,14 @@ class Solution(object):
         #         stack.append(char)
         
         # return not stack
-        bracket_map = {"(": ")", "[": "]",  "{": "}"}
-        open_par = set(["(", "[", "{"])
+        hash_map = {"(": ")", "[": "]",  "{": "}"}
+        # open_par = set(["(", "[", "{"])
+        
         stack = []
-        for i in s:
-            if i in open_par:
-                stack.append(i)
-            elif stack and i == bracket_map[stack[-1]]:
+        for ch in s:
+            if ch in ["(", "[", "{"]:
+                stack.append(ch)
+            elif stack and ch == hash_map[stack[-1]]:
                     stack.pop()
             else:
                 return False

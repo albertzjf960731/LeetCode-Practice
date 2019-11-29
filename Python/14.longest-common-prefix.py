@@ -55,30 +55,40 @@ class Solution(object):
         #     res += c[0]
         # return res
 
-        if len(strs) == 0:
-            return ''
+    #     if len(strs) == 0:
+    #         return ''
 
-        min_len = float('inf')
-        for string in strs:
-            if len(string) < min_len:
-                min_len = len(string)
+    #     min_len = float('inf')
+    #     for string in strs:
+    #         if len(string) < min_len:
+    #             min_len = len(string)
 
-        long_common_prefix = ''
-        for i in range(min_len):
-            if self.str_equ(strs, i):
-                long_common_prefix += strs[0][i] 
-            else:
-                break
-        return long_common_prefix
+    #     long_common_prefix = ''
+    #     for i in range(min_len):
+    #         if self.str_equ(strs, i):
+    #             long_common_prefix += strs[0][i] 
+    #         else:
+    #             break
+    #     return long_common_prefix
     
-    def str_equ(self, strs, index):
-        temp = strs[0][index]
+    # def str_equ(self, strs, index):
+    #     temp = strs[0][index]
 
-        for string in strs[1:]:
-            if string[index] != temp:
-                return False
-        return True
+    #     for string in strs[1:]:
+    #         if string[index] != temp:
+    #             return False
+    #     return True
 
+
+        if not strs: 
+            return ''
+        ans = strs[0]
+        i = 1
+        while i < len(strs):
+            while not strs[i].startswith(ans):
+                ans = ans[:-1]
+            i += 1
+        return ans
 
 # @lc code=end
 
