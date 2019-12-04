@@ -89,34 +89,50 @@ class Solution(object):
         :type board: List[List[str]]
         :rtype: bool
         """
-        for i in range(9):
-            if not self.check_line(board[i]):
-                return False
+    #     for i in range(9):
+    #         if not self.check_line(board[i]):
+    #             return False
 
-        for j in range(9):
-            if not self.check_line([board[i][j]for i in range(9)]):
-                return False
+    #     for j in range(9):
+    #         if not self.check_line([board[i][j]for i in range(9)]):
+    #             return False
 
-        for i in range(3):
-            for j in range(3):
-                if not self.check_board([board[k][3*j:3*j+3] for k in range(3*i, 3*i+3)]):
-                    return False
-        return True 
+    #     for i in range(3):
+    #         for j in range(3):
+    #             if not self.check_board([board[k][3*j:3*j+3] for k in range(3*i, 3*i+3)]):
+    #                 return False
+    #     return True 
 
-    def check_line(self, line):
-        line = ''.join(line).replace('.', '')
-        if not len(set(line)) == len(line):
-            return False
-        else:
-            return True
+    # def check_line(self, line):
+    #     line = ''.join(line).replace('.', '')
+    #     if not len(set(line)) == len(line):
+    #         return False
+    #     else:
+    #         return True
     
-    def check_board(self, board):
-        board = ''.join(c for line in board for c in line).replace('.', '')
+    # def check_board(self, board):
+    #     board = ''.join(c for line in board for c in line).replace('.', '')
         
-        if not len(set(board)) == len(board):
-            return False
-        else:
-            return True    
+    #     if not len(set(board)) == len(board):
+    #         return False
+    #     else:
+    #         return True   
+     
+        row = [0 for _ in range(9)]
+        col = [0 for _ in range(9)]
+        block = [0 for _ in range(9)]
+
+        for i in range(9):
+            for j in range(9):
+                if board[i][j] != '.':
+                    idx = 1<<int(board[i][j])
+                    if row[i]&idx or col[j]&idx or block[i//3*3+j//3]&idx:
+                        return False
+                    row[i] |= idx
+                    col[j] |= idx 
+                    block[i//3*3+j//3] |= idx
+        return True
+
 # @lc code=end
 
 sol = Solution()
