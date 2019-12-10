@@ -89,28 +89,28 @@ class Solution(object):
     #     return max_area
 
 
-        # if not matrix:
-        #     return 0 
-        # max_area = 0
+        if not matrix:
+            return 0 
+        max_area = 0
         
-        # heights = [0 for _ in range(len(matrix[0])+1)]
-        # for i in range(len(matrix)):
-        #     stack = [-1]
+        heights = [0 for _ in range(len(matrix[0])+1)]
+        for i in range(len(matrix)):
+            stack = [-1]
 
-        #     for j in range(len(heights)):
-        #         if j < len(matrix[0]):
-        #             if matrix[i][j] == '1':
-        #                 heights[j] += 1
-        #             else:
-        #                 heights[j] = 0
+            for j in range(len(heights)):
+                if j < len(matrix[0]):
+                    if matrix[i][j] == '1':
+                        heights[j] += 1
+                    else:
+                        heights[j] = 0
                 
-        #         while heights[j] < heights[stack[-1]]:
-        #             h = heights[stack.pop()]
-        #             w = j - stack[-1] - 1
-        #             max_area = max(max_area, h*w)
-        #         stack.append(j)
+                while heights[j] < heights[stack[-1]]:
+                    h = heights[stack.pop()]
+                    w = j - stack[-1] - 1
+                    max_area = max(max_area, h*w)
+                stack.append(j)
 
-        # return max_area
+        return max_area
 
 
         # 动态规划

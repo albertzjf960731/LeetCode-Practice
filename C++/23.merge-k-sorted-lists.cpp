@@ -18,7 +18,7 @@ struct ListNode {
 class Solution {
 public:
 
-    // static bool heapComp(ListNode* a, ListNode* b) {
+    // static bool cmp(ListNode* a, ListNode* b) {
     //         return a->val > b->val;
     // }
 
