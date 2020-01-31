@@ -55,36 +55,40 @@
  * 
  * 
  */
+#include<vector>
 #include<queue>
 using namespace std;
 
 // @lc code=start
 class MedianFinder {
+private:
+    priority_queue<int> min_pq;
+    priority_queue<int, vector<int>, greater<int>> max_pq;
+
 public:
     /** initialize your data structure here. */
-    priority_queue<int> small, large;
-
-    MedianFinder() {
-    }
+    // MedianFinder() {
+        
+    // }
     
     void addNum(int num) {
-        if (small.size() == large.size()){
-            small.push(-num);
-            large.push(-small.top());
-            small.pop();
+        if(min_pq.size()==max_pq.size()){
+            min_pq.push(num);
+            max_pq.push(min_pq.top());
+            min_pq.pop();
         }
         else {
-            large.push(num);
-            small.push(-large.top());
-            large.pop();
+            max_pq.push(num);
+            min_pq.push(max_pq.top());
+            max_pq.pop();
         }
     }
     
     double findMedian() {
-        if (small.size() == large.size())
-            return (large.top()-small.top())/2.0;
+        if (min_pq.size() == max_pq.size())
+            return (min_pq.top() + max_pq.top())/ 2.0;
         else 
-            return large.top();
+            return max_pq.top();
     }
 };
 
