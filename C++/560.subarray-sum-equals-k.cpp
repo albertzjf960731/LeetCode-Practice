@@ -41,7 +41,8 @@ using namespace std;
 class Solution {
 public:
     int subarraySum(vector<int>& nums, int k) {
-
+        
+        // sum of subarray(i, j) = prefixSum[j] - prefixSum[i - 1]
         unordered_map<int, int> hash_map = {{0, 1}};
         int ans=0, sum=0;
         for (int num: nums) {

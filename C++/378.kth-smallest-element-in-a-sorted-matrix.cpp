@@ -46,6 +46,7 @@ using namespace std;
 class Solution {
 public:
     int kthSmallest(vector<vector<int>>& matrix, int k) {
+        // max heap
         // priority_queue<int> pq;
         // for (int i=0; i<matrix.size(); ++i){
         //     for (int j=0; j<matrix[0].size(); ++j){
