@@ -37,6 +37,8 @@ using namespace std;
 class Solution {
 public:
     int maxSubArray(vector<int>& nums) {
+        // 以下标 i 结尾的子数组的元素的最大的和
+        
         // vector<int> dp(nums.size(), 0);
         // dp[0] = nums[0];
         // for (int i=1; i<nums.size(); i++) {

@@ -64,21 +64,34 @@ using namespace std;
 class Solution {
 public:
     int maximumSum(vector<int>& nums) {
-        int n = nums.size();
-        vector<int> dp_end(n, 0), dp_start(n, 0);
+        // int n = nums.size();
+        // vector<int> dp_end(n, 0), dp_start(n, 0);
 
-        dp_end[0] = nums[0];
-        for (int i=1; i<n; i++) 
-            dp_end[i] = max(dp_end[i-1]+nums[i], nums[i]);
+        // dp_end[0] = nums[0];
+        // for (int i=1; i<n; i++) 
+        //     dp_end[i] = max(dp_end[i-1]+nums[i], nums[i]);
 
-        dp_start[n-1] = nums[n-1];
-        for (int i=n-2; i>-1; i--) 
-            dp_start[i] = max(dp_start[i+1]+nums[i], nums[i]);
+        // dp_start[n-1] = nums[n-1];
+        // for (int i=n-2; i>-1; i--) 
+        //     dp_start[i] = max(dp_start[i+1]+nums[i], nums[i]);
         
-        int ans = *max_element(dp_end.begin(), dp_end.end());
-        for (int i=1; i<n-1; i++) 
-            ans = max(ans, dp_end[i-1]+dp_start[i+1]);
+        // int ans = *max_element(dp_end.begin(), dp_end.end()); // 不删除元素的最大值,  at most one element deletion
+        // for (int i=1; i<n-1; i++) 
+        //     ans = max(ans, dp_end[i-1]+dp_start[i+1]);
         
+        // return ans;
+
+        if (nums.size()==1) return nums[0];
+
+        int drop = max(nums[0], nums[1]);
+        int keep = max(nums[0]+nums[1], nums[1]);
+        int ans = max(drop, keep);
+            
+        for (int i=2; i<nums.size(); i++ ) {
+            drop = max(keep, drop+nums[i]);
+            keep = max(keep+nums[i], nums[i]);
+            ans = max(ans, max(drop, keep));
+        }
         return ans;
     }
 };

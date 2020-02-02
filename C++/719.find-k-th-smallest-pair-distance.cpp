@@ -79,8 +79,11 @@ public:
                 right++;
             }
             
-            if (count < k) low = mid + 1;
-            else high = mid;
+            // 左边界
+            if (count < k) 
+                low = mid + 1;
+            else 
+                high = mid;
         }  
         return low;
     }

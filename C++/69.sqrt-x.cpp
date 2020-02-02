@@ -42,25 +42,27 @@
 // @lc code=start
 class Solution {
 public:
-    int mySqrt(int x) {
-        // newton optimization
-        long ans = x;
-        while ((ans * ans) > x) 
-            ans = (ans + x / ans) / 2;
-        return ans;
-    }
-
     // int mySqrt(int x) {
-    //     long l=1, r=x;
-    //     while (l<=r) {
-    //         long m = (l+r) / 2;
-    //         long div = x/m;
-    //         if(div==m) return m;
-    //         else if(m<div) l = m+1;
-    //         else r = m-1;
-    //     }
-    // return r;
+    //     // newton optimization
+    //     long ans = x;
+    //     while ((ans * ans) > x) 
+    //         ans = (ans + x / ans) / 2;
+    //     return ans;
     // }
+
+    int mySqrt(int x) {
+        long left=1, right=x;
+        while (left<=right) {
+            long mid = left + (right-left)/2;
+            long div = x / mid;
+
+            if(div==mid) 
+                return mid;
+            else if(mid<div) left = mid+1;
+            else right = mid-1;
+        }
+        return right;
+    }
 };
 // @lc code=end
 
