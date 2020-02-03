@@ -10,20 +10,20 @@ using namespace std;
 class Solution {
 public:
     vector<int> searchRange(vector<int>& nums, int target) {
-        int l=0, r=nums.size()-1, m;
-        while (l<=r) {
-            m = (l+r)/2;
-            if (nums[m]<target)
-                l = m+1;
-            else if (nums[m]>target)
-                r = m-1;
+        int left=0, right=nums.size()-1;
+        while (left<=right) {
+            int mid = left + (right-left)/2;
+            if (nums[mid]<target)
+                left = mid+1;
+            else if (nums[mid]>target)
+                right = mid-1;
             else {
-                l=m, r=m;
-                while (l>=0 && nums[l]==target)
-                    l--;
-                while (r<nums.size() && nums[r]==target)
-                    r++;
-                return vector<int>{l+1, r-1};
+                left=mid, right=mid;
+                while (left>=0 && nums[left]==target)
+                    left--;
+                while (right<nums.size() && nums[right]==target)
+                    right++;
+                return vector<int>{left+1, right-1};
             }
         }
         return vector<int>{-1, -1};

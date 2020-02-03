@@ -11,25 +11,28 @@ using namespace std;
 class Solution {
 public:
     int search(vector<int>& nums, int target) {
-        int l=0, r=nums.size()-1, m;
-        while (l<r) {
-            m = (l+r)/2;
-            if (nums[m]>nums[r]) 
-                l = m+1;
+        int left=0, right=nums.size()-1;
+        while (left<right) {
+            int mid = left + (right-left)/2;
+            if (nums[mid]>nums.back())
+                left = mid+1;
             else 
-                r = m;
+                right = mid;
         }
-        int rotated = l, real_m;
-        l=0, r=nums.size()-1;
-        while (l<=r) {
-            m = (l+r)/2;
-            real_m = (m+rotated) % nums.size();
-            if (nums[real_m] ==target)
-                return real_m;
-            if (nums[real_m]<target)
-                l = m+1;
+
+        int idx = left;
+        
+        left=0, right=nums.size()-1;
+        while (left <= right) {
+            int mid = left + (right-left)/2;
+            int mid_rotated = (mid+idx) % nums.size();
+
+            if (nums[mid_rotated] == target) 
+                return mid_rotated;
+            else if (nums[mid_rotated]<target)
+                left = mid+1;
             else 
-                r = (m-1);
+                right = mid-1;
         }
         return -1;
     }

@@ -62,6 +62,7 @@ public:
         vector<double> res;
 
         multiset<int> window(nums.begin(), nums.begin()+k);
+        // priority_queue<int> window(nums.begin(), nums.begin()+k);
         auto mid = next(window.begin(), k/2);
         res.push_back((double(*mid) + *prev(mid, 1-k%2)) / 2);
 

@@ -73,19 +73,32 @@ public:
         //     pq.pop();
         // return pq.top();
 
-        int left = 0, right = nums.size()-1, kth;
-        while (true) {
+        // int left = 0, right = nums.size()-1, kth;
+        // while (true) {
+        //     int idx = partition(nums, left, right);
+        //     if (idx==k-1){
+        //         kth = nums[idx];
+        //         break;
+        //     }
+        //     if(idx < k-1)
+        //         left = idx+1;
+        //     else
+        //         right = idx-1;
+        // }
+        // return kth;
+
+        int left = 0, right = nums.size()-1;
+        while (left<=right) {
             int idx = partition(nums, left, right);
-            if (idx==k-1){
-                kth = nums[idx];
-                break;
-            }
-            if(idx < k-1)
+            
+            if (idx < k-1) 
                 left = idx+1;
-            else
+            else if (idx > k-1)
                 right = idx-1;
+            else 
+                return nums[idx];
         }
-        return kth;
+        return -1;
     }
 
 private:

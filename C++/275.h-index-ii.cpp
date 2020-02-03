@@ -64,17 +64,20 @@ public:
         //         q.pop();
         // }
         // return q.size();
-
+        
         int n = citations.size();
-        int l=0, r=n-1;
-        while (l<=r) {
-            int m = (l+r)/2;
-            if (citations[m]>=n-m)
-                r = m-1;
-            else
-                l = m+1;
+        if (n==0) return 0;
+        
+        int left=0, right=n-1;
+        while (left<right) {
+            int mid = left + (right-left)/2;
+
+            if(citations[mid] >= n-mid)
+                right = mid;
+            else 
+                left = mid+1;
         }
-        return n-l;
+        return citations[left]>=n-left? n-left : 0;
     }
 };
 // @lc code=end
