@@ -65,11 +65,17 @@
  * 
  * 
  */
+#include<vector>
+using namespace std; 
 
 // @lc code=start
 class Solution {
 public:
     char nextGreatestLetter(vector<char>& letters, char target) {
+        // auto it = upper_bound(letters.begin(), letters.end(), target);
+        // return it == letters.end() ? letters.front() : *it;
+
+
         int n = letters.size();
         int left=0, right=n-1, mid;
 

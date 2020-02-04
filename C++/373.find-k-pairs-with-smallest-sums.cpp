@@ -54,22 +54,66 @@ using namespace std;
 class Solution {
 public:
     vector<vector<int>> kSmallestPairs(vector<int>& nums1, vector<int>& nums2, int k) {
-        vector<vector<int>> res;
+        // vector<vector<int>> res;
 
-		priority_queue< pair<int,pair<int,int>> , vector<pair<int,pair<int,int>>>, greater<pair<int,pair<int, int>>> > pq;
+		// priority_queue< pair<int,pair<int,int>> , vector<pair<int,pair<int,int>>>, greater<pair<int,pair<int, int>>> > pq;
 		
-        for(int i=0; i<nums1.size();i++) {
-			for(int j=0;j<nums2.size();j++) {
-				pq.push(make_pair(nums1[i]+nums2[j], make_pair(nums1[i], nums2[j])));
-			}
-		} 
+        // for(int i=0; i<nums1.size();i++) {
+		// 	for(int j=0;j<nums2.size();j++) {
+		// 		pq.push(make_pair(nums1[i]+nums2[j], make_pair(nums1[i], nums2[j])));
+		// 	}
+		// } 
 
-		while(!pq.empty() && k--) {
-			res.push_back({pq.top().second.first, pq.top().second.second});
-			pq.pop();
-		}	
+		// while(!pq.empty() && k--) {
+		// 	res.push_back({pq.top().second.first, pq.top().second.second});
+		// 	pq.pop();
+		// }	
 
+        // return res;
+
+        if (nums1.empty() || nums2.empty() || k==0)
+            return {};
+
+        vector<vector<int>> res;
+        
+        auto cmp = [&nums1, &nums2](pair<int, int> a, pair<int, int> b) {
+            return nums1[a.first]+nums2[a.second] > nums1[b.first]+nums2[b.second];
+        };
+        priority_queue<pair<int, int>, vector<pair<int, int>>, decltype(cmp)> pq(cmp);
+
+        for (int i=0; i<nums1.size(); i++) 
+            pq.push(make_pair(i, 0));
+        while (k-- > 0 && !pq.empty()) {
+            auto it = pq.top();
+            pq.pop();
+            if(it.second+1<nums2.size())
+                pq.push(make_pair(it.first, it.second+1));
+            res.push_back({nums1[it.first], nums2[it.second]});
+        }
         return res;
+
+
+        // vector<vector<int>> res;
+        // int size1=nums1.size(), size2=nums2.size();
+        
+        // if (size1==0 || size2==0) return res;
+        
+        // int left=nums1[0]+nums2[0], right=nums1.back()+nums2.back(), mid;
+        // while (left<right) {
+        //     mid = left + (right-left)/2;
+
+        //     int count = 0;
+        //     for (int i=0, j=size2-1; i<size1; ++i) {
+        //         while (j>=0 && nums1[i]+nums2[j]>mid) 
+        //             j--;
+        //         count += j+1;
+        //     }
+        //     if (count<k) 
+        //         left = mid+1;
+        //     else 
+        //         right = mid;
+        // }
+        // return res;
     }
 };
 // @lc code=end

@@ -68,9 +68,9 @@ using namespace std;
 class Solution {
 public:
     string frequencySort(string str) {
-        unordered_map<char, int> count;
+        unordered_map<char, int> counts;
         for (char ch: str)
-            count[ch]++;
+            counts[ch]++;
         
         // vector<string> buckets(str.size()+1, "");
         // for(auto& it: count) 
@@ -83,8 +83,8 @@ public:
         // }
         // return res;
 
-        sort(str.begin(), str.end(), [&](char a, char b) {
-            return count[a] > count[b] || (count[a] == count[b] && a < b); 
+        sort(str.begin(), str.end(), [&counts](char a, char b) { 
+            return counts[a] > counts[b] || (counts[a] == counts[b] && a < b); 
         });
         return str;
     }

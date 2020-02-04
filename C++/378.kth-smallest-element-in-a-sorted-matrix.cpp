@@ -59,14 +59,22 @@ public:
 
         int n = matrix.size();
         int left = matrix[0][0], right = matrix[n-1][n-1];
-        int mid;
         while (left < right) {
-            mid = (left + right) / 2.0;
+            int mid = left + (right-left)/2;
+            
+            // int count = 0;
+            // for (int i=0; i<n; ++i) {
+            //     auto pos = upper_bound(matrix[i].begin(), matrix[i].end(), mid) - matrix[i].begin();
+            //     count += pos; 
+            // }
+            
             int count = 0;
-            for (int i=0; i<n; ++i) {
-                auto pos = upper_bound(matrix[i].begin(), matrix[i].end(), mid) - matrix[i].begin();
-                count += pos; 
+            for (int i=0, j=n-1; i<n; ++i) {
+                while (j>=0 && matrix[i][j]>mid) 
+                    j--;
+                count += j+1;
             }
+
             if (count < k)
                 left = mid+1;
             else 
