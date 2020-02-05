@@ -47,7 +47,7 @@ public:
             matrix[0][j] = matrix[0][j-1] + matrix[0][j];
         for (int i=1; i<rows; i++) {
             for (int j=1; j<cols; j++) 
-                matrix[i][j] = matrix[i][j] + min(matrix[i-1][j], matrix[i][j-1]);
+                matrix[i][j] += min(matrix[i-1][j], matrix[i][j-1]);
         }
         return matrix[rows-1][cols-1];
     }

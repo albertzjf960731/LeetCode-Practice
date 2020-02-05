@@ -54,11 +54,18 @@ using namespace std;
 class Solution {
 public:
     int uniquePaths(int m, int n) {
-        long all = m+n-2, down = m-1;
-        int ans = 1;
-        for (int i = 1; i<=down; i++) 
-            ans = ans * (all-down+i) / i;
-        return ans;
+        // long all = m+n-2, down = m-1;
+        // int ans = 1;
+        // for (int i = 1; i<=down; i++) 
+        //     ans = ans * (all-down+i) / i;
+        // return ans;
+
+        vector<int> dp(n, 1);
+        for (int i=1; i<m; i++) {
+            for (int j=1; j<n; j++) 
+                dp[j] += dp[j-1];
+        } 
+        return dp.back();
     }
 };
 // @lc code=end

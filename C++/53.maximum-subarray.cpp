@@ -53,6 +53,29 @@ public:
         }        
         return ans;
     }
+
+    int maxSumMatrix(vector<vector<int>>& matrix) {
+        int ans = INT_MIN;
+
+        int rows=matrix.size(), cols=matrix[0].size();
+
+        for (int left=0; left<cols; left++) {
+            
+            vector<int> sums(rows, 0);
+            for (int right=left; right<cols; right++) {
+                for (int i=0; i<rows; i++)
+                    sums[i] += matrix[i][right];
+                
+                int pre=sums[0], sum=sums[0];
+                for (int i=1; i<rows; i++) {
+                    pre = max(pre+sums[i], sums[i]);
+                    sum = max(sum, pre);
+                }
+                ans = max(ans, sum);
+            }
+        }
+        return ans;
+    }
 };
 // @lc code=end
 
