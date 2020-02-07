@@ -41,6 +41,8 @@ using namespace std;
 class Solution {
 public:
     int nthUglyNumber(int n) {
+        // Ugly numbers are positive numbers whose prime factors only include 2, 3, 5. 
+
         int i2=0, i3=0, i5=0;
         vector<int> dp(n);
         dp[0] = 1;

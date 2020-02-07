@@ -49,7 +49,7 @@ public:
     //     vector<int> dp(nums_size, 1);
 
     //     for(int i=1; i<nums_size; ++i) {
-    //         for(int j=i-1; j>=0; --j) {
+    //         for(int j=0; j<i; --j) {
     //             if(nums[i]>nums[j]) 
     //                 dp[i] = max(dp[i], dp[j]+1);
     //         }
@@ -57,6 +57,8 @@ public:
     //     return *max_element(dp.begin(), dp.end());
     // }
 
+    // 递增序列，当前最小
+    // 4, 2, 4, 5, 3, 7 => 2, 3, 5, 7
     int lengthOfLIS(vector<int>& nums) {
         vector<int> res;
 
