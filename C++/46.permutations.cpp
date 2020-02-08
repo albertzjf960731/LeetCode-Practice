@@ -62,21 +62,31 @@ public:
 
     vector<vector<int>> permute(vector<int>& nums) {
         vector<vector<int>> res;
-        DFS(nums, res, 0);
+        DFS(nums, 0, res);
         return res;
     }
-
-    void DFS(vector<int> nums, vector<vector<int>>& res, int pos) {
-        if (pos==nums.size()-1) {
+    // DFS 产生一个全排列，idx=0 这个位置遍历一边
+    void DFS(vector<int> nums, int pos, vector<vector<int>>& res) {
+        if (pos==nums.size()) {
             res.push_back(nums);
             return;
-        }
-
+        } 
         for (int i=pos; i<nums.size(); i++) {
-            swap(nums[pos], nums[i]);
-            DFS(nums, res, pos+1);
-            // swap(nums[pos], nums[i]);
+            swap(nums[i], nums[pos]);
+            DFS(nums, pos+1, res);
+            // // 如果nums传地址
+            // swap(nums[i], nums[pos]);
         }
+    }
+
+    vector<vector<int>> permute(vector<int>& nums) {
+        vector<vector<int>> res;
+        sort(nums.begin(), nums.end());
+        res.push_back(nums);
+        while (next_permutation(nums.begin(), nums.end())) {
+            res.push_back(nums);
+        }
+        return res;
     }
 };
 // @lc code=end

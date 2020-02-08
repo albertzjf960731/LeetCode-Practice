@@ -30,60 +30,51 @@
  * 
  */
 #include<vector>
+#include<unordered_set>
 using namespace std;
 
 // @lc code=start
 class Solution {
 public:
-    // vector<vector<int>> permuteUnique(vector<int>& nums) {
-    //     sort(nums.begin(), nums.begin());
-
-    //     vector<vector<int>> res;
-    //     DFS(nums, res, 0);
-    //     return res;
-    // }
-
-    // void DFS(vector<int> nums, vector<vector<int>>& res, int pos) {
-    //     if (pos==nums.size()-1) {
-    //         res.push_back(nums);
-    //         return;
-    //     }
-
-    //     for (int i=pos; i<nums.size(); i++) {
-    //         if (i!=pos && nums[i] == nums[pos]) 
-    //             continue;
-    //         swap(nums[i], nums[pos]);
-    //         DFS(nums, res, pos+1);
-    //         // The reason why not swap back is to maintain the sorted ordered for the rest of the array.
-
-    //         // swap(nums[i], nums[pos]);
-    //     }
-    // }
-
     vector<vector<int>> permuteUnique(vector<int>& nums) {
+        sort(nums.begin(), nums.end());
+
         vector<vector<int>> res;
-        DFS(nums, res, 0);
+        DFS(nums, 0, res);
         return res;
     }
-
-    void DFS(vector<int> nums, vector<vector<int>>& res, int pos) {
-        if(pos == nums.size()-1) {
+    
+    void DFS(vector<int> nums, int pos, vector<vector<int>>& res) {
+        if (pos==nums.size()) {
             res.push_back(nums);
             return;
-        }
-
-        for(int i=pos; i<nums.size(); i++) {
-            int j = i-1;
-            //judge whether num[i] and num[pos...i-1] are equal
-            while(j>=pos && nums[j]!=nums[i])
-                j--;
-            if(i==pos || j==pos-1) {
+        } 
+        for (int i=pos; i<nums.size(); i++) {
+            if (i==pos || nums[i]!=nums[pos]) {
                 swap(nums[i], nums[pos]);
-                DFS(nums, res, pos+1);
+                DFS(nums, pos+1, res);
+            }
+        }
+    }
+            // The reason why not swap back is to maintain the sorted ordered for the rest of the array.
+
+            // swap(nums[i], nums[pos]);
+
+    void DFS(vector<int>& nums, int pos, vector<vector<int>>& res) {
+        if (pos==nums.size()) {
+            res.push_back(nums);
+            return;
+        } 
+        unordered_set<int> visited; //保存当前要交换的位置已经有过哪些数字了
+        for (int i=pos; i<nums.size(); i++) {
+            if (!visited.count(nums[i])) {
+            // if(i==pos || nums[i]!=nums[i-1]) {
+                visited.insert(nums[i]);
+                swap(nums[i], nums[pos]);
+                DFS(nums, pos+1, res);
                 swap(nums[i], nums[pos]);
             }
         }
-        
     }
 };
 // @lc code=end

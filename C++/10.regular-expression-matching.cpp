@@ -14,22 +14,22 @@ using namespace std;
 class Solution {
 public:
     bool isMatch(string s, string p) {
-
-        const int s_size = s.size(), p_size = p.size();
+        int s_size = s.size(), p_size = p.size();
 
         vector<vector<bool> > dp(s_size+1, vector<bool>(p_size+1, false));
         dp[0][0] = true;
+
         for (int j=1; j<p_size; j++) 
             dp[0][j+1] = (p[j]=='*' && dp[0][j-1]);
         
         for (int i=0; i<s_size; i++) {
             for (int j=0; j<p_size; j++) {
-                if (p[j] == '*') {
-                    dp[i+1][j+1] = dp[i+1][j-1];
-                    if (p[j-1] == s[i] or p[j-1] == '.')
+                if (p[j]=='*') {
+                    dp[i+1][j+1] = dp[i+1][j+1] || dp[i+1][j-1];
+                    if (p[j-1]==s[i] || p[j-1]=='.')
                         dp[i+1][j+1] = dp[i+1][j+1] || dp[i][j+1];
                 }
-                if (p[j] == s[i] or p[j] == '.')
+                else if (p[j]==s[i] || p[j]=='.')
                     dp[i+1][j+1] = dp[i][j];
             }
         }

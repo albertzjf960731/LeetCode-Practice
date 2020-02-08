@@ -26,6 +26,7 @@ public:
             res.push_back(path);
         else {
             for(int i=index; i<nums.size(); i++) {
+                // 防止重复！
                 if (i==index || nums[i]!=nums[i-1]){
                     path.push_back(nums[i]);
                     DFS(nums, target-nums[i], i+1, path, res);

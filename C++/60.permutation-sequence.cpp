@@ -91,15 +91,17 @@ public:
         string res(n,'0');
         for(int i=1; i<=n; i++){
             factorial *= i;
-            res[i-1] += i;
+            res[i-1] += i; //"1234"
         }
 
         k--;
         for(int i=0; i<n; i++){
-            factorial /= n-i;
-            int j = i+ k/factorial; 
+            factorial /= (n-i);
+            // i 之后的数字从小到大排好序的
+            int j = i + k/factorial;  // calculate index of char to put at s[i]
             k %= factorial;
             
+            // remove c by shifting to cover up (adjust the right part).
             char num = res[j];
             for(; j>i; j--)
                 res[j]=res[j-1];

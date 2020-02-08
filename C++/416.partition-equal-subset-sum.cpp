@@ -53,6 +53,7 @@
  */
 #include<vector>
 #include<numeric>
+#include<bitset>
 using namespace std;
 
 // @lc code=start
@@ -68,8 +69,10 @@ public:
         // dp[0] = true;
 
         // for (int i=0; i<nums.size(); i++) {
+        //     // [1, 2, 5]
         //     // for (int j=nums[i]; j<=target; j++) {
         //     for (int j=target; j>=nums[i]; j--) {
+        //         // 当前新nums[i], 初始状态没有放入
         //         dp[j] = dp[j] || dp[j-nums[i]];
         //     }
         // }
