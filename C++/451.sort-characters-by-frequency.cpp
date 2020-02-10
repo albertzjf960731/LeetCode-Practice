@@ -61,6 +61,7 @@
  */
 #include<string>
 #include<vector>
+#include<map>
 #include<unordered_map>
 using namespace std; 
 
@@ -87,6 +88,14 @@ public:
             return counts[a] > counts[b] || (counts[a] == counts[b] && a < b); 
         });
         return str;
+
+        // "loveleetcode" -> "eeeelolovtcd"
+        // map<char, int> counts;
+        // for (char ch: str)
+        //     counts[ch]++;
+        // sort(str.begin(), str.end(), [&counts](char a, char b) { 
+        //     return counts[a] > counts[b];});
+        // return str;
     }
 };
 // @lc code=end

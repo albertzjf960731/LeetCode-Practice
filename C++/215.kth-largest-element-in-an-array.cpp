@@ -87,13 +87,12 @@ public:
         // }
         // return kth;
 
-        int left = 0, right = nums.size()-1;
+        int left=0, right=nums.size()-1;
         while (left<=right) {
             int idx = partition(nums, left, right);
-            
-            if (idx < k-1) 
+            if (idx<k-1) 
                 left = idx+1;
-            else if (idx > k-1)
+            else if(idx>k-1) 
                 right = idx-1;
             else 
                 return nums[idx];
@@ -101,16 +100,13 @@ public:
         return -1;
     }
 
-private:
     int partition(vector<int>& nums, int left, int right) {
-        int pivot = nums[left], l=left+1, r=right;
-        while(l<=r){
-            if (nums[l]<pivot && nums[r]>pivot)
+        int pivot=nums[left], l=left+1, r=right;
+        while (l<=r) {
+            if (nums[l]<pivot && nums[r]>pivot) 
                 swap(nums[l++], nums[r--]);
-            if (nums[l]>=pivot)
-                l++;
-            if (nums[r]<=pivot)
-                r--;
+            if (nums[l]>=pivot) l++;
+            if (nums[r]<=pivot) r--;
         }
         swap(nums[left], nums[r]);
         return r;

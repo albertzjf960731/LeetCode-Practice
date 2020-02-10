@@ -75,6 +75,8 @@ public:
 
         // 动态规划
         int size1 = word1.size(), size2 = word2.size();
+
+        // dp[i][j] to be the minimum number of operations to convert word1[0..i) to word2[0..j).
         vector<vector<int>> dp(size1+1, vector<int>(size2+1, 0));
 
         for (int i=0; i<size1+1; i++)

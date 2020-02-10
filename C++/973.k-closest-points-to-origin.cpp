@@ -75,6 +75,8 @@ public:
 
         sort(dists.begin(), dists.end());
 
+        // return vector<vector<int>>(dists.begin(), dists.begin()+K);
+
         vector<vector<int>> res;
         for (int i=0; i<K; i++) {
             res.push_back(points[dists[i].second]);

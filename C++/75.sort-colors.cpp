@@ -42,33 +42,37 @@
  */
 #include<vector>
 #include<iostream>
+#include<map>
 using namespace std; 
 
 // @lc code=start
 class Solution {
 public:
     void sortColors(vector<int>& nums) {
-        int zero=-1, one=-1, two=-1;
+        int zero=0, one=0, two=0;
 
         for (auto num: nums) {
             if (num==0) {
-                two++;
-                nums[two] = 2;
-                one++;
-                nums[one] = 1;
-                zero++;
-                nums[zero] = 0;
+                nums[two++] = 2;
+                nums[one++] = 1;
+                nums[zero++] = 0;
             }
             if (num==1) {
-                two++;
-                nums[two] = 2;
-                one++;
-                nums[one] = 1;
+                nums[two++] = 2;
+                nums[one++] = 1;
             }
             if (num==2) {
-                two++;
-                nums[two] = 2;
+                nums[two++] = 2;
             }
+        }    
+
+        map<int, int> hash_map;
+        for (int num : nums) 
+            hash_map[num]++;
+        int idx = 0;
+        for (auto it : hash_map) {
+            while(it.second-- > 0) 
+                nums[idx++] = it.first;
         }
     }
 };
