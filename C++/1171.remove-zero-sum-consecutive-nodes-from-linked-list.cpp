@@ -98,7 +98,7 @@ public:
                 }
                 pre->next = mid->next;
                 // hash_map[sum]->next = cur->next;
-                }
+            }
             else 
                 hash_map[sum] = cur;
             cur = cur->next;

@@ -30,7 +30,7 @@ public:
 
         ListNode *cur = head, *next=NULL;
         pre = NULL;
-        for (int i=0;i<k;++i) {
+        for (int i=0; i<k; ++i) {
             next = cur->next;
             cur->next = pre;
             pre = cur;

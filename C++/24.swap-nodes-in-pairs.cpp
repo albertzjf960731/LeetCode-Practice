@@ -25,14 +25,14 @@ public:
         dummy.next = head;
 
         ListNode* cur = &dummy;
-        ListNode *pre, *post;
+        ListNode *pre, *next;
         while (cur->next && cur->next->next) {
             pre = cur->next;
-            post = cur->next->next;
+            next = cur->next->next;
 
-            cur->next = post;
-            pre->next = post->next;
-            post->next = pre;
+            cur->next = next;
+            pre->next = next->next;
+            next->next = pre;
 
             cur = pre;
         }

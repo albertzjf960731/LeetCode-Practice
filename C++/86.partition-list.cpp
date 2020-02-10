@@ -45,16 +45,17 @@ public:
         ListNode h1(0), h2(0);
         ListNode *l1=&h1, *l2=&h2;
 
-        while (head) {
-            if (head->val < x) {
-                l1->next = head;
+        ListNode *cur = head;
+        while (cur) {
+            if (cur->val < x) {
+                l1->next = cur;
                 l1 = l1->next;
             }
             else {
-                l2->next = head;
+                l2->next = cur;
                 l2 = l2->next;
             }
-            head = head->next;
+            cur = cur->next;
         }
         l2->next = NULL;
         l1->next = h2.next;
