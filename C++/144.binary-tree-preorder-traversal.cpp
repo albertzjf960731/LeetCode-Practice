@@ -39,6 +39,17 @@ public:
             }
         }
         return res;
+
+        vector<int> res;
+        DFS(root, res);
+        return res;
+    }
+
+    void DFS(TreeNode* node, vector<int>& res) {
+        if (node==NULL) return;
+        res.push_back(node->val);
+        DFS(node->left, res);
+        DFS(node->right, res);
     }
 };
 // @lc code=end

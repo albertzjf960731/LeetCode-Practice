@@ -51,16 +51,29 @@ struct TreeNode {
 // @lc code=start
 class Solution {
 public:
-    TreeNode* sortedArrayToBST(vector<int>& nums) {
-        return DFS(nums, 0, nums.size());
-    }
-    TreeNode* DFS(vector<int>& nums, int start, int end) {
-        if(start==end) return NULL;
+    // TreeNode* sortedArrayToBST(vector<int>& nums) {
+    //     return DFS(nums, 0, nums.size());
+    // }
+    // TreeNode* DFS(vector<int>& nums, int start, int end) {
+    //     if(start==end) return NULL;
 
-        int m = (start+end) / 2;
-        TreeNode *root = new TreeNode(nums[m]);
-        root->left = DFS(nums, start, m);
-        root->right = DFS(nums, m+1, end);
+    //     int m = (start+end) / 2;
+    //     TreeNode *root = new TreeNode(nums[m]);
+    //     root->left = DFS(nums, start, m);
+    //     root->right = DFS(nums, m+1, end);
+    //     return root;
+    // }
+
+    TreeNode* sortedArrayToBST(vector<int>& nums) {
+        return DFS(nums, 0, nums.size()-1);
+    }
+    TreeNode* DFS(vector<int>& nums, int left, int right) {
+        if(left>right) return NULL;
+
+        int mid = left+ (right-left)/2;
+        TreeNode *root = new TreeNode(nums[mid]);
+        root->left = DFS(nums, left, mid-1);
+        root->right = DFS(nums, mid+1, right);
         return root;
     }
 };

@@ -39,6 +39,7 @@
  * Definition for a binary tree node.
  */
 #include<iostream>
+#include<queue>
 using namespace std; 
 
 struct TreeNode {
@@ -57,6 +58,26 @@ public:
         if (!left_depth || !right_depth)
             return left_depth + right_depth + 1;
         return min(left_depth, right_depth) + 1;
+
+        int ans = 0;
+        if (!root) return ans;
+        
+        queue<TreeNode*> q;
+        q.push(root);
+        while (!q.empty()) {
+            ans ++;
+            
+            int q_size = q.size();
+            while (q_size--) {
+                TreeNode *cur = q.front();
+                q.pop();
+                
+                if (cur->left) q.push(cur->left);
+                if (cur->right) q.push(cur->right);
+                if (cur->left==NULL && cur->right==NULL) return ans;
+            }
+        }
+        return -1;
     }
 };
 // @lc code=end
