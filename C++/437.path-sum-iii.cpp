@@ -60,17 +60,17 @@ class Solution {
 public:
     // int pathSum(TreeNode* root, int sum) {
     //     if (root==NULL) return 0;
-    //     return DFS(root, sum) + pathSum(root->left, sum) + pathSum(root->right, sum);
+    //     return pathSumWithRoot(root, sum) + pathSum(root->left, sum) + pathSum(root->right, sum);
     // }
 
-    // int DFS(TreeNode* root, int sum) {
+    // int pathSumWithRoot(TreeNode* root, int sum) {
     //     int ans = 0;
     //     if (root==NULL) return ans;
         
     //     if (root->val == sum)
     //         ans += 1;
-    //     ans += DFS(root->left, sum-root->val);
-    //     ans += DFS(root->right, sum-root->val);
+    //     ans += pathSumWithRoot(root->left, sum-root->val);
+    //     ans += pathSumWithRoot(root->right, sum-root->val);
     //     return ans;
     // }
 

@@ -65,35 +65,32 @@ public:
     vector<int> findOrder(int numCourses, vector<vector<int>>& prerequisites) {
         vector<vector<int>> graph(numCourses);
         vector<int> indeg(numCourses, 0);
-
-        for(auto item: prerequisites) {            
+        
+        for (auto item: prerequisites) {
             graph[item[1]].push_back(item[0]);
             indeg[item[0]] += 1;
         }
-
+        
         queue<int> q;
-        for (int vertex=0; vertex<numCourses; vertex++){
-            if (indeg[vertex] == 0)
-                q.push(vertex);
+        for (int v=0; v<numCourses; v++) {
+            if (indeg[v]==0)
+                q.push(v);
         }
-
+        
         vector<int> res;
-        int count = 0;
-        while (!q.empty()) {
-            int vertex = q.front();
+        while(!q.empty()) {
+            int v = q.front();
             q.pop();
-
-            res.push_back(vertex);
-            for (int neigh: graph[vertex]) {
-                indeg[neigh]--;
-                if (indeg[neigh]==0)
+            
+            res.push_back(v);
+            for (int neigh: graph[v]) {
+                indeg[neigh] --;
+                if (indeg[neigh]==0) {
                     q.push(neigh);
+                }
             }
         }
-        if (res.size() == numCourses)
-            return res;
-        else 
-            return {};
+        return res.size()==numCourses? res: vector<int>{};
     }
 };
 // @lc code=end
