@@ -46,14 +46,14 @@ public:
         int n = nums.size();
         vector<int> res(n, -1);
 
-        vector<int> stack;
+        vector<int> monostack;
         for (int i=0; i<n*2; i++) {
-            while (!stack.empty() && nums[i%n]>nums[stack.back()]) {
-                res[stack.back()] = nums[i%n];
-                stack.pop_back();
+            while (!monostack.empty() && nums[i%n]>nums[monostack.back()]) {
+                res[monostack.back()] = nums[i%n];
+                monostack.pop_back();
             }
             if (i<n) 
-                stack.push_back(i);
+                monostack.push_back(i);
         }
         return res;
     }

@@ -67,13 +67,13 @@ class Solution {
 public:
     vector<int> nextGreaterElement(vector<int>& nums1, vector<int>& nums2) {
         unordered_map<int, int> hash_map;
-        vector<int> stack;
+        vector<int> monostack;
         for (int i=0; i<nums2.size(); i++) {
-            while (!stack.empty() && nums2[i]>nums2[stack.back()]) {
-                hash_map[nums2[stack.back()]] = nums2[i];
-                stack.pop_back();
+            while (!monostack.empty() && nums2[i]>nums2[monostack.back()]) {
+                hash_map[nums2[monostack.back()]] = nums2[i];
+                monostack.pop_back();
             }
-            stack.push_back(i);
+            monostack.push_back(i);
         }
 
         vector<int> res(nums1.size());

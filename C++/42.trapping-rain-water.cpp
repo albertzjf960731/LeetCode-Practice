@@ -75,6 +75,21 @@ public:
             }
         }
         return ans;
+
+        int ans = 0;
+        vector<int> monostack;
+        for (int i=0; i<height.size(); i++) {
+            while (!monostack.empty() && height[i]>height[monostack.back()]) {
+                int h = height[monostack.back()]; 
+                monostack.pop_back(); 
+                if (monostack.empty()) break; 
+                
+                int d = i - monostack.back() - 1;
+                ans += d * (min(height[monostack.back()], height[i]) - h);
+            }
+            monostack.push_back(i); 
+        }
+        return ans;
     }
 };
 // @lc code=end

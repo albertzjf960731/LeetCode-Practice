@@ -35,14 +35,14 @@ using namespace std;
 class Solution {
 public:
     vector<int> dailyTemperatures(vector<int>& nums) {
-        vector<int> res(nums.size()), stack;
+        vector<int> res(nums.size()), monostack;
         
         for (int i=0; i<nums.size(); i++) {
-            while (!stack.empty() && nums[i]>nums[stack.back()]) {
-                res[stack.back()] = i - stack.back();
-                stack.pop_back();
+            while (!monostack.empty() && nums[i]>nums[monostack.back()]) {
+                res[monostack.back()] = i - monostack.back();
+                monostack.pop_back();
             }
-            stack.push_back(i);
+            monostack.push_back(i);
         }
         return res;
     }
