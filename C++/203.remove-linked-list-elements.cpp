@@ -35,7 +35,7 @@ struct ListNode {
     int val;
     ListNode *next;
     ListNode(int x) : val(x), next(NULL) {}
-
+};
 // @lc code=start
 class Solution {
 public:
@@ -45,8 +45,11 @@ public:
 
         ListNode *cur = &dummy;
         while (cur->next) {
-            if (cur->next->val==val) 
+            if (cur->next->val==val) {
+                ListNode* tmp = cur->next;
                 cur->next = cur->next->next;
+                delete tmp;
+            }
             else 
                 cur = cur->next;
         }   

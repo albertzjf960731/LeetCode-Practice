@@ -70,15 +70,16 @@ public:
     ListNode* middleNode(ListNode* head) {
         if (head==NULL || head->next==NULL)
             return head;
-        ListNode *slow=head, *fast=head->next;
+        ListNode *slow=head, *fast=head;
         while (fast!=NULL && fast->next!=NULL) {
             slow = slow->next;
             fast = fast->next->next;
         }
-        if (fast==NULL) 
+        // cout << slow->val;
+        // if (fast==NULL) 
             return slow;
-        else
-            return slow->next;
+        // else
+        //     return slow->next;
     }
 };
 // @lc code=end

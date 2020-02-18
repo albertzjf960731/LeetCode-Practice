@@ -50,6 +50,7 @@
  * Definition for a binary tree node.
  */
 #include<vector>
+#include<queue>
 #include<iostream>
 #include<sstream>
 using namespace std;
@@ -65,6 +66,55 @@ struct TreeNode {
 class Codec {
 public:
 
+	// Encodes a tree to a single string.
+	string serialize(TreeNode* root) {        
+		string str;
+		queue<TreeNode*> q;
+		q.push(root);
+		while (!q.empty()) {
+			TreeNode* node = q.front();
+			q.pop();
+            
+            if (node==NULL) 
+                str += "# ";
+            else {
+                str += to_string(node->val) + " ";
+				q.push(node->left);
+				q.push(node->right);
+			}
+		}
+		return str;
+	}
+
+	// Decodes your encoded data to tree.
+	TreeNode* deserialize(string data) {
+		TreeNode* root = NULL;
+        
+		queue<TreeNode*> q;
+		stringstream ss(data);
+		string str;
+
+		if (ss>>str && str!="#") {
+			root = new TreeNode(stoi(str));
+			q.push(root);
+		}
+		while (!q.empty()) {
+			TreeNode* node = q.front();
+			q.pop();
+            
+			if (ss>>str && str!="#") {
+				node->left = new TreeNode(stoi(str));
+				q.push(node->left);
+			}
+			if (ss>>str && str!="#") {
+				node->right = new TreeNode(stoi(str));
+				q.push(node->right);
+			}
+		}
+		return root;
+    }
+
+
     // Encodes a tree to a single string.
     string serialize(TreeNode* root) {
         ostringstream out;
@@ -79,6 +129,7 @@ public:
     }
 
 private:
+    // given this freedom of adding any null, would it be possible though, to recover the tree from only inorder or post order 
     void serialize(TreeNode* root, ostringstream& out) {
         if (root) {
             out << root->val<< ' ';

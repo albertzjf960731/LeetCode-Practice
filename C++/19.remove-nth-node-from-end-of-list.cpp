@@ -25,8 +25,11 @@ public:
 
         ListNode *slow=&dummy, *fast=&dummy;
 
-        for (int i=0; i<n; i++)
+        for (int i=0; i<n; i++) {
+            if (fast->next==NULL)
+                return NULL;
             fast = fast->next;
+        }
         while (fast->next){
             fast = fast->next;
             slow = slow->next;

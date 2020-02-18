@@ -58,22 +58,35 @@ struct TreeNode {
 // @lc code=start
 class Solution {
 public:
-    TreeNode* bstFromPreorder(vector<int>& preorder) {
-        return DFS(preorder, 0, preorder.size()-1);
-    }
+    // TreeNode* bstFromPreorder(vector<int>& preorder) {
+    //     return DFS(preorder, 0, preorder.size()-1);
+    // }
     
-    TreeNode* DFS(vector<int>& preorder, int left, int right) {
-        if (left > right) return NULL;
+    // TreeNode* DFS(vector<int>& preorder, int left, int right) {
+    //     if (left > right) return NULL;
         
-        TreeNode *root = new TreeNode(preorder[left]);
+    //     TreeNode *root = new TreeNode(preorder[left]);
         
-        int mid = left+1;
-        while (mid<=right && preorder[mid]<preorder[left]) 
-            mid++;
+    //     int mid = left+1;
+    //     while (mid<=right && preorder[mid]<preorder[left]) 
+    //         mid++;
         
-        root->left = DFS(preorder, left+1, mid-1);
-        root->right = DFS(preorder, mid, right);
-        return root;
+    //     root->left = DFS(preorder, left+1, mid-1);
+    //     root->right = DFS(preorder, mid, right);
+    //     return root;
+    // }
+    
+    int idx_ = 0;
+    
+    TreeNode* bstFromPreorder(vector<int>& preorder, int bound=INT_MAX) {
+        if (idx_==preorder.size() || preorder[idx_]>bound) 
+            return NULL;
+        
+        TreeNode *node = new TreeNode(preorder[idx_++]);
+        
+        node->left = bstFromPreorder(preorder, node->val);
+        node->right = bstFromPreorder(preorder, bound);
+        return node;
     }
 };
 // @lc code=end

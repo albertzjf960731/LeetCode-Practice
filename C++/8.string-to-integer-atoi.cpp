@@ -14,17 +14,20 @@ public:
         long ans = 0;
         int sign = 1;
 
-        int i = str.find_first_not_of(' ');
-        if (i==-1) return ans;
-        if(str[i] == '-' || str[i] == '+')
-            sign = (str[i++] == '-')? -1 : 1;
+        int i = 0;
+        for (; i<str.size() && str[i]==' '; i++) {};
+        // int i = str.find_first_not_of(' ');
+        if (i==str.size()) return ans;
+        
+        if(str[i]=='-' || str[i]=='+')
+            sign = (str[i++]=='-')? -1 : 1;
         
         while (i<str.size() && isdigit(str[i])) {
             ans = ans * 10 + (str[i++]-'0');
-            if (ans*sign >=INT_MAX) return INT_MAX;
-            if (ans*sign<=INT_MIN) return INT_MIN;
+            if (ans*sign >= INT_MAX) return INT_MAX;
+            if (ans*sign <= INT_MIN) return INT_MIN;
         }
-        return ans*sign;
+        return ans*sign;    
     }
 };
 // @lc code=end

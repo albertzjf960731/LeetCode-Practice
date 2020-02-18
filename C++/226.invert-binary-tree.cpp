@@ -68,6 +68,16 @@ public:
         root->right = invertTree(left);
         return root;
 
+
+        if (root==NULL) return root;
+        
+        swap(root->left, root->right);
+
+        invertTree(root->right);
+        invertTree(root->left);
+        return root;
+
+
         vector<TreeNode*> stack;
         stack.push_back(root);
         while (!stack.empty()) {

@@ -45,14 +45,20 @@ public:
         ListNode* cur = head, *pre=NULL, *next=NULL;
 
         while (cur) {
-             next = cur->next;
-
+            next = cur->next;
             cur->next = pre;
-
             pre = cur;
             cur = next;
         }
         return pre;
+
+        if (head==NULL || head->next==NULL) {
+            return head;
+        }
+        ListNode* node = reverseList(head->next);
+        head->next->next = head;
+        head->next = NULL;
+        return node;
     }
 };
 // @lc code=end

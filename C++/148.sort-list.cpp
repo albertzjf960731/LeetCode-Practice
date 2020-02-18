@@ -48,16 +48,20 @@ public:
         if (head==NULL || head->next==NULL)
             return head;
 
-        ListNode dummy(0);
-        dummy.next = head;
-        ListNode *slow=&dummy, *fast=&dummy;
+        // ListNode dummy(0);
+        // dummy.next = head;
+        // ListNode *slow=&dummy, *fast=&dummy;
+        ListNode *slow=head, *fast=head, *pre=head;
 
         while (fast!=NULL && fast->next!=NULL) {
+            pre = slow;
             slow = slow->next;
             fast = fast->next->next;
         }
-        ListNode *head2 = slow->next;
-        slow->next = NULL;
+        // ListNode *head2 = slow->next;
+        // slow->next = NULL;
+        ListNode* head2 = slow;
+        pre->next = NULL;
 
         head = sortList(head);
         head2 = sortList(head2);

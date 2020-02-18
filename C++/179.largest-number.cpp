@@ -46,18 +46,16 @@ public:
         return to_string(m)+to_string(n) > to_string(n)+to_string(m);
     }
     string largestNumber(vector<int>& nums) {
-        string ans ;
-        sort(nums.begin(), nums.end(), cmp);
-        // sort(nums.begin(), nums.end(), 
-        //     [](const int &m, const int&n) {
-        //         return to_string(m)+to_string(n) > to_string(n)+to_string(m);
-        //     });
+        vector<string> nums_str;
+        for(int num:nums)
+            nums_str.push_back(to_string(num));
+        sort(nums_str.begin(), nums_str.end(), [](string &s1, string &s2){
+            return s1+s2>s2+s1;});
 
-        for(int i=0;i<nums.size();++i){
-            ans+=to_string(nums[i]);
-        }
-        if(ans[0]=='0')
-            return "0";
+        string ans;
+        for(auto str:nums_str)
+            ans.append(str);
+        if(ans[0]=='0') return "0";
         return ans;
     }
 };

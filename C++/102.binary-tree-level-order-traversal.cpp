@@ -44,7 +44,7 @@ public:
             }
             res.push_back(temp);
         }
-    return res;
+        return res;
     }
 };
 // @lc code=end

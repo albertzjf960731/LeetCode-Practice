@@ -59,21 +59,34 @@ class Solution {
 public:
     void flatten(TreeNode* root) {
         while (root) {
-            if (root->left && root->right) {
+            // if (root->left && root->right) {
+            // }
+            if(root->left) {
                 TreeNode *tmp = root->left;
                 while (tmp->right) {
                     tmp = tmp->right;
                 }
                 tmp->right = root->right;
-            }
-            if(root->left) {
                 root->right = root->left;
+                root->left = NULL;
             }
-            root->left = NULL;
             root = root->right;
         }
 
+        if (root==NULL) return;
         
+        flatten(root->left);
+        flatten(root->right);
+        
+        TreeNode* right = root->right;
+        if (root->left!=NULL) {
+            root->right = root->left;
+            root->left = NULL;
+            
+            while (root->right!=NULL)
+                root = root->right;
+            root->right = right;
+        } 
     }
 };
 // @lc code=end
