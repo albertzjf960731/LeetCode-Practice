@@ -66,7 +66,7 @@ public:
         return res;
     }
     // DFS 产生一个全排列，idx=0 这个位置遍历一边
-    void DFS(vector<int> nums, int pos, vector<vector<int>>& res) {
+    void DFS(vector<int>& nums, int pos, vector<vector<int>>& res) {
         if (pos==nums.size()) {
             res.push_back(nums);
             return;
@@ -74,8 +74,8 @@ public:
         for (int i=pos; i<nums.size(); i++) {
             swap(nums[i], nums[pos]);
             DFS(nums, pos+1, res);
-            // // 如果nums传地址
-            // swap(nums[i], nums[pos]);
+            // 如果nums传地址
+            swap(nums[i], nums[pos]);
         }
     }
 

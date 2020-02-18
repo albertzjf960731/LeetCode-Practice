@@ -44,18 +44,18 @@ public:
         return res;
     }
     
-    void DFS(vector<int> nums, int pos, vector<vector<int>>& res) {
-        if (pos==nums.size()) {
-            res.push_back(nums);
-            return;
-        } 
-        for (int i=pos; i<nums.size(); i++) {
-            if (i==pos || nums[i]!=nums[pos]) {
-                swap(nums[i], nums[pos]);
-                DFS(nums, pos+1, res);
-            }
-        }
-    }
+    // void DFS(vector<int> nums, int pos, vector<vector<int>>& res) {
+    //     if (pos==nums.size()) {
+    //         res.push_back(nums);
+    //         return;
+    //     } 
+    //     for (int i=pos; i<nums.size(); i++) {
+    //         if (i==pos || nums[i]!=nums[pos]) {
+    //             swap(nums[i], nums[pos]);
+    //             DFS(nums, pos+1, res);
+    //         }
+    //     }
+    // }
             // The reason why not swap back is to maintain the sorted ordered for the rest of the array.
 
             // swap(nums[i], nums[pos]);
