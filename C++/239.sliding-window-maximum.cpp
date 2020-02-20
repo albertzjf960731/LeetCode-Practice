@@ -54,7 +54,8 @@ public:
     vector<int> maxSlidingWindow(vector<int>& nums, int k) {
         deque<int> queue;
         vector<int> res;
-
+        
+        // 单调队列
         for (int i=0; i<nums.size(); ++i) {
             while (!queue.empty() && nums[queue.back()]<nums[i]) 
                 queue.pop_back();
@@ -62,10 +63,11 @@ public:
                 queue.pop_front();
 
             queue.push_back(i);
-
+            
             if (i>=k-1)
                 res.push_back(nums[queue.front()]);
         }
+        return res;
     }
 };
 // @lc code=end

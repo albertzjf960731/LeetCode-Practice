@@ -43,7 +43,7 @@ using namespace std;
 // @lc code=start
 class Solution {
 public:
-    int longestPalindrome(string s) {
+    int longestPalindrome(string str) {
         unordered_map<char, int> cnts;
         for (char ch: str) cnts[ch]++;
         

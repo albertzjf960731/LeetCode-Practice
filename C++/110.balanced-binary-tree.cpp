@@ -81,6 +81,7 @@ public:
             return true;
         }
 
+        // 后序遍历
         int left_depth = 0;
         int right_depth = 0;
         if(!checkBalance(root->left, left_depth)) return false;

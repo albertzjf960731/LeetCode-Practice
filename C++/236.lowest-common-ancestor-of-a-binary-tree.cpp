@@ -56,6 +56,8 @@
  * Definition for a binary tree node.
  */
 #include<vector>
+#include<unordered_map>
+#include<unordered_set>
 using namespace std;
 
 struct TreeNode {
@@ -83,6 +85,37 @@ public:
             return left;
         if (right!=NULL)
             return right;
+    }
+
+    unordered_map<TreeNode*, TreeNode*> pat_map;  // son=>parent  
+
+    void findParent(TreeNode* node, TreeNode* parent){
+        if(node) {
+            pat_map[node] = parent;
+            findParent(node->left, node);
+            findParent(node->right, node);
+        }
+    }
+
+    TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q)  {
+        findParent(root, NULL);
+
+        unordered_set<TreeNode*> node_set;
+
+        TreeNode* curr;
+        curr = p;
+        while (curr != NULL) {
+            node_set.insert(curr);
+            curr = pat_map[curr];
+        }
+
+        curr = q;
+        while (curr != NULL) {
+            if (node_set.count(curr)) 
+                return curr;
+            curr = pat_map[curr];
+        }
+        return curr;
     }
 };
 // @lc code=end

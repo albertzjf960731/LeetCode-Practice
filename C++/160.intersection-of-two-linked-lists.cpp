@@ -108,6 +108,38 @@ public:
             l2 = l2==NULL ? headA: l2->next;
         }
         return l1;
+
+
+        if (headA==NULL || headB==NULL)
+            return NULL;
+
+        int len_a=1, len_b=1;
+        ListNode* cur_a = headA, *cur_b = headB;
+        while (cur_a->next!=NULL) {
+            len_a ++;
+            cur_a = cur_a->next;
+        }
+        while (cur_b->next!=NULL) {
+            len_b ++;
+            cur_b = cur_b->next;
+        }    
+                
+        cur_a = headA, cur_b = headB;
+        if (len_a>len_b) {
+            int diff = len_a - len_b;
+            while (diff--) cur_a = cur_a->next;
+        }
+        else {
+            int diff = len_b - len_a;
+            while (diff--) cur_b = cur_b->next; 
+        }
+        
+        
+        while (cur_a!=cur_b) {
+            cur_a = cur_a->next;
+            cur_b = cur_b->next;
+        }
+        return cur_a;
     }
 };
 // @lc code=end

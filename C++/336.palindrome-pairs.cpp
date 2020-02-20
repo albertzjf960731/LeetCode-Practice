@@ -86,7 +86,7 @@ public:
         for (int i=0; i<words.size(); ++i) {
             for (int j=0; j<words[i].size(); ++j) {
                 string left = words[i].substr(0, j);
-                string right = words[i].substr(j, words[i].size()-j);
+                string right = words[i].substr(j);
                 
                 if(hash_map.count(left) && hash_map[left]!=i && isPalindrome(right))
                     res.push_back({i, hash_map[left]});

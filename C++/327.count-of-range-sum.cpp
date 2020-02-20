@@ -38,7 +38,7 @@ using namespace std;
 // @lc code=start
 class Solution {
 public:
-    int countRangeSum(vector<int>& nums, int lower, int upper) {
+    // int countRangeSum(vector<int>& nums, int lower, int upper) {
         // int ans = 0;
 
         // map<long, int> hash_map{{0, 1}};
@@ -55,16 +55,42 @@ public:
         // }
         // return ans;
 
-        int ans = 0;
 
-        multiset<long> sums{0};
-        long cur_sum = 0;
-        for (int num: nums) {
-            cur_sum += num;
-            ans += distance(sums.lower_bound(cur_sum-upper), sums.upper_bound(cur_sum-lower));
-            sums.insert(cur_sum);
+        // int ans = 0;
+
+        // multiset<long> sums{0};
+        // long cur_sum = 0;
+        // for (int num: nums) {
+        //     cur_sum += num;
+        //     // complexity of distance is N;
+        //     ans += distance(sums.lower_bound(cur_sum-upper), sums.upper_bound(cur_sum-lower));
+        //     sums.insert(cur_sum);
+        // }
+        // return ans;
+
+    int countRangeSum(vector<int>& nums, int lower, int upper) {
+        int n = nums.size();
+        vector<long> sums(n+1, 0);
+        for (int i=0; i<n; ++i) 
+            sums[i+1] = sums[i] + nums[i];
+        
+        return sort_and_count(sums, 0, n+1, lower, upper);
+    }
+    
+    int sort_and_count(vector<long>& sums, int left, int right, int lower, int upper) {
+        if (right - left <= 1) 
+            return 0;
+        
+        int mid = left+ (right-left)/2;
+        int count = sort_and_count(sums, left, mid, lower, upper) + sort_and_count(sums, mid, right, lower, upper);
+    
+        for (int i=left, j1=mid, j2=mid; i<mid; ++i) { 
+            while (j1<right && sums[j1] - sums[i] < lower) j1++; 
+            while (j2<right && sums[j2] - sums[i] <= upper) j2++;
+            count += j2 - j1;
         }
-        return ans;
+        inplace_merge(sums.begin()+left, sums.begin()+mid, sums.begin()+right);
+        return count;
     }
 };
 // @lc code=end

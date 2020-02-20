@@ -100,6 +100,52 @@ public:
             num1 = cur%p;
         }
         return num1;
+
+    
+        if (str.empty())
+            return 0;
+        
+        int n=str.size(), mode=1e9+7;
+        vector<int> dp(n+1, 0);
+        dp[0] = 1;
+
+        for (int i=0; i<str.size(); i++) {
+            char ch = str[i];
+            if (ch >= '1' && ch <= '9') 
+                dp[i+1] = dp[i];
+            else if (ch == '*') 
+                dp[i+1] = (9L*dp[i]) % mode;
+            
+            if (i > 0) {
+                if (ch != '*') {
+                    if (str[i-1] != '*') {
+                        // int num = stoi(str.substr(i-1, 2));
+                        int num = (str[i-1]-'0')*10 + (ch-'0');
+                        if (num >= 10 && num <= 26) 
+                            dp[i+1] = (dp[i+1] + dp[i-1]) % mode;
+                    } 
+                    else {
+                        long cnt = 0;
+                        if (ch >= '0' && ch <= '6')
+                            cnt = 2;
+                        else 
+                            cnt = 1;
+                        dp[i+1] = (dp[i+1] + dp[i-1]*cnt) % mode;
+                    }
+                } 
+                else {
+                    long cnt = 0;
+                    if (str[i-1] == '*') 
+                        cnt = 15;//9+7
+                    else if (str[i-1] == '1') 
+                        cnt = 9;
+                    else if (str[i-1] == '2')
+                        cnt = 6;         
+                    dp[i+1] = (dp[i+1] + dp[i-1]*cnt) % mode;
+                }
+            }
+        }
+        return dp[n];
     }
 };
 // @lc code=end

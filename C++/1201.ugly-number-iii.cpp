@@ -65,6 +65,8 @@
 class Solution {
 public:
     int nthUglyNumber(int n, int a, int b, int c) {
+        // Ugly numbers are positive integers which are divisible by a or b or c.
+
         long lcm_ab=lcm(a, b), lcm_ac=lcm(a, c), lcm_bc=lcm((long)b, (long)c), lcm_abc = lcm(a, lcm_bc);
         
         int left=1, right=2*1e9;

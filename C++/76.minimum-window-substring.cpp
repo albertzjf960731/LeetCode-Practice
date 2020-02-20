@@ -42,6 +42,7 @@ using namespace std;
 class Solution {
 public:
     string minWindow(string s, string t) {
+        // 初始化计数
         vector<int> t_count(128, 0);
         for(auto ch: t) t_count[ch]++;
 
