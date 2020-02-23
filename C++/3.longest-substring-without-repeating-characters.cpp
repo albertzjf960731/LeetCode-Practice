@@ -15,17 +15,15 @@ class Solution {
 public:
     int lengthOfLongestSubstring(string s) {
         int ans = 0;
-        int i = -1;
-        
-        unordered_map<char, int> hash_map;
-        for (int j=0; j<s.size(); j++) {
-            if (hash_map.count(s[j]) != 0) {
-                i = max(hash_map[s[j]], i);
-            }
-            hash_map[s[j]] = j;
-            ans = max(ans, j-i);
+        int left = -1;
+        unordered_map<char, int> last;
+        for (int  right=0; right<s.size(); right++) {
+            if (last.count(s[right]))
+                left = max(last[s[right]], left);
+            ans = max(ans, right-left);
+            last[s[right]] = right;
         }
-        return ans; 
+        return ans;
     }
 };
 // @lc code=end
