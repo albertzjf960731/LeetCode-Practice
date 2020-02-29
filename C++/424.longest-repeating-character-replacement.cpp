@@ -88,6 +88,7 @@ public:
         int left=0, right=0;
         for (int max_cnt=0; right<s.size(); right++) {
             hash[s[right]-'A'] ++;
+            // 保存的是当前遍历过的全局的最大值，它肯定是比实际的最大值大的
             max_cnt = max(max_cnt, hash[s[right]-'A']);
             
             while (right-left+1 - max_cnt > k) {   
