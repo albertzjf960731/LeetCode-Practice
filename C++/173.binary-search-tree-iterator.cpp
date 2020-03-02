@@ -71,7 +71,7 @@ class BSTIterator {
 private:
     vector<TreeNode*> stack_;
     
-    void push_(TreeNode* node) {
+    void push_left(TreeNode* node) {
         while (node) {
             stack_.push_back(node);
             node = node->left;
@@ -80,14 +80,14 @@ private:
     
 public:
     BSTIterator(TreeNode* root) {
-        push_(root);
+        push_left(root);
     }
     
     /** @return the next smallest number */
     int next() {
         TreeNode* node = stack_.back();
         stack_.pop_back();
-        push_(node->right);
+        push_left(node->right);
         return node->val;
     }
     

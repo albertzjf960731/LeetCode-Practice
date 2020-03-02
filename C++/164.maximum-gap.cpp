@@ -57,31 +57,55 @@ public:
 class Solution {
 public:
     int maximumGap(vector<int>& nums) {
-        if (nums.empty() || nums.size()==1)
-            return 0;
+        // if (nums.empty() || nums.size()==1)
+        //     return 0;
 
-        int minNum = *min_element(nums.begin(), nums.end()); 
-        int maxNum = *max_element(nums.begin(), nums.end());
-        int bucketSize = max(1, (maxNum-minNum) / (int)(nums.size()-1));
-        int bucketNum = (maxNum-minNum)/bucketSize+1;
+        // int minNum = *min_element(nums.begin(), nums.end()); 
+        // int maxNum = *max_element(nums.begin(), nums.end());
+        // int bucketSize = max(1, (maxNum-minNum) / (int)(nums.size()-1));
+        // int bucketNum = (maxNum-minNum)/bucketSize+1;
 
-        vector<Bucket> buckets(bucketNum);
+        // vector<Bucket> buckets(bucketNum);
 
-        for(int num:nums) {
-            int idx = (num-minNum)/bucketSize;
-            buckets[idx].used = true;
-            buckets[idx].minval = min(num, buckets[idx].minval);
-            buckets[idx].maxval = max(num, buckets[idx].maxval);
+        // for(int num:nums) {
+        //     int idx = (num-minNum)/bucketSize;
+        //     buckets[idx].used = true;
+        //     buckets[idx].minval = min(num, buckets[idx].minval);
+        //     buckets[idx].maxval = max(num, buckets[idx].maxval);
+        // }
+
+        // int pre = minNum, ans = 0;
+        // for(auto bucket: buckets) {
+        //     if (!bucket.used)
+        //         continue;
+        //     ans = max(ans, bucket.minval-pre);
+        //     pre = bucket.maxval;
+        // }
+
+        // return ans;
+        
+        if (nums.size() <= 1) return 0;
+        
+        int mx = INT_MIN, mn = INT_MAX;
+        for (int num: nums) {
+            mx = max(mx, num);
+            mn = min(mn, num);
         }
-
-        int pre = minNum, ans = 0;
-        for(auto bucket: buckets) {
-            if (!bucket.used)
-                continue;
-            ans = max(ans, bucket.minval-pre);
-            pre = bucket.maxval;
+                
+        int size = (mx-mn)/nums.size() + 1, cnt = (mx-mn)/size + 1;
+        vector<int> bucket_min(cnt, INT_MAX), bucket_max(cnt, INT_MIN);
+        for (int num: nums) {
+            int idx = (num - mn) / size;
+            bucket_min[idx] = min(bucket_min[idx], num);
+            bucket_max[idx] = max(bucket_max[idx], num);
         }
-
+        
+        int ans = 0;
+        for (int i=1, pre=0; i < cnt; ++i) {
+            if (bucket_min[i] == INT_MAX || bucket_max[i] == INT_MIN) continue;
+            ans = max(ans, bucket_min[i] - bucket_max[pre]);
+            pre = i;
+        }
         return ans;
     }
 };
