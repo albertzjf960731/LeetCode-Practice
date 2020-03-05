@@ -49,7 +49,7 @@ public:
         vector<string> nums_str;
         for(int num:nums)
             nums_str.push_back(to_string(num));
-        sort(nums_str.begin(), nums_str.end(), [](string &s1, string &s2){
+        sort(nums_str.begin(), nums_str.end(), [](const string& s1, const string& s2){
             return s1+s2>s2+s1;});
 
         string ans;

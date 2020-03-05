@@ -70,7 +70,7 @@ public:
         if(intervals.empty())
             return 0;
         
-        sort(intervals.begin(), intervals.end(), [](auto& x1, auto& x2) {
+        sort(intervals.begin(), intervals.end(), [](auto x1, auto x2) {
             return x1[1] < x2[1];
         });
         
