@@ -46,13 +46,16 @@ public:
     }
     
     void DFS(int n, int k, int start, vector<int>& path, vector<vector<int>>& res) {
-        if (path.size() == k){
+        // if (path.size() == k){
+        if (k==0) {
             res.push_back(path);
             return;
         }
+        if (k > (n-start+1)) return; // pruning
+        // for(int i=start; i<=n-k-path.size()+1); i++)
         for (int i=start; i<=n; i++) {
             path.push_back(i);
-            DFS(n, k, i+1, path, res);
+            DFS(n, k-1, i+1, path, res);
             path.pop_back();
         }
     }

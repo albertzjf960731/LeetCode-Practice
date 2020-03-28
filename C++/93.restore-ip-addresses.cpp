@@ -45,7 +45,7 @@ public:
             return;
         }
     
-        if(s.size()-start > (4-step)*3) return;
+        if(s.size()-start > (4-step)*3) return; // pruning
         // if(s.size()-start < (4-step)) return;
 
         int num=0;

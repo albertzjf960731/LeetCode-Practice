@@ -55,12 +55,12 @@ using namespace std;
 class Solution {
 public:
     int hIndex(vector<int>& citations) {
-        // queue<int>  q;
+        // priority_queue<int>  pq;
         // for (int c: citations) {
-        //     if (c>q.size())
+        //     if (c>pq.size())
         //         q.push(c);
             
-        //     while(!q.empty() && q.front()<q.size())
+        //     while(!q.empty() && q.top()<q.size())
         //         q.pop();
         // }
         // return q.size();

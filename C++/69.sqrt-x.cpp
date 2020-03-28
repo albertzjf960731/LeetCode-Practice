@@ -51,27 +51,27 @@ public:
     // }
 
     int mySqrt(int x) {
-        // long left=1, right=x;
-        // while (left<=right) {
-        //     long mid = left + (right-left)/2;
-        //     long div = x / mid;
-
-        //     if(div==mid) 
-        //         return mid;
-        //     else if(mid<div) left = mid+1;
-        //     else right = mid-1;
-        // }
-        // return right;
-
         long left=1, right=x;
-        while (left<right) {
-            int mid = left + (right-left)/2 + 1;
+        while (left<=right) {
+            long mid = left + (right-left)/2;
+            long div = x / mid;
 
-            if(mid==x/mid) return mid;
-            else if(mid<x/mid) left = mid;
+            if(div==mid) 
+                return mid;
+            else if(mid<div) left = mid+1;
             else right = mid-1;
         }
         return right;
+
+        // long left=1, right=x;
+        // while (left<right) {
+        //     int mid = left + (right-left)/2 + 1;
+
+        //     if(mid==x/mid) return mid;
+        //     else if(mid<x/mid) left = mid;
+        //     else right = mid-1;
+        // }
+        // return right;
     }
 };
 // @lc code=end

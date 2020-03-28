@@ -44,6 +44,7 @@
  */
 
 #include<vector>
+#include<queue>
 using namespace std;
 
 // @lc code=start
@@ -74,6 +75,34 @@ public:
         DFS(grid, i, j+1);
     }
 
+    void BFS(vector<vector<int>> &grid, int x, int y) {
+        queue<pair<int, int>> q;
+        q.push({x, y});
+
+        grid[x][y] = '0';
+        while(!q.empty()) {
+            x = q.front().first, y = q.front().second;
+            q.pop();
+            
+            if(x > 0 && grid[x - 1][y] == '1') {
+                q.push({x-1, y});
+                grid[x-1][y] = '0';
+            }
+            if(x < grid.size()-1 && grid[x+1][y] == '1') {
+                q.push({x + 1, y});
+                grid[x+1][y] = '0';
+            }
+            if(y > 0 && grid[x][y - 1] == '1') {
+                q.push({x, y-1});
+                grid[x][y-1] = '0';
+            }
+            if(y < grid[0].size()-1 && grid[x][y+1] == '1') {
+                q.push({x, y+1});
+                grid[x][y+1] = '0';
+            }
+        }
+ 
+    }
 };
 // @lc code=end
 

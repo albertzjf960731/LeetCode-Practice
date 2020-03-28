@@ -38,6 +38,7 @@
  */
 #include<vector>
 #include<algorithm>
+#include<queue>
 using namespace std;
 
 // @lc code=start
@@ -52,6 +53,13 @@ public:
         //         ans++;
         // }
         // return ans;
+
+        priority_queue<int, vector<int>, greater<int>> pq;
+        
+        for (int num: citations) pq.push(num);
+        
+        while (pq.top()<pq.size()) pq.pop();
+        return pq.size();
 
         int size = citations.size();
         // int buckets[size] = {0};

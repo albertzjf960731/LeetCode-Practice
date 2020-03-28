@@ -21,17 +21,17 @@ using namespace std;
 class Solution {
 public:
     int lengthOfLongestSubstringKDistinct(string s, int k) {
-        int ans = 0, left = 0;
-        unordered_map<char, int> hash_map;
+        int ans = 0;
+        unordered_map<char, int> last_idx;
 
-        for (int i=0; i<s.size(); ++i) {
-            hash_map[s[i]] = i;
-            while (hash_map.size()>k) {
-                if (hash_map[s[left]]==left) 
-                    hash_map.erase(s[left]);
-                ++left;
+        for (int left=0, right=0; right<s.size(); ++right) {
+            last_idx[s[right]] = right;
+            while (last_idx.size() > k) {
+                if (last_idx[s[left]] == left)
+                    last_idx.erase(s[left]);
+                left ++;
             }
-            ans = max(ans, i-left+1);
+            ans = max(ans, right-left+1);
         }
         return ans;
     }

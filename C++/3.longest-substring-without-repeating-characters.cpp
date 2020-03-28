@@ -14,6 +14,7 @@ using namespace std;
 class Solution {
 public:
     int lengthOfLongestSubstring(string s) {
+        // 以right为边界的字串
         int ans = 0;
         unordered_map<char, int> last;
         for (int left=0, right=0; right<s.size(); right++) {

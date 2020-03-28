@@ -52,6 +52,17 @@ public:
         for (int i=0; i<nums.size(); i++) 
             ans = ans ^ i ^ nums[i];
         return ans;
+
+        for (int i=0; i<nums.size(); i++) {
+            while (nums[i]>=0 && nums[i]<nums.size() && nums[nums[i]] != nums[i]) 
+                swap(nums[nums[i]], nums[i]);
+        }
+        
+        for (int i=0; i<nums.size(); i++) {
+            if (nums[i] != i)
+                return i;
+        }
+        return nums.size();
     }
 };
 // @lc code=end

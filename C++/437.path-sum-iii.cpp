@@ -59,6 +59,7 @@ struct TreeNode {
 class Solution {
 public:
     // int pathSum(TreeNode* root, int sum) {
+    // 时间复杂度为O(N2)。递归栈的最大深度为logN，因此空间复杂度为O(logN)。
     //     if (root==NULL) return 0;
     //     return pathSumWithRoot(root, sum) + pathSum(root->left, sum) + pathSum(root->right, sum);
     // }

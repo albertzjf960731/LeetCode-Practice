@@ -80,22 +80,29 @@ public:
 
     int longestUnivaluePath(TreeNode* root) {
         int ans = 0;
-        longestUnivaluePathWithRoot(root, ans);
+        DFS(root, ans);
         return ans;
     }
 
     // 以该结 点为终点的最长路径长度
-    int longestUnivaluePathWithRoot(TreeNode* node, int & ans) {
+    int DFS(TreeNode* node, int& ans) {
         if (node==NULL) return 0;
+        if (node->left==NULL && node->right==NULL) return 0;
+        
+        int left_ans = DFS(node->left, ans);
+        int right_ans = DFS(node->right, ans);
+        
+        if (node->left!=NULL && node->left->val==node->val) 
+            left_ans ++;
+        else 
+            left_ans = 0;
+        if (node->right!=NULL && node->right->val==node->val)
+            right_ans ++;
+        else 
+            right_ans = 0;
 
-        int left_ans = longestUnivaluePathWithRoot(node->left, ans);
-        int right_ans = longestUnivaluePathWithRoot(node->right, ans);
-
-        int left_len = node->left!=NULL && node->left->val==node->val ? left_ans+1 : 0;
-        int right_len = node->right!=NULL && node->right->val==node->val ? right_ans+1 : 0;
-
-        ans = max(ans, left_len+right_len);
-        return max(left_len, right_len);
+        ans = max(ans, left_ans+right_ans);
+        return max(left_ans, right_ans);
     }
 };
 // @lc code=end
