@@ -76,39 +76,42 @@ using namespace std;
 class Solution {
 public:
     vector<int> findMinHeightTrees(int n, vector<vector<int>>& edges) {
-       
+        if (n==1) return {0};
+        
         vector<unordered_set<int>> adj(n);
         for (vector<int> e : edges) {
             adj[e[0]].insert(e[1]);
             adj[e[1]].insert(e[0]);
         }
 
-        vector<int> cur;
-        if (n==1) {
-            cur.push_back(0);
-            return cur;
+        queue<int> q;
+        for (int i=0; i<n; ++i) {
+            if (adj[i].size()==1) {
+                q.push(i);
+            }
+        }
+        while (n>2) {
+            int q_size = q.size();
+            n -= q_size;
+            while (q_size--) {
+                int node = q.front();
+                q.pop();
+                
+                for (int nei: adj[node]) {
+                    adj[nei].erase(node);
+                    if (adj[nei].size()==1) 
+                        q.push(nei);
+                }
+            }
+        }
+            
+        vector<int> res;
+        while (!q.empty()) {
+            res.push_back(q.front());
+            q.pop();
         }
 
-        for (int i=0; i<adj.size(); ++i) {
-            if (adj[i].size()==1) {
-                cur.push_back(i);
-            }
-        }
-        while (true) {
-            vector<int> next;
-            for (int node: cur) {
-                for (int neigh: adj[node]) {
-                    adj[neigh].erase(node);
-                    if (adj[neigh].size()==1) 
-                        next.push_back(neigh);
-                    }
-            }
-            if (next.empty()) 
-                return cur;
-            cur.clear();
-            swap(cur, next);
-            // cur = next;
-        }
+        return res;
     }
 };
 // @lc code=end

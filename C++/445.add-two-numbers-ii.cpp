@@ -54,21 +54,18 @@ public:
         for (; l1!=NULL; l1=l1->next) num1.push_back(l1->val);
         for (; l2!=NULL; l2=l2->next) num2.push_back(l2->val);
 
-        ListNode *cur=NULL;
-        int sum = 0;
-        while (!num1.empty() || !num2.empty() || sum) {
-            if (!num1.empty()) {
-                sum += num1.back();
-                num1.pop_back();
-            }
-            if (!num2.empty()) {
-                sum += num2.back();
-                num2.pop_back();
-            }
-            ListNode* tmp = new ListNode(sum%10);
-            tmp->next = cur;
-            cur = tmp;
-            sum /= 10;
+        ListNode *cur = nullptr;
+        int carry = 0;
+        int i = num1.size()-1, j = num2.size()-1;
+        while (i>=0 || j>=0 || carry) {
+            int sum = (i>=0 ? num1[i] : 0) + (j>=0 ? num2[j] : 0) + carry;
+            carry = sum / 10;
+            ListNode *node = new ListNode(sum % 10);
+            node->next = cur;
+            cur = node;
+            
+            i--;
+            j--;
         }
         return cur;
     }

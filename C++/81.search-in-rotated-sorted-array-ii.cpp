@@ -65,17 +65,34 @@ public:
         }
         int idx = left;
         
-        left=0, right=nums.size()-1;
+        // left=0, right=nums.size()-1;
+        // while (left <= right) {
+        //     int mid = left + (right-left)/2;
+        //     int mid_rotated = (mid+idx) % nums.size();
+
+        //     if (nums[mid_rotated] == target) 
+        //         return true;
+        //     else if (nums[mid_rotated]<target)
+        //         left = mid+1;
+        //     else 
+        //         right = mid-1;
+        // }
+        // return false;
+        // cout << idx << endl;
+        if (idx==0) {
+            left = 0, right = nums.size()-1;
+            while (left<right && nums[left]==nums[right]) left++;
+        }
+        else if (target >= nums[0]) 
+            left = 0, right = idx - 1;
+        else 
+            left = idx, right = nums.size()-1;
+        
         while (left <= right) {
             int mid = left + (right-left)/2;
-            int mid_rotated = (mid+idx) % nums.size();
-
-            if (nums[mid_rotated] == target) 
-                return true;
-            else if (nums[mid_rotated]<target)
-                left = mid+1;
-            else 
-                right = mid-1;
+            if (nums[mid] == target) return true;
+            else if (nums[mid] > target) right--;
+            else left ++;
         }
         return false;
     }

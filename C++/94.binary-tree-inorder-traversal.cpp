@@ -25,22 +25,22 @@ struct TreeNode {
 class Solution {
 public:
     vector<int> inorderTraversal(TreeNode* root) {
-        vector<TreeNode*> stack;
-        vector<int> res;
+        // vector<TreeNode*> stack;
+        // vector<int> res;
 
-        TreeNode *cur = root;
-        while (cur!=NULL || stack.size()>0) {
-            while (cur!=NULL) {
-                stack.push_back(cur);
-                cur = cur->left;
-            }
-            cur = stack.back();
-            stack.pop_back();
-            res.push_back(cur->val);
-            cur = cur->right;
-        }
+        // TreeNode *cur = root;
+        // while (cur!=NULL || stack.size()>0) {
+        //     while (cur!=NULL) {
+        //         stack.push_back(cur);
+        //         cur = cur->left;
+        //     }
+        //     cur = stack.back();
+        //     stack.pop_back();
+        //     res.push_back(cur->val);
+        //     cur = cur->right;
+        // }
 
-        return res;
+        // return res;
 
 
         vector<int> res;
@@ -102,13 +102,15 @@ void printTree(TreeNode *root) {
 }
 
 int main() {
-    vector<int> nums{1, 2, 3, -1, 4, -1, -1};
+    vector<int> nums{1,2,3,4,5,6,7};
+    // vector<int> nums{5, 6, 3, 4, -1, 2, 8, -1, 1};
+    // vector<int> nums{1, 2, 3, -1, 4, -1, -1};
     TreeNode* root = createTree(nums);
 
-    // Solution sol;
-    // vector<int> res = sol.inorderTraversal(root);
-    // for (int num: res) cout << num << " ";
-    // cout << endl;
+    Solution sol;
+    vector<int> res = sol.inorderTraversal(root);
+    for (int num: res) cout << num << " ";
+    cout << endl;
 
     printTree(root);
     cout << endl;

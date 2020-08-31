@@ -87,25 +87,39 @@ public:
 
     string getPermutation(int n, int k) {
 
-        int factorial = 1;
-        string res(n,'0');
-        for(int i=1; i<=n; i++){
-            factorial *= i;
-            res[i-1] += i; //"1234"
-        }
+        // int factorial = 1;
+        // string res(n,'0');
+        // for(int i=1; i<=n; i++){
+        //     factorial *= i;
+        //     res[i-1] += i; //"1234"
+        // }
 
-        k--;
-        for(int i=0; i<n; i++){
-            factorial /= (n-i);
-            // i 之后的数字从小到大排好序的
-            int j = i + k/factorial;  // calculate index of char to put at s[i]
-            k %= factorial;
+        // k--;
+        // for(int i=0; i<n; i++){
+        //     factorial /= (n-i);
+        //     // i 之后的数字从小到大排好序的
+        //     int j = i + k/factorial;  // calculate index of char to put at s[i]
+        //     k %= factorial;
             
-            // remove c by shifting to cover up (adjust the right part).
-            char num = res[j];
-            for(; j>i; j--)
-                res[j]=res[j-1];
-            res[i] = num;
+        //     // remove c by shifting to cover up (adjust the right part).
+        //     char num = res[j];
+        //     for(; j>i; j--)
+        //         res[j]=res[j-1];
+        //     res[i] = num;
+        // }
+        // return res;
+        string res;
+        string nums = "123456789";
+        vector<int> f(n, 1);
+        for (int i=1; i<n; ++i)
+            f[i] = f[i-1] * i;
+        
+        k -= 1;
+        for (int i=n; i>=1; --i) {
+            int j = k / f[i-1];
+            k %= f[i-1];
+            res.push_back(nums[j]);
+            nums.erase(j, 1);
         }
         return res;
     }

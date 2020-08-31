@@ -90,18 +90,19 @@ public:
 class Solution {
 public:
     Node* connect(Node* root) {
-        if (root==NULL) return root;
+        if (root==nullptr) return root;
         
-        Node *pre=root, *cur=NULL;
-        while (pre->left) {
-            cur = pre;
+        Node* cur = root;
+        while (cur->left) {
+            Node* tmp = cur->left;
             while (cur) {
                 cur->left->next = cur->right;
-                if (cur->next)
-                    cur ->right->next = cur->next->left;
+                if (cur->next) {
+                    cur->right->next = cur->next->left;
+                }
                 cur = cur->next;
             }
-            pre = pre->left;
+            cur = tmp;
         }
         return root;
     }

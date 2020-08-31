@@ -46,12 +46,22 @@ using namespace std;
 class Solution {
 public:
     int numSubarrayBoundedMax(vector<int>& nums, int L, int R) {
-        int ans=0;
-        int left=-1, right=-1;
-        for (int i=0; i<nums.size(); i++) {
-            if (nums[i]>R) left=i;
-            if (nums[i]>=L) right=i;
-            ans += right-left;
+        // int ans=0;
+        // int left=-1, right=-1;
+        // for (int i=0; i<nums.size(); i++) {
+        //     if (nums[i]>R) left=i;
+        //     if (nums[i]>=L) right=i;
+        //     ans += right-left;
+        // }
+        // return ans;
+
+        return helper(nums, R) - helper(nums, L-1);
+    }
+    int helper(vector<int>& nums, int bound) {
+        int cur = 0, ans = 0;
+        for (int num: nums) {
+            cur = (num <= bound) ? cur + 1 : 0;
+            ans += cur;
         }
         return ans;
     }

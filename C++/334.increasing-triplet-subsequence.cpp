@@ -50,19 +50,31 @@ using namespace std;
 class Solution {
 public:
     bool increasingTriplet(vector<int>& nums) {
-        int cur_min=INT_MAX, cur_mid=INT_MAX;
+        // int cur_min=INT_MAX, cur_mid=INT_MAX;
 
-        // 3, 1, 4, 5
-        // 2, 1, 5, 8, 7
-        // 8, 7, 1, 2, 3
-        // 3, 4 ,5 , 1
-        // 当前最小
-        for(int num : nums){
-            if(num<=cur_min)
-                cur_min = num;
-            else if(num <= cur_mid)
-                cur_mid = num;
-            else
+        // // 3, 1, 4, 5
+        // // 2, 1, 5, 8, 7
+        // // 8, 7, 1, 2, 3
+        // // 3, 4 ,5 , 1
+        // // 当前最小
+        // for(int num : nums){
+        //     if(num<=cur_min)
+        //         cur_min = num;
+        //     else if(num <= cur_mid)
+        //         cur_mid = num;
+        //     else
+        //         return true;
+        // }
+        // return false;
+
+        if (nums.size() < 3) return false;
+        vector<int> cur_min(nums.size(), nums[0]), cur_max(nums.size(), nums.back());
+        for (int i=1; i<nums.size(); ++i) 
+            cur_min[i] = min(cur_min[i-1], nums[i]);
+        for (int i=nums.size()-2; i>=0; --i) 
+            cur_max[i] = max(cur_max[i+1], nums[i]);
+        for (int i=0; i<nums.size(); ++i) {
+            if (nums[i]>cur_min[i] && nums[i]<cur_max[i]) 
                 return true;
         }
         return false;

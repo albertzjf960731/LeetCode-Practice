@@ -69,29 +69,57 @@ using namespace std;
 // @lc code=start
 class Solution {
 public:
-    int findCircleNum(vector<vector<int>>& matrix) {
-        int ans = 0;
-        if(matrix.empty()) return ans;
+    // int findCircleNum(vector<vector<int>>& matrix) {
+    //     int ans = 0;
+    //     if(matrix.empty()) return ans;
         
-        int n = matrix.size();
-        vector<bool> visited(n, false);
+    //     int n = matrix.size();
+    //     vector<bool> visited(n, false);
         
-        for (int i=0; i<n; i++) {
-            if (!visited[i]) {
-                DFS(matrix, visited, i);
-                ans ++;
+    //     for (int i=0; i<n; i++) {
+    //         if (!visited[i]) {
+    //             DFS(matrix, visited, i);
+    //             ans ++;
+    //         }
+    //     }
+    //     return ans;
+    // }
+    
+    // void DFS(vector<vector<int>>& matrix, vector<bool>& visited, int i) {
+    //     visited[i] = true;
+        
+    //     for (int j=0; j<matrix.size(); j++) {
+    //         if(matrix[i][j] && !visited[j])
+    //             DFS(matrix, visited, j);
+    //     }
+    // }
+    int findCircleNum(vector<vector<int>>& nums) {
+        int n = nums.size(), ans = n;
+        
+        vector<int> root(n, -1);
+        // for (int i=0; i<n; ++i) root[i] = i;
+        
+        for (int i=0; i<n; ++i) {
+            for (int j=i+1; j<n; ++j) {
+                if (nums[i][j] == 1) {
+                    int p1 = findRoot(root, i);
+                    int p2 = findRoot(root, j);
+                    if (p1 != p2) {
+                        ans --;
+                        root[p2] = p1;
+                    }
+                }
             }
         }
         return ans;
     }
     
-    void DFS(vector<vector<int>>& matrix, vector<bool>& visited, int i) {
-        visited[i] = true;
-        
-        for (int j=0; j<matrix.size(); j++) {
-            if(matrix[i][j] && !visited[j])
-                DFS(matrix, visited, j);
+    int findRoot(vector<int>& root, int i) {
+        while (-1 != root[i]) {
+            // root[i] = root[root[i]];
+            i = root[i];
         }
+        return i;
     }
 };
 // @lc code=end

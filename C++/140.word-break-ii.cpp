@@ -73,31 +73,32 @@ using namespace std;
 class Solution {
 public:
      vector<string> wordBreak(string str, vector<string>& wordDict) {
-        // unordered_set<string> dicts(wordDict.begin(), wordDict.end());
-
         unordered_map<string, vector<string>> cache;
-        return DFS(str, wordDict, cache);
+        unordered_set<string> word_set(wordDict.begin(), wordDict.end());
+        
+        return DFS(str, word_set, cache);
+    }
+    
+    vector<string> combine(string word, vector<string> prev){
+        for(int i=0;i<prev.size();++i){
+            prev[i]+=" "+word;
+        }
+        return prev;
     }
 
-    int startsWith(string s, string sub){
-        return s.find(sub)==0? 1: 0;
-    }
-
-    vector<string> DFS(string str, vector<string>& wordDict, unordered_map<string, vector<string>>& cache) {
+    vector<string> DFS(string str, unordered_set<string>& word_set, unordered_map<string, vector<string>>& cache) {
         if (cache.count(str))
             return cache[str];
-        if (str.empty())
-            return {};
         
         vector<string> res;
-        for (string word: wordDict) {
-            if (!startsWith(str, word)) 
-                continue;
-            if (word.size()==str.size())
-                res.push_back(word);
-            else {
-                vector<string> tails = DFS(str.substr(word.size()), wordDict, cache);
-
+        if (word_set.count(str)) {
+            res.push_back(str);
+        }
+        
+        for (int len=1; len<=str.size(); ++len) {
+            string word = str.substr(0, len);
+            if (word_set.count(word)) {
+                vector<string> tails = DFS(str.substr(word.size()), word_set, cache);
                 for(string tail: tails) {
                     tail = word + " " + tail;
                     res.push_back(tail);

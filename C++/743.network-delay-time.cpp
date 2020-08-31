@@ -74,7 +74,7 @@ public:
     // }
 
     int networkDelayTime(vector<vector<int>>& times, int N, int K) {
-        vector<pair<int, int>> adj[N+1];
+        vector<vector<pair<int, int>>> adj[N+1];
         for (vector<int> edge: times) {
             adj[edge[0]].push_back(make_pair(edge[1], edge[2]));
         }

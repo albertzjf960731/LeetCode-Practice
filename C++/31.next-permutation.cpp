@@ -12,7 +12,8 @@ class Solution {
 public:
     void nextPermutation(vector<int>& nums) {
         // next_permutation(nums.begin(), nums.end());
-
+        // 要想使得数字变大，只要任意一位变大就可以。
+        // 如果从右边找一个更大的数字交换过来，由于是从低位交换过来的，所以数字满足了会变大。
         int i = nums.size()-2;
         //找到第一个不再递增的位置
         while ((i>=0 && nums[i]>=nums[i+1]))
@@ -23,7 +24,7 @@ public:
         else {
             //找到刚好大于 nums[i]的位置
             int j = nums.size()-1;
-            while (j>=0 && nums[j]<=nums[i]) 
+            while (j>i && nums[j]<=nums[i]) 
                 j--;
             swap(nums[i], nums[j]);
             reverse(nums.begin()+i+1, nums.end());
