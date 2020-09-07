@@ -84,3 +84,29 @@ public:
 };
 // @lc code=end
 
+#include <iostream>
+using namespace std;
+#define LL long long
+LL a[40];
+int main(){
+    LL N,M,ans=0,gd;
+    scanf("%d%d",&N,&M);
+    for(int i=1;i<=M;i++) {
+        scanf("%d",&a[i-1]);
+    }
+    
+    for(int i=1; i<=(1<<M)-1; i++){
+        LL cnt=0;
+        for(int j=0;j<M;j++){
+            if(i & (1<<j)){
+                cnt++;
+                if(cnt==1) gd = a[j];
+                else gd = gd * a[j] / (__gcd(a[j], gd));
+            }
+        }
+        if(cnt & 1) ans += N / gd;
+        else ans -= N / gd;
+    }
+    printf("%d\n",ans);
+    return 0;
+}

@@ -116,6 +116,7 @@ public:
     
     int findRoot(vector<int>& root, int i) {
         while (-1 != root[i]) {
+        // while (i != root[i]) {
             // root[i] = root[root[i]];
             i = root[i];
         }

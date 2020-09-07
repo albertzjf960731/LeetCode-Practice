@@ -69,11 +69,11 @@ public:
         // return cur;
 
         int cur=0;
-        int prev1=0, prev2=0;
+        int prev_prev=0, prev=0;
         for (auto num: nums){
-            cur = max(prev1+num, cur);
-            prev1 = prev2;
-            prev2 = cur;
+            cur = max(prev_prev+num, cur);
+            prev_prev = prev;
+            prev = cur;
         }
         return cur;
 

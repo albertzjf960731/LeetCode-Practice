@@ -64,8 +64,8 @@ public:
     // }
     int countComponents(int n, vector<pair<int, int> >& edges) {
         int ans = n;
-        vector<int> root(n);
-        for (int i=0; i<n; ++i) root[i] = i;
+        vector<int> root(n, -1);
+        // for (int i=0; i<n; ++i) root[i] = i;
         for (auto edge: edges) {
             int p1 = findRoot(root, edge.first);
             int p2 = findRoot(root, edge.second);
@@ -77,7 +77,8 @@ public:
         return ans;
     }
     int findRoot(vector<int>& root, int i) {
-        while (root[i] != i) i = root[i];
+        // while (root[i] != i) i = root[i];
+        while (root[i] != -1) i = root[i];
         return i;
     }
 };

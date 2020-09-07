@@ -68,6 +68,8 @@ class Solution {
 public:
     int dieSimulator(int n, vector<int>& rollMax) {
         // dp[i][j] means the total number of combinations at round i we get a j at current round, considering the constraint.
+        // DP[i][j] = DP[i-k][j^C] + ... + DP[i-1][j^C]. 
+        // Upon noticing that DP[i][j^c] = sum[i] - DP[i][j]
 
         int mode = 1e9+7;
         

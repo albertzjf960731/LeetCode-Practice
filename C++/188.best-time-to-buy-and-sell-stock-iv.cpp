@@ -51,6 +51,9 @@ using namespace std;
 class Solution {
 public:
     int maxProfit(int k, vector<int>& prices) {
+
+        // https://leetcode.com/problems/best-time-to-buy-and-sell-stock-iii/discuss/135704/Detail-explanation-of-DP-solution
+        
         int n = prices.size();
         if (n<=1) return 0;
 
@@ -75,6 +78,14 @@ public:
                 cur_min = min(cur_min, prices[j]-dp[i-1][j-1]);
                 dp[i][j] = max(dp[i][j-1], prices[j]-cur_min);
             }
+    
+            for (int j=1; j<n; j++) {
+                int cur_min = prices[0];
+                for (int t=1; t<j; ++t)
+                    cur_min = min(cur_min, prices[t]-dp[i-1][t-1]);
+                dp[i][j] = max(dp[i][j-1], prices[j]-cur_min);
+            }
+
         }
         return dp[k][n-1];    
     }

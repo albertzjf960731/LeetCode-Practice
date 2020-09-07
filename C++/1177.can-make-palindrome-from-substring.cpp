@@ -67,6 +67,12 @@ using namespace std;
 class Solution {
 public:
     vector<bool> canMakePaliQueries(string s, vector<vector<int>>& queries) {
+
+        // 对于每次询问，统计区间内出现次数为奇数的字母的个数 tt。
+        // 如果 k≥t/2k≥t/2，则我们可以通过替换将其变成回文串。这是因为，出现次数为偶数的字母我们不需要担心；出现次数为奇数的字母，我们替换其中的一半（如果长度为奇数则替换一半的下取整）则可以将他们配对。
+        // 为了快速求出区间内每个字母出现的次数，我们通过前缀和数组 ch(i,j)ch(i,j)，记录前 ii 个字母中，字母 jj 出现的次数。
+        // 每次询问，求出区间 [l, r] 内的字母个数。
+
         vector<vector<int>> prefix(26, vector<int>(s.size()+1, 0));
         for(int i=0; i<s.size(); ++i){
             for(int j=0 ; j<26; ++j){
