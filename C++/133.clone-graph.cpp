@@ -130,15 +130,15 @@ private:
     unordered_map<Node*, Node*> copies;
 public:
     Node* cloneGraph(Node* node) {
-        if (node==NULL) return node;
+        // if (node==NULL) return node;
         
-        if (!copies.count(node)) {
-            copies[node] = new Node(node->val, {});
-            for (Node* neigh: node->neighbors) {
-                copies[node]->neighbors.push_back(cloneGraph(neigh));
-            }
-        }
-        return copies[node];
+        // if (!copies.count(node)) {
+        //     copies[node] = new Node(node->val, {});
+        //     for (Node* neigh: node->neighbors) {
+        //         copies[node]->neighbors.push_back(cloneGraph(neigh));
+        //     }
+        // }
+        // return copies[node];
 
     
       if (node==NULL) return node;

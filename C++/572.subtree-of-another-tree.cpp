@@ -79,13 +79,13 @@ public:
     bool isSubtree(TreeNode* s, TreeNode* t) {
         if (s==NULL && t==NULL) return true;
         if (s==NULL || t==NULL) return false;
-        return isSubtreeWithRoot(s, t) || isSubtree(s->left, t) || isSubtree(s->right, t);
+        return isSametree(s, t) || isSubtree(s->left, t) || isSubtree(s->right, t);
     }
-    bool isSubtreeWithRoot(TreeNode* s, TreeNode* t) {
+    bool isSametree(TreeNode* s, TreeNode* t) {
         if (s==NULL && t==NULL) return true;
         if (s==NULL || t==NULL) return false;
         if (s->val != t->val) return false;
-        return isSubtreeWithRoot(s->left, t->left) && isSubtreeWithRoot(s->right, t->right);
+        return isSametree(s->left, t->left) && isSametree(s->right, t->right);
     }
 };
 // @lc code=end

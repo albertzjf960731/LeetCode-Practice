@@ -72,23 +72,23 @@ public:
         }
         return dp[amount]==amount+1 ? -1: dp[amount];
 
-        // combination
-        // DFS 条件设置的合适，更快
-        sort(coins.begin(), coins.end(), greater<int>());
-        int ans = INT_MAX;
-        DFS(coins, 0, amount, 0, ans);
-        return ans==INT_MAX ? -1 : ans;
-    }
-    void DFS(vector<int>& coins, int start, int target, int cnt, int& ans) {
-        if (cnt>=ans) return;
-        if (target==0 && cnt<ans) {
-            ans = cnt;
-            return;
-        }
-        for (int i=start; i<coins.size(); i++) {
-            if (target>=coins[i] && target/coins[i]<(ans-cnt))
-                DFS(coins, i, target-coins[i], cnt+1, ans); 
-        }
+    //     // combination
+    //     // DFS 条件设置的合适，更快
+    //     sort(coins.begin(), coins.end(), greater<int>());
+    //     int ans = INT_MAX;
+    //     DFS(coins, 0, amount, 0, ans);
+    //     return ans==INT_MAX ? -1 : ans;
+    // }
+    // void DFS(vector<int>& coins, int start, int target, int cnt, int& ans) {
+    //     if (cnt>=ans) return;
+    //     if (target==0 && cnt<ans) {
+    //         ans = cnt;
+    //         return;
+    //     }
+    //     for (int i=start; i<coins.size(); i++) {
+    //         if (target>=coins[i] && target/coins[i]<(ans-cnt))
+    //             DFS(coins, i, target-coins[i], cnt+1, ans); 
+    //     }
     }
 };
 // @lc code=end

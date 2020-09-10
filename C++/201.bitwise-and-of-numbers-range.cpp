@@ -39,18 +39,18 @@ public:
         }
         return n;
 
-        unsigned int mask = 0xFFFFFFFF;
-        while ((m&mask) != (n&mask))
-            mask <<= 1;
-        return m & mask;
+        // unsigned int mask = 0xFFFFFFFF;
+        // while ((m&mask) != (n&mask))
+        //     mask <<= 1;
+        // return m & mask;
 
-        int zeros = 0;
-        while(m != n) {
-            zeros ++;
-            m >>= 1;
-            n >>= 1;
-        }
-        return m << zeros;
+        // int zeros = 0;
+        // while(m != n) {
+        //     zeros ++;
+        //     m >>= 1;
+        //     n >>= 1;
+        // }
+        // return m << zeros;
     }
 };
 // @lc code=end

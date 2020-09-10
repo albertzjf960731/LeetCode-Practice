@@ -84,6 +84,32 @@ public:
         }
         return dp[size1][size2];
     }
+
+    // string getLCS(string text1, string text2, vector<vector<int>>& dp, 
+    //                 int i, int j, string& path, vector<string>& res) {
+
+    //     while(i>0 && j>0) {
+    //         if(text1[i] == text2[j]) {
+    //             path.push_back(text1[i]);
+    //             i--;
+    //             j--;
+    //         }
+    //         else {
+    //             if(dp[i-1][j] > dp[i][j-1])
+    //                 i--;
+    //             else if (dp[i-1][j] < dp[i][j-1])
+    //                 j--;
+    //             else {
+    //                 getLCS(text1, text2, dp, i-1, j, path);
+    //                 getLCS(text1, text2, dp, i, j-1, path);
+    //                 return;
+    //             }
+    //         }
+    //     }
+    //     reverse(path.begin(), path.end());
+    //     res.push_back(path);
+    // }
+
 };
 // @lc code=end
 

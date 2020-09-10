@@ -5,6 +5,7 @@
  */
 
 #include <string>
+#include<vector>
 
 using namespace std; 
 
@@ -34,7 +35,26 @@ public:
         //     }
         // }
         // return s.substr(max_s, max_l);
+        if (s.empty()) return "";
         
+        int n=s.size();
+        vector<vector<bool>> dp(n, vector<bool>(n, false));
+        for (int i=0; i<n; ++i) dp[i][i] = true;
+        
+        int left = 0, len = 1;
+        for (int i=0; i<n; ++i) {
+            for (int j=0; j<i; ++j) {
+                dp[j][i] = (s[i]==s[j] && (i-j<2 || dp[j+1][i-1]));
+                
+                if (dp[j][i] && len<i-j+1) {
+                    len = i-j+1;
+                    left = j;
+                }
+            }
+        }
+        return s.substr(left, len);
+
+
         int start = 0, max_len = 0;
         for (int i=0; i<s.size(); ++i) {
             helper(s, i, i, start, max_len);

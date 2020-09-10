@@ -68,22 +68,22 @@ class Solution {
 public:
     // Bellman Ford
     int findCheapestPrice(int n, vector<vector<int>>& flights, int src, int dst, int K) {
-        vector<int> dists(n, 1e8);
+        vector<int> dists(n, INT_MAX);
         dists[src] = 0;
 
         vector<int> temp;
         for (int i=0; i<=K; i++) {
-            temp = dists;
+            temp = dists; // 只能用上一条信息
             for (vector<int> edge: flights) {
-                int s=edge[0], e=edge[1], w=edge[2];
-                if(dists[s]!=INT_MAX & temp[e]>dists[s]+w) {
-                    temp[e] = dists[s] + w;
+                int s=edge[0], d=edge[1], w=edge[2];
+                if(dists[s]!=INT_MAX & temp[d]-w>dists[s]) {
+                    temp[d] = dists[s] + w;
                 }
             }
             dists = temp;
         }
         int ans = dists[dst];
-        return ans==1e8? -1: ans;
+        return ans==INT_MAX? -1: ans;
 
 
         vector<vector<pair<int,int>>> adj(n, vector<pair<int,int>>());
@@ -114,36 +114,7 @@ public:
             if(stops==K+2) break;
         }  
         return ans == INT_MAX ? - 1 : ans;
-    }
-};
-
-class Solution {
-typedef tuple<int,int,int> ti;
-
-public:
-    // Bellman Ford
-    int findCheapestPrice(int n, vector<vector<int>>& flights, int src, int dst, int K) {
-        vector<vector<pair<int,int>>> adj(n);
-        for(auto f: flights)   
-            adj[f[0]].push_back({f[1], f[2]});
-        
-        priority_queue<ti, vector<ti>, greater<ti>> pq;
-        pq.push({0, src, K+1});
-        
-        while(!pq.empty()){
-            auto [cost, u, stops] = pq.top();
-            pq.pop();
-            
-            if(u==dst)  return cost;
-            if(stops==0)  break;
-            for(auto to: adj[u]){
-                auto [v, w] = to;
-                pq.push({cost+w, v, stops-1});
-            }
-        }
-        return -1;
-    }
-        
+    }   
 };
 // @lc code=end
 

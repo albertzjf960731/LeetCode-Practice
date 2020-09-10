@@ -57,40 +57,40 @@ public:
         // P - N = target;
         // P + N = sum;
         // P = (target + sum) / 2;
-        // int sum = 0;
-        // for (int num: nums)  sum += num;
-
-        // if (sum<target || (sum+target)%2==1) 
-        //     return 0;
-        
-        // target = (sum+target) / 2;
-        // vector<int> dp(target+1, 0);
-        // dp[0] = 1;
-        // for (int num: nums) {
-        //     for (int i=target; i>=num; i--) {
-        //         dp[i] += dp[i-num];
-        //     }
-        // }
-        // return dp[target];
-
         int sum = 0;
         for (int num: nums)  sum += num;
 
         if (sum<target || (sum+target)%2==1) 
             return 0;
+        
         target = (sum+target) / 2;
-
-        int ans = 0;
-        DFS(nums, 0, target, ans);
-        return ans;
-    }
-    void DFS(vector<int>& nums, int start, int target, int& ans) {
-        if (target==0) 
-            ans ++;
-        for (int i=start; i<nums.size(); i++) {
-            if (target>=nums[i]) 
-                DFS(nums, i+1, target-nums[i], ans);
+        vector<int> dp(target+1, 0);
+        dp[0] = 1;
+        for (int num: nums) {
+            for (int i=target; i>=num; i--) {
+                dp[i] += dp[i-num];
+            }
         }
+        return dp[target];
+
+    //     int sum = 0;
+    //     for (int num: nums)  sum += num;
+
+    //     if (sum<target || (sum+target)%2==1) 
+    //         return 0;
+    //     target = (sum+target) / 2;
+
+    //     int ans = 0;
+    //     DFS(nums, 0, target, ans);
+    //     return ans;
+    // }
+    // void DFS(vector<int>& nums, int start, int target, int& ans) {
+    //     if (target==0) 
+    //         ans ++;
+    //     for (int i=start; i<nums.size(); i++) {
+    //         if (target>=nums[i]) 
+    //             DFS(nums, i+1, target-nums[i], ans);
+    //     }
     }
 };
 // @lc code=end

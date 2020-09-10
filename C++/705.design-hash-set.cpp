@@ -80,64 +80,64 @@ using namespace std;
 // };
 
 
-// class MyHashSet {
-// private:
-//     vector<vector<int>> data;
-    
-// public:
-//     /** Initialize your data structure here. */
-//     MyHashSet() {
-//         data.resize(1000, vector<int>());   
-//     }
-    
-//     void add(int key) {
-//         int hash_key = key % 1000;
-//         if (data[hash_key].empty())
-//             data[hash_key].resize(1000);
-//         data[hash_key][key/1000] = 1;
-//     }
-    
-//     void remove(int key) {
-//         int hash_key = key % 1000;
-//         if (!data[hash_key].empty())
-//             data[hash_key][key/1000] = 0;
-//     }
-    
-//     /** Returns true if this set contains the specified element */
-//     bool contains(int key) {
-//         int hash_key = key % 1000;
-//         return !data[hash_key].empty() && data[hash_key][key/1000];
-//     }
-// };
-
 class MyHashSet {
 private:
-    vector<list<int>> data;
+    vector<vector<int>> data;
     
 public:
     /** Initialize your data structure here. */
     MyHashSet() {
-        data.resize(1000, list<int>());   
+        data.resize(1000, vector<int>());   
     }
     
     void add(int key) {
-        int hash_key = key % 769;
-        data[hash_key].push_back(key);
+        int hash_key = key % 1000;
+        if (data[hash_key].empty())
+            data[hash_key].resize(1000);
+        data[hash_key][key/1000] = 1;
     }
     
     void remove(int key) {
-        int hash_key = key % 769;
-        data[hash_key].remove(key);
+        int hash_key = key % 1000;
+        if (!data[hash_key].empty())
+            data[hash_key][key/1000] = 0;
     }
     
     /** Returns true if this set contains the specified element */
     bool contains(int key) {
-        int hash_key = key % 769;
-        for (auto it: data[hash_key])
-            if (it == key) return true;
-        return false;
+        int hash_key = key % 1000;
+        return !data[hash_key].empty() && data[hash_key][key/1000];
     }
 };
+
+// class MyHashSet {
+// private:
+//     vector<list<int>> data;
+    
+// public:
+//     /** Initialize your data structure here. */
+//     MyHashSet() {
+//         data.resize(1000, list<int>());   
+//     }
+    
+//     void add(int key) {
+//         int hash_key = key % 769;
+//         data[hash_key].push_back(key);
+//     }
+    
+//     void remove(int key) {
+//         int hash_key = key % 769;
+//         data[hash_key].remove(key);
+//     }
+    
+//     /** Returns true if this set contains the specified element */
+//     bool contains(int key) {
+//         int hash_key = key % 769;
+//         for (auto it: data[hash_key])
+//             if (it == key) return true;
+//         return false;
+//     }
+// };
 
 /**
  * Your MyHashSet object will be instantiated and called as such:

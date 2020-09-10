@@ -60,50 +60,50 @@ using namespace std;
 class Solution {
 public:
     bool canPartition(vector<int>& nums) {
-        //  int target = accumulate(nums.begin(), nums.end(), 0);
+         int target = accumulate(nums.begin(), nums.end(), 0);
 
-        // if (target%2==1) return false;
-        // target /= 2;
+        if (target%2==1) return false;
+        target /= 2;
 
-        // vector<bool> dp(target+1, false);
-        // dp[0] = true;
+        vector<bool> dp(target+1, false);
+        dp[0] = true;
 
-        // for (int i=0; i<nums.size(); i++) {
-        //     // [1, 2, 5]
-        //     // for (int j=nums[i]; j<=target; j++) {
-        //     for (int j=target; j>=nums[i]; j--) {
-        //         // 当前新nums[i], 初始状态没有放入
-        //         dp[j] = dp[j] || dp[j-nums[i]];
-        //     }
-        // }
-        // return dp.back();
-
-        bitset<5001> bits(1);
-        int sum = accumulate(nums.begin(), nums.end(), 0);
-        for (int num : nums) 
-            bits |= (bits << num);
-        
-        return !(sum & 1) && bits[sum>>1];
-        
-        int sum = accumulate(nums.begin(), nums.end(), 0);
-        if (sum%2 == 1) 
-            return false;
-        
-        sum /= 2;
-        if(*max_element(nums.begin(), nums.end()) > sum) return false;
-        sort(nums.begin(), nums.end(), greater<int>());
-        return DFS(nums, 0, sum);
-    }
-
-    bool DFS(vector<int>& nums, int start, int target) {
-        if (target==0) 
-            return true;
-        for (int i=start; i<nums.size(); i++) {
-            if (target>=nums[i])
-                if(DFS(nums, i+1, target-nums[i]))
-                    return true;
+        for (int i=0; i<nums.size(); i++) {
+            // [1, 2, 5]
+            // for (int j=nums[i]; j<=target; j++) {
+            for (int j=target; j>=nums[i]; j--) {
+                // 当前新nums[i], 初始状态没有放入
+                dp[j] = dp[j] || dp[j-nums[i]];
+            }
         }
-        return false;
+        return dp.back();
+
+    //     bitset<5001> bits(1);
+    //     int sum = accumulate(nums.begin(), nums.end(), 0);
+    //     for (int num : nums) 
+    //         bits |= (bits << num);
+        
+    //     return !(sum & 1) && bits[sum>>1];
+        
+    //     int sum = accumulate(nums.begin(), nums.end(), 0);
+    //     if (sum%2 == 1) 
+    //         return false;
+        
+    //     sum /= 2;
+    //     if(*max_element(nums.begin(), nums.end()) > sum) return false;
+    //     sort(nums.begin(), nums.end(), greater<int>());
+    //     return DFS(nums, 0, sum);
+    // }
+
+    // bool DFS(vector<int>& nums, int start, int target) {
+    //     if (target==0) 
+    //         return true;
+    //     for (int i=start; i<nums.size(); i++) {
+    //         if (target>=nums[i])
+    //             if(DFS(nums, i+1, target-nums[i]))
+    //                 return true;
+    //     }
+    //     return false;
     }
 };
 // @lc code=end

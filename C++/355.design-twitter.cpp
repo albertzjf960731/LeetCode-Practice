@@ -70,8 +70,8 @@ using namespace std;
 class Twitter {
 private:
     int time;
-    unordered_map<int, unordered_set<int>> friends;
-    unordered_map<int, vector<pair<int, int>>> tweets;
+    unordered_map<int, unordered_set<int>> friend_map;
+    unordered_map<int, vector<pair<int, int>>> tweet_map;
     
 public:
     /** Initialize your data structure here. */
@@ -82,23 +82,25 @@ public:
     /** Compose a new tweet. */
     void postTweet(int userId, int tweetId) {
         follow(userId, userId);
-        tweets[userId].push_back({time++, tweetId});
+        tweet_map[userId].push_back({time++, tweetId});
     }
     
     /** Retrieve the 10 most recent tweet ids in the user's news feed. Each item in the news feed must be posted by users who the user followed or by the user herself. Tweets must be ordered from most recent to least recent. */
     vector<int> getNewsFeed(int userId) {
-        vector<int> res;
-        priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> pq;
-        for (int uid: friends[userId]) {
-            for (auto t_pair: tweets[uid]) {
-                if (pq.size()>0 && pq.top().first > t_pair.first && pq.size()>10)
-                    break;
+        priority_queue<pair<int, int>, 
+                       vector<pair<int, int>>, 
+                       greater<pair<int, int>>> pq;
+        for (int user: friend_map[userId]) {
+            for (auto tweet: tweet_map[user]) {
+//                 if (pq.size()>10 && pq.top().first>tweet.first)
+//                     break;
                     
-                pq.push(t_pair);
+                pq.push(tweet);
                 if(pq.size()>10) pq.pop();
             }
         }
         
+        vector<int> res;
         while (!pq.empty()) {
             res.push_back(pq.top().second);
             pq.pop();
@@ -109,17 +111,15 @@ public:
     
     /** Follower follows a followee. If the operation is invalid, it should be a no-op. */
     void follow(int followerId, int followeeId) {
-        friends[followerId].insert(followeeId);
+        friend_map[followerId].insert(followeeId);
     }
     
     /** Follower unfollows a followee. If the operation is invalid, it should be a no-op. */
     void unfollow(int followerId, int followeeId) {
         if (followerId != followeeId) 
-            friends[followerId].erase(followeeId);
+            friend_map[followerId].erase(followeeId);
     }
 };
-
-
 /**
  * Your Twitter object will be instantiated and called as such:
  * Twitter* obj = new Twitter();

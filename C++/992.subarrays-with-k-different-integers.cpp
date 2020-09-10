@@ -52,6 +52,7 @@
  * 
  */
 #include<vector>
+#include<unordered_map>
 using namespace std;
 
 // @lc code=start
@@ -60,7 +61,7 @@ public:
     int subarraysWithKDistinct(vector<int>& nums, int k) {
         int ans = 0;
         
-		vector<int> hash(nums.size()+1, 0);
+		unordered_map<int, int> hash;
         for(int left=0, right=0, cnt=0, last=0; right<nums.size(); right++) {
             if(hash[nums[right]]==0)
                 cnt++;

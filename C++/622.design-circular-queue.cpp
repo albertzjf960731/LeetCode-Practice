@@ -90,6 +90,7 @@ public:
     bool enQueue(int value) {
         if (isFull()) return false;
         
+        // append to tail
         tail = (tail+1) % size;
         data[tail] = value;
         ++cnt;
@@ -100,6 +101,7 @@ public:
     bool deQueue() {
         if (isEmpty()) return false;
         
+        // output from head
         head = (head+1) % size;
         --cnt;
         return true;

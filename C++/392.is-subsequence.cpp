@@ -63,16 +63,16 @@ public:
         }
         return i==s.size();
 
-        unordered_map<char, vector<int>> char2pos;
-        for (int i=0; i<t.size(); ++i) char2pos[t[i]].push_back(i);
+        // unordered_map<char, vector<int>> char2pos;
+        // for (int i=0; i<t.size(); ++i) char2pos[t[i]].push_back(i);
         
-        int pre = -1;
-        for (char ch: s) {
-            auto it = upper_bound(char2pos[ch].begin(), char2pos[ch].end(), pre);
-            if (it == char2pos[ch].end()) return false;
-            pre = *it;
-        }
-        return true;
+        // int pre = -1;
+        // for (char ch: s) {
+        //     auto it = upper_bound(char2pos[ch].begin(), char2pos[ch].end(), pre);
+        //     if (it == char2pos[ch].end()) return false;
+        //     pre = *it;
+        // }
+        // return true;
     }
 };
 // @lc code=end

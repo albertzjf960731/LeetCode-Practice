@@ -40,6 +40,9 @@ using namespace std;
 class Solution {
 public:
     int majorityElement(vector<int>& nums) {
+        sort(nums.begin(), nums.end());
+        return nums[nums.size()/2];
+
         int ans, cnt=0;
         for (int num: nums) {
             if (cnt==0)
