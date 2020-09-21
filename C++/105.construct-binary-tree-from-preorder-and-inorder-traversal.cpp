@@ -50,6 +50,9 @@ struct TreeNode {
 };
 // @lc code=start
 class Solution {
+private:
+    int pre_idx = 0;
+    
 public:
     TreeNode* buildTree(vector<int>& preorder, vector<int>& inorder) {
         unordered_map<int, int> inorder_idx;
@@ -60,8 +63,8 @@ public:
     TreeNode* DFS(vector<int>& preorder, vector<int>& inorder, unordered_map<int, int>& inorder_idx, int left, int right) {
         if (left>right) return NULL;
         
-        TreeNode* root = new TreeNode(preorder[0]);
-        preorder.erase(preorder.begin());
+        TreeNode* root = new TreeNode(preorder[pre_idx++]);
+        // preorder.erase(preorder.begin());
         
         int idx = inorder_idx[root->val];
         root->left = DFS(preorder, inorder, inorder_idx, left, idx-1);

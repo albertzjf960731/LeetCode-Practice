@@ -62,6 +62,7 @@ public:
     //         DFS(adj, visited, adj[i][j]);
     //     }
     // }
+
     int countComponents(int n, vector<pair<int, int> >& edges) {
         int ans = n;
         vector<int> root(n, -1);
@@ -81,6 +82,7 @@ public:
         while (root[i] != -1) i = root[i];
         return i;
     }
+
 };
 // @lc code=end
 

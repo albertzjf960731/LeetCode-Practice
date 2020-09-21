@@ -90,6 +90,35 @@ public:
         else 
             return max_pq.top();
     }
+
+// private:
+//     multiset<int> ans;
+//     multiset<int>::iterator it;
+    
+// public:
+//     /** initialize your data structure here. */
+//     MedianFinder() {
+        
+//     }
+    
+//     void addNum(int num) {
+//         if (ans.size() == 0) {
+//             it = ans.insert(num);
+//             return;
+//         }
+        
+//         ans.insert(num);
+//         if (ans.size()%2!=0 && num<*it) --it;
+//         else if (ans.size()%2==0 && num>=*it) ++it;
+        
+//     }
+    
+//     double findMedian() {
+//         if (ans.size()%2 != 0) 
+//             return *it;
+//         else 
+//             return (double) (*it+*prev(it))/2;
+//     }
 };
 
 /**

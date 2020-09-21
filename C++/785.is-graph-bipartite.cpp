@@ -3,6 +3,9 @@
  *
  * [785] Is Graph Bipartite?
  */
+#include<vector>
+#include<queue>
+using namespace std;
 
 // @lc code=start
 class Solution {

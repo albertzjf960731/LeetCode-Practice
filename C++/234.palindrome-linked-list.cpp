@@ -87,6 +87,15 @@ public:
         }
         return pre;
     }
+
+    void traverse(ListNode* head, vector<int>& nums) {
+        if (!head) return ;
+
+        nums.push_back(head->val);
+        traverse(head->next, nums);
+        // nums.push_back(head->val);
+
+    }
 };
 // @lc code=end
 

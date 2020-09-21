@@ -66,6 +66,15 @@ public:
                 }
             }
         }
+
+        // for (vector<int> edge: times) {
+        //     int s=edge[0], e=edge[1], w=edge[2]; 
+        //     // 松弛完后还能再松弛即代表有负环
+        //     if (dists[s]!=INT_MAX && dists[e]>dists[s]+w) 
+        //         return true;
+        // }
+        // return false;
+
         
         int ans = 0;
         for (int i=1; i<=N; i++) {

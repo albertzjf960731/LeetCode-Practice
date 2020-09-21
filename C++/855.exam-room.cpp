@@ -60,49 +60,89 @@
  * 
  */
 #include<vector>
+#include<set>
 using namespace std;
 
 // @lc code=start
+// class ExamRoom {
+// private:
+//     int N; 
+//     vector<int> seats;
+
+// public:
+//     ExamRoom(int n) {
+//         N = n;
+//     }
+    
+//     int seat() {
+//         if (seats.size() == 0) {
+//             seats.push_back(0);
+//             return 0;
+//         }
+
+//         int dist = max(seats[0], N-1-seats.back());
+//         for (int i = 0; i < seats.size()-1; ++i) 
+//             dist = max(dist, (seats[i+1]-seats[i])/2);
+
+//         if (seats[0] == dist) {
+//             seats.insert(seats.begin(), 0);
+//             return 0;
+//         }
+//         for (int i = 0; i < seats.size()-1; ++i)
+//             if ((seats[i+1]-seats[i])/2 == dist) {
+//                 seats.insert(seats.begin()+i+1, seats[i]+dist);
+//                 return seats[i+1];
+//             }
+//         seats.push_back(N-1);
+//         return N-1;
+//     }
+    
+//     void leave(int p) {
+//         for (int i = 0; i < seats.size(); ++i) 
+//             if (seats[i] == p) 
+//                 seats.erase(seats.begin()+i);
+//     }
+// };
 class ExamRoom {
 private:
-    int N; 
-    vector<int> seats;
-
+    int n;
+    set<int> seats;
+    
 public:
-    ExamRoom(int n) {
-        N = n;
+    ExamRoom(int N) {
+        n = N;
     }
     
     int seat() {
-        if (seats.size() == 0) {
-            seats.push_back(0);
-            return 0;
-        }
-
-        int dist = max(seats[0], N-1-seats.back());
-        for (int i = 0; i < seats.size()-1; ++i) 
-            dist = max(dist, (seats[i+1]-seats[i])/2);
-
-        if (seats[0] == dist) {
-            seats.insert(seats.begin(), 0);
-            return 0;
-        }
-        for (int i = 0; i < seats.size()-1; ++i)
-            if ((seats[i+1]-seats[i])/2 == dist) {
-                seats.insert(seats.begin()+i+1, seats[i]+dist);
-                return seats[i+1];
+        int last=0, dist=0, idx=0;
+        for (int num: seats) {
+            if (last==0) {
+                if (dist<num-last) {
+                    dist = num-last;
+                    idx=0;
+                }
+            } 
+            else {
+                if (dist < (num-last+1)/2) {
+                    dist = (num-last+1)/2;
+                    idx = last + dist - 1;
+                }
             }
-        seats.push_back(N-1);
-        return N-1;
+            last = num + 1;
+        }
+        
+        if (last>0 && dist<n-last) {
+            dist = n-last;
+            idx = n-1;
+        }
+        seats.insert(idx);
+        return idx;
     }
     
     void leave(int p) {
-        for (int i = 0; i < seats.size(); ++i) 
-            if (seats[i] == p) 
-                seats.erase(seats.begin()+i);
+        seats.erase(p);
     }
 };
-
 /**
  * Your ExamRoom object will be instantiated and called as such:
  * ExamRoom* obj = new ExamRoom(N);

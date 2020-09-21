@@ -42,35 +42,35 @@ using namespace std;
 // @lc code=start
 class Solution {
 public:
-    // int lengthOfLIS(vector<int>& nums) {
-    //     int nums_size = nums.size();
-    //     if (nums_size==0) return 0;
-
-    //     vector<int> dp(nums_size, 1);
-
-    //     for(int i=1; i<nums_size; ++i) {
-    //         for(int j=0; j<i; --j) {
-    //             if(nums[i]>nums[j]) 
-    //                 dp[i] = max(dp[i], dp[j]+1);
-    //         }
-    //     }
-    //     return *max_element(dp.begin(), dp.end());
-    // }
-
-    // 递增序列，当前最小
-    // 4, 2, 4, 5, 3, 7 => 2, 3, 5, 7
     int lengthOfLIS(vector<int>& nums) {
-        vector<int> res;
+        int nums_size = nums.size();
+        if (nums_size==0) return 0;
 
-        for(int i=0; i<nums.size(); ++i) {
-            auto it = lower_bound(res.begin(), res.end(), nums[i]);
-            if(it==res.end())
-                res.push_back(nums[i]);
-            else 
-                *it = nums[i];
+        vector<int> dp(nums_size, 1);
+
+        for(int i=1; i<nums_size; ++i) {
+            for(int j=0; j<i; --j) {
+                if(nums[i]>nums[j]) 
+                    dp[i] = max(dp[i], dp[j]+1);
+            }
         }
-        return res.size();
+        return *max_element(dp.begin(), dp.end());
     }
+
+    // // 递增序列，当前最小
+    // // 4, 2, 4, 5, 3, 7 => 2, 3, 5, 7
+    // int lengthOfLIS(vector<int>& nums) {
+    //     vector<int> res;
+
+    //     for(int i=0; i<nums.size(); ++i) {
+    //         auto it = lower_bound(res.begin(), res.end(), nums[i]);
+    //         if(it==res.end())
+    //             res.push_back(nums[i]);
+    //         else 
+    //             *it = nums[i];
+    //     }
+    //     return res.size();
+    // }
 
 };
 // @lc code=end

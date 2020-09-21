@@ -37,6 +37,19 @@ public:
             cur = pre;
         }
         return dummy.next;
+
+
+        if (!head || !head->next) return head;
+        
+        ListNode dummy(0);
+        dummy.next = head->next;
+        
+        head->next = head->next->next;
+        dummy.next->next = head;
+
+        head->next = swapPairs(head->next);
+        
+        return dummy.next;
     }
 };
 // @lc code=end

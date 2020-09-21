@@ -88,6 +88,31 @@ public:
         else cur->next = l2;
         return dummy.next;
     }
+
+    // ListNode* sortList(ListNode* head, ListNode* tail=NULL) {
+    //     if (head != tail) {
+    //         ListNode* idx = partition(head, tail);
+    //         sortList(head, idx);
+    //         sortList(idx->next, tail);
+    //     }
+    //     return head;
+    // }
+    
+    // ListNode* partition(ListNode* head, ListNode* tail) {
+    //     int val = head->val;
+          
+    //     ListNode* slow = head;
+    //     ListNode* fast = head->next;
+    //     while (fast != tail) {
+    //         if (fast->val < val) {
+    //             slow = slow->next;
+    //             swap(slow->val, fast->val);
+    //         }
+    //         fast = fast->next;
+    //     }
+    //     swap(slow->val, head->val);
+    //     return slow;
+    // }
 };
 // @lc code=end
 

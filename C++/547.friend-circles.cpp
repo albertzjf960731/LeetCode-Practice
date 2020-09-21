@@ -117,7 +117,7 @@ public:
     int findRoot(vector<int>& root, int i) {
         while (-1 != root[i]) {
         // while (i != root[i]) {
-            // root[i] = root[root[i]];
+            // root[i] = root[root[i]]; // 路径压缩
             i = root[i];
         }
         return i;

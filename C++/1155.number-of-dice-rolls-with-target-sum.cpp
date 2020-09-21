@@ -81,22 +81,41 @@ using namespace std;
 class Solution {
 public:
     int numRollsToTarget(int d, int f, int target) {
-        // dp[i][k]=sum(dp[i−1][k-j] for 0<j<f)
+        // // dp[i][k]=sum(dp[i−1][k-j] for 0<j<f)
 
-        int mode = 1e9+7;
-        vector<int> dp(target+1, 0);
-        dp[0] = 1;
+        // int mode = 1e9+7;
+        // vector<int> dp(target+1, 0);
+        // dp[0] = 1;
         
-        for (int i=1; i<=d; ++i) {
+        // for (int i=1; i<=d; ++i) {
             
-            vector<int> tmp(target + 1);
-            for (int j=1; j<=f; ++j)
-                  for (int k=target; k>=j; k--)
-                        tmp[k] = (tmp[k] + dp[k-j]) % mode;
+        //     vector<int> tmp(target + 1);
+        //     for (int j=1; j<=f; ++j)
+        //           for (int k=target; k>=j; k--)
+        //                 tmp[k] = (tmp[k] + dp[k-j]) % mode;
 
-            swap(dp, tmp);
+        //     swap(dp, tmp);
+        // }
+        // return dp[target];
+
+        int mode = 1e9 + 7;
+        vector<vector<long>> dp(d+1, vector<long>(target+1, 0));
+        dp[0][0] = 1;
+
+        for (int i=1; i<=d; i++) { // items
+            // With i dice, at least j = i to make sense, any value < i is impossible
+            for (int j=i; j<=target; j++) { // target/amount
+                for (int k=1; k<=f; k++) { // choices
+                    if (j >= k) {
+                        // Actually this is kind of k groups knapsack problem, choose
+                        // and must choose exactly one item from each group to make target
+                        dp[i][j] = (dp[i][j] + dp[i-1][j-k]) % mode;
+                    }
+                }
+            }
         }
-        return dp[target];
+
+        return dp[d][target];
     }
 };
 // @lc code=end

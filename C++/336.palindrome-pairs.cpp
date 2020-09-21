@@ -63,8 +63,14 @@ public:
     // }
 
     // bool isPalindrome(string& s1, string& s2) {
-    //     string s = s1 + s2, t = s2 + s1;
+    //     string s=s1+s2, t=s1+s2;
+    //     reverse(s.begin(), s.end());
     //     return s==t;
+    //     while (l<r) {
+    //         if (s[l++]!=s[r--])
+    //             return false;
+    //     }
+    //     return true;
     // }
 
     vector<vector<int>> palindromePairs(vector<string>& words) {

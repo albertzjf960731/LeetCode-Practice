@@ -58,7 +58,7 @@ using namespace std;
 class Solution {
 public:
     bool canFinish(int numCourses, vector<vector<int>>& prerequisites) {
-        // Topological Sort
+        // Topological Sort 拓扑排序
         
         vector<vector<int>> graph(numCourses);
         vector<int> indeg(numCourses, 0);

@@ -38,46 +38,50 @@ using namespace std;
 // @lc code=start
 class Solution {
 public:
-    // vector<vector<int>> permute(vector<int>& nums) {
-    //     vector<vector<int>> res;
-    //     vector<int> path;
-    //     DFS(nums, res, path);
-    //     return res;
-    // }
-
-    // void DFS(vector<int>& nums, vector<vector<int>>& res, vector<int>& path) {
-    //     if (path.size()==nums.size()) {
-    //         res.push_back(path);
-    //         return;
-    //     }
-
-    //     for (int i=0; i<nums.size(); i++) {
-    //         if (find(path.begin(), path.end(), nums[i]) == path.end()) {
-    //             path.push_back(nums[i]);
-    //             DFS(nums, res, path);
-    //             path.pop_back();
-    //         }
-    //     }
-    // }
-
     vector<vector<int>> permute(vector<int>& nums) {
         vector<vector<int>> res;
-        DFS(nums, 0, res);
+        vector<int> path;
+        vector<bool> visited(nums.size(), false);
+        
+        DFS(nums, res, path, visited);
         return res;
     }
-    // DFS 产生一个全排列，idx=0 这个位置遍历一边
-    void DFS(vector<int>& nums, int pos, vector<vector<int>>& res) {
-        if (pos==nums.size()) {
-            res.push_back(nums);
+
+    void DFS(vector<int>& nums, vector<vector<int>>& res, vector<int>& path, vector<bool>& visited) {
+        if (path.size()==nums.size()) {
+            res.push_back(path);
             return;
-        } 
-        for (int i=pos; i<nums.size(); i++) {
-            swap(nums[i], nums[pos]);
-            DFS(nums, pos+1, res);
-            // 如果nums传地址
-            swap(nums[i], nums[pos]);
+        }
+
+        for (int i=0; i<nums.size(); i++) {
+            if (!visited[i]) {
+                path.push_back(nums[i]);
+                visited[i] = true;
+                DFS(nums, res, path, visited);
+                path.pop_back();
+                visited[i] = false;
+            }
         }
     }
+
+    // vector<vector<int>> permute(vector<int>& nums) {
+    //     vector<vector<int>> res;
+    //     DFS(nums, 0, res);
+    //     return res;
+    // }
+    // // DFS 产生一个全排列，idx=0 这个位置遍历一边
+    // void DFS(vector<int>& nums, int pos, vector<vector<int>>& res) {
+    //     if (pos==nums.size()) {
+    //         res.push_back(nums);
+    //         return;
+    //     } 
+    //     for (int i=pos; i<nums.size(); i++) {
+    //         swap(nums[i], nums[pos]);
+    //         DFS(nums, pos+1, res);
+    //         // 如果nums传地址
+    //         swap(nums[i], nums[pos]);
+    //     }
+    // }
 
     vector<vector<int>> permute(vector<int>& nums) {
         vector<vector<int>> res;

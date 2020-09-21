@@ -92,45 +92,45 @@ using namespace std;
 class Solution {
 public:
     int maxSubarraySumCircular(vector<int>& nums) {
-        // int total_sum = 0;
-        // int cur_max = 0, max_sum = INT_MIN;
-        // int cur_min = 0, min_sum = INT_MAX;
+        int total_sum = 0;
+        int cur_max = 0, max_sum = INT_MIN;
+        int cur_min = 0, min_sum = INT_MAX;
 
-        // for (int num: nums) {
-        //     cur_max = max(cur_max+num, num);
-        //     max_sum = max(max_sum, cur_max);
+        for (int num: nums) {
+            cur_max = max(cur_max+num, num);
+            max_sum = max(max_sum, cur_max);
 
-        //     cur_min = min(cur_min+num, num);
-        //     min_sum = min(min_sum, cur_min);
+            cur_min = min(cur_min+num, num);
+            min_sum = min(min_sum, cur_min);
 
-        //     total_sum += num;
-        // }      
+            total_sum += num;
+        }      
 
-        // return max_sum>0 ? max(max_sum, total_sum-min_sum) : max_sum;
+        return max_sum>0 ? max(max_sum, total_sum-min_sum) : max_sum;
 
-        int n = nums.size();
-        vector<int> sums(n*2, 0);
-        for (int i=1; i<n*2; i++) 
-            sums[i] = sums[i-1] + nums[(i-1)%n];
+        // int n = nums.size();
+        // vector<int> sums(n*2, 0);
+        // for (int i=1; i<n*2; i++) 
+        //     sums[i] = sums[i-1] + nums[(i-1)%n];
             
-        // 单调队列来快速求解。维护一个单调递增的队列，队头元素为最小值，每次循环时首先将不满足长度的队头出队，然后更新当前的答案
+        // // 单调队列来快速求解。维护一个单调递增的队列，队头元素为最小值，每次循环时首先将不满足长度的队头出队，然后更新当前的答案
         
-        int ans = nums[0];
-        deque<int> queue{0};
+        // int ans = nums[0];
+        // deque<int> queue{0};
 
-        for (int i=1; i<sums.size(); ++i) {
+        // for (int i=1; i<sums.size(); ++i) {
 
-            while (!queue.empty() && i-queue.front()>n) 
-                queue.pop_front();
+        //     while (!queue.empty() && i-queue.front()>n) 
+        //         queue.pop_front();
             
-            ans = max(ans, sums[i]-sums[queue.front()]);
+        //     ans = max(ans, sums[i]-sums[queue.front()]);
 
-            while (!queue.empty() && sums[i]<sums[queue.back()])
-                queue.pop_back();
+        //     while (!queue.empty() && sums[i]<sums[queue.back()])
+        //         queue.pop_back();
 
-            queue.push_back(i);
-        }
-        return ans;
+        //     queue.push_back(i);
+        // }
+        // return ans;
     }
 };
 // @lc code=end

@@ -19,9 +19,10 @@ public:
     }
 
     void DFS(int left, int right, vector<string>& res, string path) {
-        if (left) DFS(left-1, right, res, path+"(");
-        if (left<right) DFS(left, right-1, res, path+")");
-        if (right==0) res.push_back(path);
+        if (left==0 && right==0) res.push_back(path);
+
+        if (left>0) DFS(left-1, right, res, path+"(");
+        if (right>left) DFS(left, right-1, res, path+")");
     }
 };
 // @lc code=end

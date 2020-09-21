@@ -46,6 +46,8 @@
 
 #include<vector>
 #include<deque>
+#include<iostream>
+#include<queue>
 using namespace std;
 
 // @lc code=start
@@ -68,7 +70,42 @@ public:
                 res.push_back(nums[queue.front()]);
         }
         return res;
+
+
+	priority_queue<pair<int, int>> pq;
+	vector<int> res;
+
+	for (int i = 0; i<min(k, (int)nums.size()); i++)
+		pq.push(make_pair(nums[i], i));
+		
+	if (!pq.empty())
+		res.push_back(pq.top().first);
+
+	for (int i=k; i<nums.size(); i++) {
+		pq.push(make_pair(nums[i], i));
+
+		while (pq.top().second <= i-k)
+			pq.pop();
+
+		res.push_back(pq.top().first);
+	}
+
+	return res;
     }
 };
 // @lc code=end
 
+int main() {
+    vector<vector<int>> nums{{5, 2, 7, 44, 12, 7}, 
+                            {45, 44, 13, 4, 0, 34},
+                            {5, 2, 7, 11, 16, 42},
+                            {5, 23, 7, 0, 12, 7}, 
+                            {15, 2, 3, 32, 8, 32}};
+    Solution sol;
+
+    vector<vector<int>> res;
+    for (int i=0; i<nums.size(); ++i) {
+        res.push_back(sol.maxSlidingWindow(nums[i], 3));
+    }
+    return 0;
+}

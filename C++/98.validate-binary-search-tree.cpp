@@ -87,7 +87,17 @@ public:
             root = root->right;
         }
         return true;
+
+
+        return DFS(root, LONG_MIN, LONG_MAX);
     }
+    bool DFS(TreeNode* root, long mn, long mx) {
+        if (!root) return true;
+        if (root->val<=mn || root->val>=mx) return false;
+        return DFS(root->left, mn, root->val) && 
+               DFS(root->right, root->val, mx);
+    }
+
 };
 // @lc code=end
 
