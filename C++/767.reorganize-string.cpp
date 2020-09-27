@@ -45,46 +45,72 @@
 #include<vector>
 #include<unordered_map>
 #include<string>
+#include<queue>
 using namespace std;
 
 // @lc code=start
 class Solution {
 public:
-    string reorganizeString(string S) {
-        int n = S.size();
-        
+    string reorganizeString(string str) {
+        int n = str.size();
         unordered_map<char, int> cnts;
-        for (char ch: S) cnts[ch]++;
+        for (char ch : str) ++cnts[ch];
         
-        vector<pair<char, int>> chs;
-        for (auto cnt: cnts)
-            chs.push_back(cnt);
-        
-        sort(chs.begin(), chs.end(), [](auto &p1, auto &p2) {
-            return p1.second > p2.second;
-        });
-        
-        if (chs[0].second > (n+1)/2)
-            return "";
-        
-        S.clear();
-        for (auto p: chs) {
-            string tmp(p.second, p.first);
-            S.append(tmp);
+        priority_queue<pair<int, char>> q;
+        for (auto& it : cnts) {
+            if (it.second>(n+1)/2) return "";
+            q.push({it.second, it.first});
         }
         
-        string res(n, '0');
-        int i=0, j=0;
-        while (i<n && j<n) {
-            res[i] = S[j++];
-            i += 2;
+        
+        string res = "";
+        
+        while (q.size() >= 2) {
+            auto t1 = q.top(); q.pop();
+            auto t2 = q.top(); q.pop();
+            res.push_back(t1.second);
+            res.push_back(t2.second);
+            if (--t1.first > 0) q.push(t1);
+            if (--t2.first > 0) q.push(t2);
         }
-        i = 1;
-        while (i<n && j<n) {
-            res[i] = S[j++];
-            i += 2;
-        }
+        if (q.size()>0) 
+            res.push_back(q.top().second);
         return res;
+
+        // int n = S.size();
+        
+        // unordered_map<char, int> cnts;
+        // for (char ch: S) cnts[ch]++;
+        
+        // vector<pair<char, int>> chs;
+        // for (auto cnt: cnts)
+        //     chs.push_back(cnt);
+        
+        // sort(chs.begin(), chs.end(), [](auto &p1, auto &p2) {
+        //     return p1.second > p2.second;
+        // });
+        
+        // if (chs[0].second > (n+1)/2)
+        //     return "";
+        
+        // S.clear();
+        // for (auto p: chs) {
+        //     string tmp(p.second, p.first);
+        //     S.append(tmp);
+        // }
+        
+        // string res(n, '0');
+        // int i=0, j=0;
+        // while (i<n && j<n) {
+        //     res[i] = S[j++];
+        //     i += 2;
+        // }
+        // i = 1;
+        // while (i<n && j<n) {
+        //     res[i] = S[j++];
+        //     i += 2;
+        // }
+        // return res;
     }
 };
 // @lc code=end

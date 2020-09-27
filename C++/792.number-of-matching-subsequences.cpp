@@ -56,10 +56,10 @@ public:
         
     }
 
-    bool isSubsequence(string s, string t, 
+    bool isSubsequence(string word, string t, 
                        unordered_map<char, vector<int>>& char2pos) {
         int pre = -1;
-        for (char ch: s) {
+        for (char ch: word) {
             auto it = upper_bound(char2pos[ch].begin(), char2pos[ch].end(), pre);
             if (it == char2pos[ch].end()) return false;
             pre = *it;

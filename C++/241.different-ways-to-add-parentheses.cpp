@@ -41,11 +41,17 @@
  */
 #include<vector>
 #include<string>
+#include<unordered_map>
 using namespace std;
 // @lc code=start
 class Solution {
+private:
+    unordered_map<string, vector<int>> cache;
+    
 public:
     vector<int> diffWaysToCompute(string str) {
+        if (cache.count(str)) return cache[str];
+        
         vector<int> res;
         for (int i=0; i<str.size(); i++) {
             char ch = str[i];
@@ -67,7 +73,8 @@ public:
         }
         if (res.empty())
             res.push_back(stoi(str));
-        return res;
+        cache[str] = res;
+        return res;    
     }
 };
 // @lc code=end
