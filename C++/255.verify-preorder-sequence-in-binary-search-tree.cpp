@@ -49,35 +49,56 @@ struct TreeNode {
 class Solution {
 public:
     bool verifyPreorder(vector<int>& preorder) {
-        int low = INT_MIN;
+        int root = INT_MIN;
         vector<int> stack;
         for (int num : preorder) {
-            if (num < low) return false;
+            if (num < root) return false;
 
             while (!stack.empty() && num > stack.back()) {
-                low = stack.back(); 
+                root = stack.back(); 
                 stack.pop_back();
             }
             stack.push_back(num);
         }
         return true;
     }
+    
+    bool verifyPostorder(vector<int>& postorder) {
+        vector<int> stack;
+
+        int pre_elem = INT_MAX;
+        for(int i = postorder.size() - 1; i >= 0; --i) {
+            if(postorder[i] > pre_elem) return false;
+
+            while(!stack.empty() && postorder[i] < stack.back()) {
+                pre_elem = stack.back();
+                stack.pop_back();
+            }
+            stack.push_back(postorder[i]);
+        }
+        return true;
+    }
+
 
     bool verifyPreorder(vector<int>& preorder) {
-        return DFS(preorder, 0, preorder.size()-1, INT_MIN, INT_MAX);
+        return DFS(preorder, 0, preorder.size()-1);
     }
-    bool DFS(vector<int>& preorder, int start, int end, int lower, int upper) {
-        if (start > end) return true;
+    bool DFS(vector<int>& preorder, int left, int right) {
+        if (left >= right) return true;
 
-        int num = preorder[start];
-        if (num<=lower || num>=upper) return false;
+        int root = preorder[left];
+       
+        int idx = left+1;
+        while (preorder[idx] < root) idx++;
 
-        int i;
-        for (i=start + 1; i <= end; ++i) {
-            if (preorder[i] >= num) break;
+        int tmp = idx;
+        while (tmp < right) {
+            if (preorder[tmp++] < root) 
+                return false;
         }
-        return DFS(preorder, start+1, i-1, lower, num) && 
-               DFS(preorder, i, end, num, upper);
+
+        return DFS(preorder, left+1, idx-1) && 
+               DFS(preorder, idx, right);
     }
 
 };

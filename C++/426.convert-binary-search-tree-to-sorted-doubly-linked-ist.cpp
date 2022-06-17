@@ -33,38 +33,46 @@
 #include<vector>
 using namespace std;
 
-struct TreeNode {
+class Node {
+public:
     int val;
-    TreeNode *left;
-    TreeNode *right;
-    TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+    Node* left;
+    Node* right;
+
+    Node() {}
+
+    Node(int _val) {
+        val = _val;
+        left = NULL;
+        right = NULL;
+    }
+
+    Node(int _val, Node* _left, Node* _right) {
+        val = _val;
+        left = _left;
+        right = _right;
+    }
 };
-// @lc code=start
+
 class Solution {
 public:
-    TreeNode* treeToDoublyList(TreeNode* root) {
-        if (!root) return root;
-
-        TreeNode *head = root, *pre = NULL;
-
-        vector<TreeNode*> stack;
-        TreeNode *cur = root;
-        while (cur || !stack.empty()) {
-            while (cur) {
-                stack.push_back(cur);
-                cur = cur->left;
+    Node* treeToDoublyList(Node* root) {
+        if (!root) return NULL;
+        Node *head = NULL, *pre = NULL;
+        vector<Node*> stack;
+        while (root || !stack.empty()) {
+            while (root) {
+                stack.push_back(root);
+                root = root->left;
             }
-            cur = stack.back(); 
-            stack.pop_back();
-
-            if (!head) 
-                head = cur;
+            root = stack.back(); stack.pop_back();
+            if (!head) head = root;
             if (pre) {
-                pre->right = cur;
-                cur->left = pre;
+                pre->right = root;
+                root->left = pre;
             }
-            pre = cur;
-            cur = cur->right;
+            pre = root;
+            root = root->right;
         }
         head->left = pre;
         pre->right = head;
@@ -73,34 +81,34 @@ public:
 };
 // @lc code=end
 
-TreeNode* createTree(vector<int>& nums) {
-    int n = nums.size();
+// TreeNode* createTree(vector<int>& nums) {
+//     int n = nums.size();
 
-    if (n==0) return NULL;
+//     if (n==0) return NULL;
 
-    vector<TreeNode*> tree(n);
-    for(int i=0; i<n; i++) {
-        if (nums[i]==-1){
-            tree[i] = NULL;
-            continue;
-        }
-        tree[i] = new TreeNode(nums[i]);
-    }
+//     vector<TreeNode*> tree(n);
+//     for(int i=0; i<n; i++) {
+//         if (nums[i]==-1){
+//             tree[i] = NULL;
+//             continue;
+//         }
+//         tree[i] = new TreeNode(nums[i]);
+//     }
     
-    int pos=1;
-    for(int i=0; i<n && pos<n; i++) {
-        if (tree[i]){
-            tree[i]->left = tree[pos++];
-            if (pos<n){
-                tree[i]->right = tree[pos++];
-            }
-        }
-    }
-    return tree[0];
-}
+//     int pos=1;
+//     for(int i=0; i<n && pos<n; i++) {
+//         if (tree[i]){
+//             tree[i]->left = tree[pos++];
+//             if (pos<n){
+//                 tree[i]->right = tree[pos++];
+//             }
+//         }
+//     }
+//     return tree[0];
+// }
 
 
-int main() {
-    vector<int> nums{1, 2, 3, -1, 4, -1, -1};
-    TreeNode* root = createTree(nums);
-}
+// int main() {
+//     vector<int> nums{1, 2, 3, -1, 4, -1, -1};
+//     TreeNode* root = createTree(nums);
+// }

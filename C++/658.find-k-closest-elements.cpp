@@ -93,6 +93,5 @@ public:
         return vector<int>(nums.begin()+left, nums.begin()+left+k);
     }
 };
-};
 // @lc code=end
 

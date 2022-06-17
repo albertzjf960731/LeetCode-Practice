@@ -48,12 +48,22 @@ public:
         // Consider the thousands-digit, i.e., when m=1000. Then a=3141 and b=592. The thousands-digit is 1 for prefixes "" to "314", so 315 times. And each time is a streak of 1000 numbers. However, since the thousands-digit is a 1, the very last streak isn't 1000 numbers but only 593 numbers, for the suffixes "000" to "592". So (a / 10 * 1000) + (b + 1) times, the thousands-digit is 1.
 
         // The case distincton between the current digit/position being 0, 1 and >=2 can easily be done in one expression. With (a + 8) / 10 you get the number of full streaks, and a % 10 == 1 tells you whether to add a partial streak.
-        int ans = 0;
-        for(long m=1; m<=n; m*=10){
-            int a = n / m, b = n % m;
-            ans += (a+8)/10*m + (a%10==1)*(b+1);
+        // int ans = 0;
+        // for(long m=1; m<=n; m*=10){
+        //     int a = n / m, b = n % m;
+        //     ans += (a+8)/10*m + (a%10==1)*(b+1);
+        // }
+        // return ans;
+    
+        int res = 0, a = 1, b = 1;
+        while (n > 0) {
+            res += (n + 8) / 10 * a + (n % 10 == 1) * b;
+            b += n % 10 * a;
+            a *= 10;
+            n /= 10;
         }
-        return ans;
+        return res;
+
     }
 };
 // @lc code=end

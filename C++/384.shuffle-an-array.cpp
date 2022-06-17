@@ -55,7 +55,8 @@ public:
         int n = res.size();
         
         for (int i=0; i<n; ++i) {
-            int t = i + rand() % (n-i);
+            // int t = i + rand() % (n-i);
+            int t = rand() % n;
             swap(res[i], res[t]);
         }
         return res;

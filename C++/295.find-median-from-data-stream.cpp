@@ -62,8 +62,8 @@ using namespace std;
 // @lc code=start
 class MedianFinder {
 private:
-    priority_queue<int> min_pq;
-    priority_queue<int, vector<int>, greater<int>> max_pq;
+    priority_queue<int> max_pq;
+    priority_queue<int, vector<int>, greater<int>> min_pq;
 
 public:
     /** initialize your data structure here. */

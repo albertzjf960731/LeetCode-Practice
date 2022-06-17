@@ -78,6 +78,46 @@ public:
     }
 };
 
+
+// class MinStack {
+// private:
+//     vector<int> stack;
+//     int cur_min;
+
+// public:
+//     /** initialize your data structure here. */
+//     MinStack() {
+
+//     }
+    
+//     void push(int x) {
+//         if (stack.empty()) {
+//             cur_min = x;
+//             stack.push_back(0);
+//         }
+//         else {
+//             int diff = x - cur_min;
+//             stack.push_back(diff);
+//             if (diff < 0) cur_min = x;
+//         }
+//     }
+    
+//     void pop() {
+//         int diff = stack.back();
+//         if (diff < 0) cur_min -= diff;
+//         stack.pop_back();
+//     }
+    
+//     int top() {
+//         int diff = stack.back();
+//         return cur_min + diff;
+//     }
+    
+//     int min() {
+//         return cur_min;
+//     }
+// };
+
 /**
  * Your MinStack object will be instantiated and called as such:
  * MinStack* obj = new MinStack();

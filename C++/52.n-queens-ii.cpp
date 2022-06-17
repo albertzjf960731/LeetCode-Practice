@@ -129,7 +129,7 @@ public:
     }
     bool isValid(vector<int>& pos, int row, int col) {
         for (int i=0; i<row; i++) {
-            if (col==pos[i] || abs(row-col)==abs(i-pos[i]))
+            if (col == pos[i] || (row-col)==(i-pos[i]) || (row+col)==(i+pos[i]))
                 return false;
         }
         return true;

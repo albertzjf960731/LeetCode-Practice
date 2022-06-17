@@ -6,11 +6,11 @@
  * https://leetcode.com/problems/car-pooling/description/
  *
  * algorithms
- * Medium (56.90%)
- * Likes:    286
- * Dislikes: 13
- * Total Accepted:    17.1K
- * Total Submissions: 30.1K
+ * Medium (58.90%)
+ * Likes:    937
+ * Dislikes: 34
+ * Total Accepted:    57.6K
+ * Total Submissions: 97.8K
  * Testcase Example:  '[[2,1,5],[3,3,7]]\n4'
  *
  * You are driving a vehicle that has capacity empty seats initially available
@@ -89,14 +89,27 @@ using namespace std;
 class Solution {
 public:
     bool carPooling(vector<vector<int>>& trips, int capacity) {
+        // vector<int> stops(1001, 0);
+        // for (auto &t : trips) {
+        //     for (int i=t[1]; i<t[2]; ++i) {
+        //         stops[i] += t[0];
+        //         if (stops[i] > capacity) 
+        //             return false;
+        //     }
+        // }
+        // return true;
+
+        vector<int> stops(1001, 0);
+        for (auto &t : trips) {
+            stops[t[1]] += t[0];
+            stops[t[2]] -= t[0];
+        }
         
-        vector<int> people(1001, 0);
-        for (auto trip: trips) {
-            for (int i=trip[1]; i<trip[2]; i++) {
-                people[i] += trip[0];
-                if (people[i]>capacity)
-                    return false;
-            }
+        int cnt = 0;
+        for (int i=0; i<stops.size(); ++i) {
+            cnt += stops[i];
+            if (cnt > capacity)
+                return false;
         }
         return true;
     }

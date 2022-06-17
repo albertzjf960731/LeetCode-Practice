@@ -60,6 +60,20 @@ public:
         vector<int> count(nums.size(), 0);
         sort_and_count(hold.begin(), hold.end(), count);
         return count;
+
+
+        vector<int> tmp, res(nums.size());
+        for (int i=nums.size()-1; i>=0; --i) {
+            int left = 0, right = tmp.size();
+            while (left < right) {
+                int mid = left + (right - left) / 2;
+                if (tmp[mid] < nums[i]) left = mid + 1;
+                else right = mid;
+            }
+            res[i] = left;
+            tmp.insert(tmp.begin() + right, nums[i]);
+        }
+        return res;
     }
 };
 // @lc code=end

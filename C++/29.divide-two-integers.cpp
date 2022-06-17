@@ -9,24 +9,38 @@ using namespace std;
 class Solution {
 public:
     int divide(int dividend, int divisor) {
-        int sign = ((dividend<0)==(divisor<0)) ? 1: -1;
+        // if (dividend == INT_MIN && divisor == -1) {
+        //     return INT_MAX;
+        // }
+        // if (dividend == INT_MIN && divisor == 1) {
+        //     return INT_MIN;
+        // }
 
-        long long_dividend = labs(dividend), long_divisor= labs(divisor);  
+        if (dividend == INT_MIN) {
+            if (divisor == 1) return INT_MIN;
+            else if (divisor == -1) return INT_MAX;
+            else if (divisor & 1) return divide(dividend+1, divisor);
+            else return divide(dividend >> 1, divisor >> 1);
+        }
+        if(divisor == INT_MIN) return 0;
 
-        long ans=0, temp, i;
-        while(long_dividend>=long_divisor) {
-            temp=long_divisor, i=1;
-            while (long_dividend>=temp) {
-                long_dividend -= temp;
-                ans += i;
-                temp <<= 1;
-                i <<= 1;
+        int sign = ((dividend<0) == (divisor<0)) ? 1 : -1;
+        dividend = abs(dividend), divisor = abs(divisor);
+        
+        int ans = 0;
+        while (dividend >= divisor) {
+            int tmp_divisor = divisor;
+            int tmp_quotient = 1;
 
-                if (ans*sign >=INT_MAX) return INT_MAX;
-                if (ans*sign<=INT_MIN) return INT_MIN;
+            while (dividend >= (tmp_divisor << 1)) {
+                tmp_divisor <<= 1;
+                tmp_quotient <<= 1;
             }
-        }  
-        return ans*sign;
+            dividend -= tmp_divisor;
+            ans += tmp_quotient;
+        }
+        
+        return ans * sign;
     }
 };
 // @lc code=end

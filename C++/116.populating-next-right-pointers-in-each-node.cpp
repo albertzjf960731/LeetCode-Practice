@@ -69,6 +69,7 @@
 // Definition for a Node.
 */
 #include<vector>
+#include<queue>
 using namespace std;
 
 class Node {
@@ -90,19 +91,36 @@ public:
 class Solution {
 public:
     Node* connect(Node* root) {
-        if (root==nullptr) return root;
+        // if (root==nullptr) return root;
         
-        Node* cur = root;
-        while (cur->left) {
-            Node* tmp = cur->left;
-            while (cur) {
-                cur->left->next = cur->right;
-                if (cur->next) {
-                    cur->right->next = cur->next->left;
+        // Node* cur = root;
+        // while (cur->left) {
+        //     Node* tmp = cur->left;
+        //     while (cur) {
+        //         cur->left->next = cur->right;
+        //         if (cur->next) {
+        //             cur->right->next = cur->next->left;
+        //         }
+        //         cur = cur->next;
+        //     }
+        //     cur = tmp;
+        // }
+        // return root;
+
+        if (!root) return NULL;
+        
+        queue<Node*> q;
+        q.push(root);
+        while (!q.empty()) {
+            int q_size = q.size();
+            for (int i=0; i<q_size; ++i) {
+                Node *node = q.front(); q.pop();
+                if (i < q_size-1) {
+                    node->next = q.front();
                 }
-                cur = cur->next;
+                if (node->left) q.push(node->left);
+                if (node->right) q.push(node->right);
             }
-            cur = tmp;
         }
         return root;
     }

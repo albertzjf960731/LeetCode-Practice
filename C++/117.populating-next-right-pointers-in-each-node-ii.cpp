@@ -64,6 +64,7 @@
  */
 
 #include<vector>
+#include<queue>
 using namespace std;
 
 class Node {
@@ -85,27 +86,44 @@ public:
 class Solution {
 public:
     Node* connect(Node* root) {
-        if (root==NULL) return root;
+        // if (root==NULL) return root;
 
-        Node *cur = root;
-        while (cur) {
-            Node dummy(0);
-            Node *tail = &dummy;
+        // Node *cur = root;
+        // while (cur) {
+        //     Node dummy(0);
+        //     Node *tail = &dummy;
 
-            // cur level
-            while (cur) {
-                if (cur->left != NULL) {
-                    tail->next = cur->left;
-                    tail = tail->next;
+        //     // cur level
+        //     while (cur) {
+        //         if (cur->left != NULL) {
+        //             tail->next = cur->left;
+        //             tail = tail->next;
+        //         }
+        //         if (cur->right != NULL) {
+        //             tail->next = cur->right;
+        //             tail = tail->next;
+        //         }
+        //         cur = cur->next;
+        //     }
+        //     // next level
+        //     cur = dummy.next;
+        // }
+        // return root;
+
+        if (!root) return NULL;
+        
+        queue<Node*> q;
+        q.push(root);
+        while (!q.empty()) {
+            int q_size = q.size();
+            for (int i=0; i<q_size; ++i) {
+                Node *node = q.front(); q.pop();
+                if (i < q_size-1) {
+                    node->next = q.front();
                 }
-                if (cur->right != NULL) {
-                    tail->next = cur->right;
-                    tail = tail->next;
-                }
-                cur = cur->next;
+                if (node->left) q.push(node->left);
+                if (node->right) q.push(node->right);
             }
-            // next level
-            cur = dummy.next;
         }
         return root;
     }

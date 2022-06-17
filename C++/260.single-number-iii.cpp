@@ -42,7 +42,8 @@ public:
         int diff = 0;
         for (int num: nums) diff ^= num;
 
-        int last = diff & (~(diff - 1));
+        int last = diff & (-diff);
+        // int last = diff & (~(diff - 1));
 
         int a=0, b=0;
         for (int num: nums) {

@@ -46,6 +46,7 @@
  * 
  */
 #include<math.h>
+#include<string>
 using namespace std;
 
 // @lc code=start
@@ -65,6 +66,17 @@ public:
     
     int findNthDigit(int n) {
         return find (n, 1);
+
+        long long len = 1, cnt = 9, start = 1;
+        while (n > len * cnt) {
+            n -= len * cnt;
+            ++len;
+            cnt *= 10;
+            start *= 10;
+        }
+        start += (n - 1) / len;
+        string t = to_string(start);
+        return t[(n - 1) % len] - '0';
     }
 };
 // @lc code=end

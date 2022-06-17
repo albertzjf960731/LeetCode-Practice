@@ -89,12 +89,12 @@ public:
         
         // for (int i=1; i<=d; ++i) {
             
-        //     vector<int> tmp(target + 1);
+        //     vector<int> cur(target + 1);
         //     for (int j=1; j<=f; ++j)
         //           for (int k=target; k>=j; k--)
-        //                 tmp[k] = (tmp[k] + dp[k-j]) % mode;
+        //                 cur[k] = (cur[k] + dp[k-j]) % mode;
 
-        //     swap(dp, tmp);
+        //     swap(dp, cur);
         // }
         // return dp[target];
 

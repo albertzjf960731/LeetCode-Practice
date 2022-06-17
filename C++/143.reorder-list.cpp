@@ -77,6 +77,30 @@ public:
             cur1 = next1;
             cur2 = next2;
         }     
+
+
+        if (!head || !head->next || !head->next->next) return;
+        
+        vector<ListNode*> stack;
+        ListNode* cur = head;
+        while (cur) {
+            stack.push_back(cur);
+            cur = cur->next;
+        }
+        
+        int cnt = (stack.size() - 1) / 2;
+        cur = head;
+        
+        while (cnt-- > 0) {
+            ListNode* tmp = stack.back();
+            stack.pop_back();
+            
+            ListNode* next = cur->next;
+            cur->next = tmp;
+            tmp->next = next;
+            cur = next;
+        }
+        stack.back()->next = NULL;
     }
 };
 // @lc code=end
