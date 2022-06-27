@@ -54,6 +54,30 @@ public:
         }
         return s.substr(left, len);
 
+        // 
+        int n = s.size();
+        vector<vector<bool>> dp(n, vector<bool>(n, false));
+        for (int i=0; i<n; ++i) dp[i][i] = true;
+        
+        int max_len = 1, start = 0;
+        for (int len=2; len<=n; ++len) {
+            for (int i=0; i<n-len+1; ++i) {
+                int j = i + len - 1;
+                
+                if (s[i] == s[j] && (j-i==1 || dp[i+1][j-1])) 
+                    dp[i][j] = true;
+                
+                
+                if (dp[i][j] && len > max_len) {
+                    max_len = len;
+                    start = i;
+                }
+            }
+        }
+        return s.substr(start, max_len);
+        
+
+        // 
 
         int start = 0, max_len = 0;
         for (int i=0; i<s.size(); ++i) {

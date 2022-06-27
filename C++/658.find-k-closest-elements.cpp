@@ -82,6 +82,16 @@ public:
         //     res.push_back(nums[idx++]);
         // return res;  
 
+        // vector<int> res = nums;
+        // while (res.size() > k) {
+        //     if (x - res.front() <= res.back() - x) {
+        //         res.pop_back();
+        //     } else {
+        //         res.erase(res.begin());
+        //     }
+        // }
+        // return res;
+
         int left=0, right=nums.size()-k, mid;
         while (left < right) {
             mid = left + (right-left)/2;
