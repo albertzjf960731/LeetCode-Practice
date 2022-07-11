@@ -37,38 +37,55 @@ using namespace std;
 class Solution {
 public:
     int longestConsecutive(vector<int>& nums) {
-        if (nums.empty()) return 0;
+        // if (nums.empty()) return 0;
         
-        int ans = 1;
-        unordered_set<int> hash_set(nums.begin(), nums.end());
-        for (int num: nums) {
-            if (!hash_set.count(num-1)) {
-                int cnt = 0;
-                while (num<INT_MAX && hash_set.count(num++)) 
-                    cnt ++;
-                ans = max(ans, cnt);
-            }
-        }
-        return ans;
+        // int ans = 1;
+        // unordered_set<int> hash_set(nums.begin(), nums.end());
+        // for (int num: nums) {
+        //     if (!hash_set.count(num-1)) {
+        //         int cnt = 0;
+        //         while (num<INT_MAX && hash_set.count(num++)) 
+        //             cnt ++;
+        //         ans = max(ans, cnt);
+        //     }
+        // }
+        // return ans;
 
-
+        unordered_set<int> hset(nums.begin(), nums.end());
+        
         int ans = 0;
-        unordered_map<int, int> hash_map;
-        for(int num: nums) {
-            if (!hash_map.count(num)) {
-                int left = hash_map.count(num-1) ? hash_map[num-1]:0;
-                int right =  hash_map.count(num+1) ? hash_map[num+1]:0;
-                int cnt = left + 1 + right;
-                
-                hash_map[num] = cnt;
-                ans = max(ans, cnt);
-                
-                hash_map[num-left] = cnt;
-                hash_map[num+right] = cnt;
-                
-            }
+        for (int num: nums) {
+            if (!hset.count(num)) continue;
+            
+            hset.erase(num);
+
+            int left = num - 1;
+            while (hset.count(left)) hset.erase(left--);
+
+            int right = num + 1;
+            while (hset.count(right)) hset.erase(right++);
+
+            ans = max(ans, right-left-1);
         }
         return ans;
+        
+        // int ans = 0;
+        // unordered_map<int, int> hash_map;
+        // for(int num: nums) {
+        //     if (!hash_map.count(num)) {
+        //         int left = hash_map.count(num-1) ? hash_map[num-1]:0;
+        //         int right =  hash_map.count(num+1) ? hash_map[num+1]:0;
+        //         int cnt = left + 1 + right;
+                
+        //         hash_map[num] = cnt;
+        //         ans = max(ans, cnt);
+                
+        //         hash_map[num-left] = cnt;
+        //         hash_map[num+right] = cnt;
+                
+        //     }
+        // }
+        // return ans;
     }
 };
 // @lc code=end

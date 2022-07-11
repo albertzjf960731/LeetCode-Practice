@@ -65,24 +65,44 @@ using namespace std;
 class Solution {
 public:
     bool canReach(vector<int>& arr, int start) {
-        int n = arr.size();
-        while (true) {
-            int flag = 0;
-            for (int i=0; i<n; i++) {
-                if (arr[i]==0)
-                    continue;
-                if ((i+arr[i]<n && arr[i+arr[i]]==0) || (i-arr[i]>=0 && arr[i-arr[i]]==0)) {
-                    arr[i] = 0;
-                    flag = 1;
-                }
-            }
-            if (arr[start]==0)
-                return true;
-            if (flag==0)
-                break;
-        }
+        int n = nums.size();
         
+        unordered_set<int> visited;
+        queue<int> q;
+        q.push(start);
+        
+        while (!q.empty()) {
+            
+            int idx = q.front();
+            q.pop();
+            
+            if (nums[idx] == 0) return true;
+            if (visited.count(idx)) continue;
+            
+            visited.insert(idx);
+            if (idx+nums[idx]<n ) q.push(idx+nums[idx]);
+            if (idx-nums[idx]>=0) q.push(idx-nums[idx]);
+        }
         return false;
+        
+        // int n = arr.size();
+        // while (true) {
+        //     int flag = 0;
+        //     for (int i=0; i<n; i++) {
+        //         if (arr[i]==0)
+        //             continue;
+        //         if ((i+arr[i]<n && arr[i+arr[i]]==0) || (i-arr[i]>=0 && arr[i-arr[i]]==0)) {
+        //             arr[i] = 0;
+        //             flag = 1;
+        //         }
+        //     }
+        //     if (arr[start]==0)
+        //         return true;
+        //     if (flag==0)
+        //         break;
+        // }
+        
+        // return false;
     }
 
     // unordered_set<int> visited;

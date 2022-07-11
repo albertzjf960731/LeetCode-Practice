@@ -57,17 +57,18 @@ public:
     int candy(vector<int>& ratings) {
         // 前后各扫描一次，其实是两次简单的动态规划
         int n = ratings.size();
-        vector<int> candys(n, 1);
-        for (int i=1; i<n; i++) {
-            if (ratings[i] > ratings[i-1] && candys[i]<=candys[i-1])
-                candys[i] = candys[i-1] + 1;
-        }
-        for (int i=n-1; i>0; i--) {
-            if (ratings[i-1] > ratings[i] && candys[i-1]<=candys[i])
-                candys[i-1] = candys[i] + 1;
+        vector<int> ans(n, 1);
+        
+        for (int i=1; i<n; ++i) {
+            if (ratings[i]>ratings[i-1])
+                ans[i] = ans[i-1] + 1;
         }
         
-        return accumulate(candys.begin(), candys.end(), 0);
+        for (int i=n-2; i>=0; --i) {
+            if (ratings[i]>ratings[i+1])
+                ans[i] = max(ans[i], ans[i+1]+1);
+        } 
+        return accumulate(ans.begin(), ans.end(), 0);
     }
 };
 // @lc code=end

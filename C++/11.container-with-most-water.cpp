@@ -20,6 +20,7 @@ public:
         while (l<r) {
             ans = max(ans, min(height[l], height[r]) * (r-l));
 
+            // no nested while loop
             if (height[l] < height[r])
                 l += 1;
             else 

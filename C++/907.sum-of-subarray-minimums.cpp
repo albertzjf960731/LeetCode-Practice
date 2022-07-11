@@ -50,6 +50,18 @@ using namespace std;
 class Solution {
 public:
     int sumSubarrayMins(vector<int>& nums) {
+        int mod = 1e9+7;
+        int ans = 0;
+        
+        for (int i=0; i<arr.size(); ++i) {
+            int min_num = INT_MAX;
+            for (int j=i; j<arr.size(); ++j) {
+                min_num = min(min_num, arr[j]);
+                ans = (ans + min_num) % mod;
+            }
+        }
+        return ans;
+
         // int n = nums.size(), mode = 1e9+7;
         
         // vector<int> dp(n);

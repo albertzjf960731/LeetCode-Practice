@@ -61,27 +61,48 @@ public:
     int subarraysWithKDistinct(vector<int>& nums, int k) {
         int ans = 0;
         
-		unordered_map<int, int> hash;
-        for(int left=0, right=0, cnt=0, last=0; right<nums.size(); right++) {
-            if(hash[nums[right]]==0)
-                cnt++;
-            hash[nums[right]]++;
+        unordered_map<int, int> hmap;
+        for (int left=0, right=0, last=0; right<nums.size(); ++right) {
             
-            if (cnt<k) continue;
+            hmap[nums[right]] += 1;
             
-            while(cnt > k) {
-                hash[nums[left]]--;
-                if (hash[nums[left]]==0)
-                    cnt--;
-                left ++;
+            if (hmap.size() < k) continue;
+            
+            while (hmap.size() > k) {
+                hmap[nums[left]] -= 1;
+                if (hmap[nums[left]] == 0) hmap.erase(nums[left]);
+                left += 1;
+                
                 last = left;
             }
             
-            while(hash[nums[left]] > 1) {
-                hash[nums[left]]--;
-                left ++;
+            while (hmap[nums[left]] > 1) {
+                hmap[nums[left]] -= 1;
+                left += 1;
             }
-            ans += left-last+1;    
+            ans += left - last + 1;
+        }
+        return ans;
+
+
+        return atMostK(nums, k) - atMostK(nums, k-1);
+    }
+    
+    int atMostK(vector<int>& nums, int k) {
+        int ans = 0;
+        
+        unordered_map<int, int> hmap;
+        for (int left=0, right=0; right<nums.size(); ++right) {
+            
+            hmap[nums[right]] += 1;
+                        
+            while (hmap.size() > k) {
+                hmap[nums[left]] -= 1;
+                if (hmap[nums[left]] == 0) hmap.erase(nums[left]);
+                left += 1;
+            }
+            
+            ans += right - left + 1;
         }
         return ans;
     }
