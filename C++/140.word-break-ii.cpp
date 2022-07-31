@@ -73,77 +73,29 @@ using namespace std;
 class Solution {
 public:
      vector<string> wordBreak(string str, vector<string>& wordDict) {
-        unordered_map<string, vector<string>> cache;
-        unordered_set<string> word_set(wordDict.begin(), wordDict.end());
+        unordered_map<string, bool> memo{};
+        unordered_set<string> hset(wordDict.begin(), wordDict.end());
         
-        return DFS(str, word_set, cache);
-    }
-    
-    vector<string> combine(string word, vector<string> prev){
-        for(int i=0;i<prev.size();++i){
-            prev[i]+=" "+word;
-        }
-        return prev;
+        return DFS(str, hset, memo);
     }
 
-    vector<string> DFS(string str, unordered_set<string>& word_set, unordered_map<string, vector<string>>& cache) {
-        if (cache.count(str))
-            return cache[str];
-        
-        vector<string> res;
-        if (word_set.count(str)) {
-            res.push_back(str);
-        }
+    bool DFS(string str, unordered_set<string>& hset, unordered_map<string, bool>& memo) {
+        if (str.size() == 0) return true;
+        if (memo.count(str)) return memo[str];
         
         for (int len=1; len<=str.size(); ++len) {
             string word = str.substr(0, len);
-            if (word_set.count(word)) {
-                vector<string> tails = DFS(str.substr(word.size()), word_set, cache);
-                for(string tail: tails) {
-                    tail = word + " " + tail;
-                    res.push_back(tail);
-                }
+            
+            if (!hset.count(word)) continue;
+            
+            if (DFS(str.substr(word.size()), hset, memo)) {
+                memo[str] = true;
+                return true;
             }
         }
-        cache[str] = res;
-        return res;
+        memo[str] = false;
+        return false;
     }
-    // void DFS(string str, unordered_set<string>& dicts, int start, string path, vector<string>& res) {
-    //     if (start == str.size()){
-    //         path.erase(path.begin());
-    //         res.push_back(path);
-    //     }
-        
-    //     for (int i=start; i<str.size(); i++) {
-    //         string sub_str = str.substr(start, i-start+1);
-    //         if (dicts.count(sub_str))
-    //             DFS(str, dicts, i+1, path+" "+sub_str, res);
-    //     }
-
-
-     vector<string> wordBreak(string str, vector<string>& wordDict) {
-        unordered_set<string> dicts(wordDict.begin(), wordDict.end());
-        unordered_map<int, vector<string>> cache {{str.size(), {""}}};
-        
-        function<vector<string>(int)> DFS = [&](int i) {
-            if (cache.count(i))
-                return cache[i];
-            for (int j=i+1; j<=str.size(); j++) {
-                string sub = str.substr(i, j-i);
-                if (dicts.count(sub)) {
-                    vector<string> tails = DFS(j);
-                    for (string tail: tails) {
-                        if (tail.empty())
-                            cache[i].push_back(sub);
-                        else
-                            cache[i].push_back(sub + " " + tail);
-                    }
-                }
-            }
-            return cache[i];
-        };
-        return DFS(0);
-     }
 };
 // @lc code=end
 

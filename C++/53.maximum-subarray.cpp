@@ -66,12 +66,7 @@ public:
                 for (int i=0; i<rows; i++)
                     sums[i] += matrix[i][right];
                 
-                int pre=sums[0], sum=sums[0];
-                for (int i=1; i<rows; i++) {
-                    pre = max(pre+sums[i], sums[i]);
-                    sum = max(sum, pre);
-                }
-                ans = max(ans, sum);
+                ans = max(ans, maxSubarray(sums)); 
             }
         }
         return ans;

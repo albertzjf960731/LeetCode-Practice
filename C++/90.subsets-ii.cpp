@@ -54,7 +54,8 @@ public:
         // if (find(res.begin(), res.end(), path) == res.end())
         res.push_back(path);
         for (int i=start; i<nums.size(); i++) {
-                if(i==start || nums[i]!=nums[i-1]){
+            // if (i>start && nums[i]==nums[i-1]) continue;
+            if(i==start || nums[i]!=nums[i-1]){
                 path.push_back(nums[i]);
                 DFS(nums, i+1, path, res);
                 path.pop_back();

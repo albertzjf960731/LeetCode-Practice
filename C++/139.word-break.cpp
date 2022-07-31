@@ -87,6 +87,21 @@ public:
             }
         }
         return dp[n];
+
+        unordered_set<string> hset(wordDict.begin(), wordDict.end());
+        
+        vector<int> memo(s.size(), -1);
+        return DFS(s, hset, 0, memo);
+    }
+    bool DFS(string s, unordered_set<string>& hset, int start, vector<int>& memo) {
+        if (start >= s.size()) return true;
+        if (memo[start] != -1) return memo[start];
+        
+        for (int i=start+1; i<=s.size(); ++i) {
+            if (hset.count(s.substr(start, i-start)) && DFS(s, hset, i, memo))
+                return memo[start] = 1;
+        }
+        return memo[start] = 0;
     }
 };
 // @lc code=end

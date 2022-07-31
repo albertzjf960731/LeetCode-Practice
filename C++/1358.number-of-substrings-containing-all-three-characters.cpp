@@ -76,6 +76,21 @@ public:
         }
         return ans;
 
+        int ans = 0;
+        unordered_map<char, int> cnts;
+        
+        for (int left=0, right=0; right<s.size(); ++right) {
+            cnts[s[right]] += 1;
+            
+            if (cnts.size() < 3) continue;
+            
+            while (cnts[s[left]] > 1) {
+                cnts[s[left]] -= 1;
+                left += 1;
+            }
+            ans += left + 1;
+        }
+        return ans;
 
         int ans = 0;
         vector<int> last{-1, -1, -1};

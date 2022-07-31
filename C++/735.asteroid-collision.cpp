@@ -95,6 +95,30 @@ public:
         }
         return res;
 
+        vector<int> stack;
+        for (int num: nums) {
+            if (num >= 0) 
+                stack.push_back(num);
+            else {
+                while (!stack.empty() && stack.back()>0) {
+                    int pos = stack.back();
+                    stack.pop_back();
+                    
+                    if (pos + num > 0) {
+                        stack.push_back(pos); 
+                        num = 0;
+                        break;
+                    }
+                    else if (pos + num == 0){
+                        num = 0;
+                        break;
+                    }
+                }
+                if (num != 0)
+                    stack.push_back(num);
+            }
+        }
+        return stack;
     }
 };
 // @lc code=end

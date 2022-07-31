@@ -50,16 +50,6 @@ using namespace std;
 class Solution {
 public:
     int rob(vector<int>& nums) {
-        // [2,1,1,2]
-        // int rob_odd=0, rob_even=0;
-        // for (int i=0; i<nums.size(); ++i) {
-        //     if (i%2==0) 
-        //         rob_even += nums[i];
-        //     else 
-        //         rob_odd += nums[i];
-        // }
-        // return max(rob_even, rob_odd);
-
         // int prev=0, cur=0, tmp;
         // for (auto num: nums) {
         //     tmp = cur;
