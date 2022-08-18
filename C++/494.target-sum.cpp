@@ -57,17 +57,17 @@ public:
         // P - N = target;
         // P + N = sum;
         // P = (target + sum) / 2;
-        int sum = 0;
-        for (int num: nums)  sum += num;
-
-        if (sum<target || (sum+target)%2==1) 
-            return 0;
+        int sum = accumulate(nums.begin(), nums.end(), 0);
+        target = sum + target;
+        if (target%2==1) return 0;
+        target /= 2;
         
-        target = (sum+target) / 2;
-        vector<int> dp(target+1, 0);
-        dp[0] = 1;
+        // vector<int> dp(target+1, 0);
+        // dp[0] = 1;
+        unordered_map<int, int> dp{{0, 1}};
+        
         for (int num: nums) {
-            for (int i=target; i>=num; i--) {
+            for (int i=target; i>=num; --i) {
                 dp[i] += dp[i-num];
             }
         }

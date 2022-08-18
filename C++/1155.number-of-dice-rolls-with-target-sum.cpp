@@ -80,7 +80,7 @@ using namespace std;
 // @lc code=start
 class Solution {
 public:
-    int numRollsToTarget(int d, int f, int target) {
+    int numRollsToTarget(int n, int m, int target) {
         // // dp[i][k]=sum(dp[i−1][k-j] for 0<j<f)
 
         // int mode = 1e9+7;
@@ -98,24 +98,36 @@ public:
         // }
         // return dp[target];
 
-        int mode = 1e9 + 7;
-        vector<vector<long>> dp(d+1, vector<long>(target+1, 0));
+        // 分组0/1背包的组合问题
+        int mod = 1e9+7;
+        vector<vector<int>> dp(n+1, vector<int>(target+1, 0));
         dp[0][0] = 1;
-
-        for (int i=1; i<=d; i++) { // items
-            // With i dice, at least j = i to make sense, any value < i is impossible
-            for (int j=i; j<=target; j++) { // target/amount
-                for (int k=1; k<=f; k++) { // choices
-                    if (j >= k) {
-                        // Actually this is kind of k groups knapsack problem, choose
-                        // and must choose exactly one item from each group to make target
-                        dp[i][j] = (dp[i][j] + dp[i-1][j-k]) % mode;
-                    }
+        
+        for (int i=1; i<=n; ++i) {
+            for (int j=i; j<=target; ++j) {
+                for (int k=1; k<=m && k<=j; ++k) {
+                    dp[i][j] = (dp[i][j] + dp[i-1][j-k]) % mod;
                 }
             }
         }
+        return dp[n][target];
 
-        return dp[d][target];
+
+        int mod = 1e9+7;
+        
+        vector<int> dp(target+1, 0);
+        dp[0] = 1;
+            
+        for (int i=1; i<=n; ++i) {
+            vector<int> tmp(target+1);
+            for (int j=i; j<=target; ++j) {
+                for (int k=1; k<=m && k<=j; ++k) {
+                    tmp[j] = (tmp[j] + dp[j-k]) % mod;
+                }
+            }
+            dp = tmp;
+        }
+        return dp[target];
     }
 };
 // @lc code=end

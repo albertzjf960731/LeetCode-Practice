@@ -93,6 +93,21 @@ public:
             cnt += *it;
         }
         return ans;
+
+        unordered_map<int, int> hmap;
+        for (int num: arr) hmap[num] += 1;
+        
+        vector<int> cnts;
+        for (auto [_, cnt]: hmap) cnts.push_back(cnt);
+        sort(cnts.begin(), cnts.end(), greater<int>());
+        
+        int ans = 0, sum = 0;
+        for (int num: cnts) {
+            sum += num;
+            ans += 1;
+            if (sum >= arr.size()/2) break;
+        }
+        return ans;
     }
 };
 // @lc code=end

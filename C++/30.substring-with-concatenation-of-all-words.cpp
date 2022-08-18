@@ -12,34 +12,24 @@ using namespace std;
 class Solution {
 public:
     vector<int> findSubstring(string s, vector<string>& words) {
-        vector<int> res;
-        if (words.empty())
-            return res;
-
-        unordered_map<string, int> hash_map;
-        for (string word: words){
-            hash_map[word]++;
-        }
-
-        int num_word = words.size(), word_len = words[0].size();
-        for (int i=0; i<s.size()-num_word*word_len+1; i++) {
-            unordered_map<string, int> temp_map;
+         int n_w = words.size(), l_w = words[0].size();
+        
+        unordered_map<string, int> hmap;
+        for (string& word: words) hmap[word] += 1;
+        
+        vector<int> ans;
+        for (int i=0; i<s.size()-n_w*l_w+1; ++i) {
+            unordered_map<string, int> tmp = hmap;
             
             int j = 0;
-            for (; j<num_word; j++) {
-                string word = s.substr(i+j*word_len, word_len);
-                if(hash_map.find(word) != hash_map.end()) {
-                    temp_map[word]++;
-                    if (temp_map[word]>hash_map[word])
-                        break;
-                }
-                else 
-                    break;
+            for (; j<n_w; ++j) {
+                string w = s.substr(i+j*l_w, l_w);
+                if (tmp.count(w) && tmp[w]>0) tmp[w] -= 1;
+                else break;
             }
-            if (j==num_word)
-                res.push_back(i);
+            if (j==n_w) ans.push_back(i);
         }
-        return res;
+        return ans;
     }
 };
 // @lc code=end

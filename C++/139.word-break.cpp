@@ -88,20 +88,26 @@ public:
         }
         return dp[n];
 
+        vector<int> dp(str.size(), -1);
         unordered_set<string> hset(wordDict.begin(), wordDict.end());
         
-        vector<int> memo(s.size(), -1);
-        return DFS(s, hset, 0, memo);
+        return DFS(str, 0, dp, hset);
     }
-    bool DFS(string s, unordered_set<string>& hset, int start, vector<int>& memo) {
-        if (start >= s.size()) return true;
-        if (memo[start] != -1) return memo[start];
+
+    bool DFS(string str, int start, vector<int>& dp, unordered_set<string>& hset) {
+        if (start >= str.size()) return true;
+        if (dp[start] != -1) return dp[start];
         
-        for (int i=start+1; i<=s.size(); ++i) {
-            if (hset.count(s.substr(start, i-start)) && DFS(s, hset, i, memo))
-                return memo[start] = 1;
+        for (int i=start+1; i<=str.size(); ++i) {
+            
+            if (!hset.count(str.substr(start, i-start))) continue;
+            if (DFS(str, i, dp, hset)) {
+                dp[start] = 1;
+                return true;
+            }
         }
-        return memo[start] = 0;
+        dp[start] = 0;
+        return false;
     }
 };
 // @lc code=end

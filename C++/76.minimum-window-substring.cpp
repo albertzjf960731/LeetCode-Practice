@@ -42,39 +42,32 @@ using namespace std;
 class Solution {
 public:
     string minWindow(string s, string t) {
-        // 初始化计数
-        vector<int> t_count(128, 0);
-        for(auto ch: t) t_count[ch]++;
-
-        int left=0, right=0, len=1;
-        int left_ans = 0, len_ans=INT_MAX;
-        int count = t.size();
-
-        while(right < s.size()){
-            if (count > 0){
-                char ch_right = s[right];
-                if(t_count[ch_right]>0) 
-                    count--;
-                t_count[ch_right]--;
-                right++;
-            }
-
-            while (count==0){
-                len = right-left;
-                if(len<len_ans) {
-                    len_ans = len;
-                    left_ans = left;
+        unordered_map<char, int> cnts;
+        for (char c: t) cnts[c] += 1;
+        int cnt = t.size();
+        
+        int ans_left=0, ans_len = INT_MAX;
+        for (int left=0, right=0; right<s.size(); ++right) {
+            
+            char c_r = s[right];
+            if (cnts[c_r] > 0) cnt -= 1;
+            cnts[c_r] -= 1;        
+                
+            while (cnt == 0) {
+                int len = right - left + 1;
+                if (len < ans_len) {
+                    ans_len = len;
+                    ans_left = left;
                 }
 
-                char ch_left = s[left];
-                if(t_count[ch_left]==0) 
-                    count++;
-                t_count[ch_left]++;
-                left++;
+                char c_l = s[left];
+                if (cnts[c_l] == 0) cnt += 1;
+                cnts[c_l] += 1;
+                left += 1;
             }
         }
-
-        return len_ans==INT_MAX? "" : s.substr(left_ans, len_ans);
+        return ans_len == INT_MAX ? "" : s.substr(ans_left, ans_len);
+    }
     }
 };
 // @lc code=end

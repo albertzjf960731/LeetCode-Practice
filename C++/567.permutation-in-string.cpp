@@ -71,6 +71,25 @@ public:
                 return true;
         }
         return false;
+
+        if (s1.size() > s2.size()) return false;
+        
+        unordered_map<char, int> cnts;
+        for (char c: s1) cnts[c] += 1;
+        int cnt = s1.size();
+        
+        for (int left=0, right=0; right<s2.size(); ++right) {
+            if (cnts[s2[right]] > 0) cnt -= 1;
+            cnts[s2[right]] -= 1;
+            
+            if (right < s1.size()-1) continue;
+            if (cnt == 0) return true;
+            
+            if (cnts[s2[left]] >= 0) cnt += 1;
+            cnts[s2[left]] += 1;
+            left += 1;
+        }
+        return false;
     }
 };
 // @lc code=end

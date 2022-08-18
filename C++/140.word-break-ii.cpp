@@ -73,28 +73,30 @@ using namespace std;
 class Solution {
 public:
      vector<string> wordBreak(string str, vector<string>& wordDict) {
-        unordered_map<string, bool> memo{};
-        unordered_set<string> hset(wordDict.begin(), wordDict.end());
+        unordered_map<string, vector<string>> memo;
+        unordered_set<string> word_set(wordDict.begin(), wordDict.end());
         
-        return DFS(str, hset, memo);
+        return DFS(str, word_set, memo);
     }
 
-    bool DFS(string str, unordered_set<string>& hset, unordered_map<string, bool>& memo) {
-        if (str.size() == 0) return true;
+    vector<string> DFS(string str, unordered_set<string>& word_set, unordered_map<string, vector<string>>& memo) {
         if (memo.count(str)) return memo[str];
+        
+        vector<string> res;
+        if (word_set.count(str)) res.push_back(str);
         
         for (int len=1; len<=str.size(); ++len) {
             string word = str.substr(0, len);
+            if (!word_set.count(word)) continue;
             
-            if (!hset.count(word)) continue;
-            
-            if (DFS(str.substr(word.size()), hset, memo)) {
-                memo[str] = true;
-                return true;
+            vector<string> tails = DFS(str.substr(word.size()), word_set, memo);
+            for(string tail: tails) {
+                tail = word + " " + tail;
+                res.push_back(tail);
             }
         }
-        memo[str] = false;
-        return false;
+        memo[str] = res;
+        return res;
     }
 };
 // @lc code=end

@@ -60,41 +60,23 @@ using namespace std;
 class Solution {
 public:
     vector<int> findAnagrams(string s, string p) {
-        // vector<int> res;
-
-        // int s_size = s.size(), p_size = p.size();
-        // for (int i=0; i<s_size-p_size; ++i){
-        //     if (isAnagram(s.substr(i, p_size), p))
-        //         res.push_back(i);
-        // }
-        // return res;
-
-        // vector<int> res;
-        // if(s.size() < p.size())
-        //    return res;
- 
-        // unordered_map<char, int> hash_map;
-        // for (char ch: p) hash_map[ch]++;
+        unordered_map<char, int> cnts;
+        for (char c: p) cnts[c] += 1;
+        int cnt = p.size();
         
-        // int s_size=s.size(), p_size=p.size();
-        // for (int i=0; i<s_size-p_size+1; ++i) {
-        //     unordered_map<char, int> temp_map;
-        //     int j = 0;
+        vector<int> ans;
+        for (int left=0, right=0; right<s.size(); ++right) {
+            if (cnts[s[right]] > 0) cnt -= 1;
+            cnts[s[right]] -= 1;
             
-        //     for(; j<p_size; ++j) {
-        //         char ch = s[i+j];
-        //         if (hash_map.find(ch)!=hash_map.end()) {
-        //             temp_map[ch] ++ ;
-        //             if (temp_map[ch]>hash_map[ch])
-        //                 break;
-        //         }
-        //         else 
-        //             break;
-        //     }
-        //     if (j==p_size)
-        //         res.push_back(i);
-        // }
-        // return res;
+            if (right < p.size()-1) continue;
+            if (cnt == 0) ans.push_back(left);
+            
+            if (cnts[s[left]] >= 0) cnt += 1;
+            cnts[s[left]] += 1;
+            left += 1;
+        }
+        return ans;
 
         vector<int> res;
         vector<int> p_count(26, 0), s_count(26, 0);
