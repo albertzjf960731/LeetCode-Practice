@@ -123,6 +123,29 @@ public:
             res.push_back(col);
         }
         return res;
+
+
+        map<int, map<int, vector<int>>> hmap;
+        DFS(root, 0, 0, hmap);
+        
+        vector<vector<int>> ans;
+        for (auto itx=hmap.begin(); itx!=hmap.end(); ++itx) {
+            vector<int> tmp;
+            for (auto ity=itx->second.begin(); ity!=itx->second.end(); ++ity) {
+                sort(ity->second.begin(), ity->second.end());
+                tmp.insert(tmp.end(), ity->second.begin(), ity->second.end());
+            }
+            ans.push_back(tmp);
+        }
+        return ans;
+    }
+    
+    void DFS(TreeNode* root, int x, int y, map<int, map<int, vector<int>>>& hmap) {
+        if (!root) return;
+        hmap[x][y].push_back(root->val);
+        
+        if (root->left) DFS(root->left, x-1, y+1, hmap);
+        if (root->right) DFS(root->right, x+1, y+1,  hmap);
     }
 };
 // @lc code=end

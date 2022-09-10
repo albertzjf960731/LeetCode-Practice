@@ -77,6 +77,19 @@ public:
             }
         }
         return true;
+
+        map<int, int> cnts;
+        for (int num: nums) cnts[num] += 1;
+        
+        for (auto [num, cnt]: cnts) {
+            if (cnt == 0) continue;
+            
+            for (int i=0; i<k; ++i) {
+                cnts[num+i] -= cnt;
+                if (cnts[num+i] < 0) return false;
+            }
+        }
+        return true;
     }
 };
 // @lc code=end

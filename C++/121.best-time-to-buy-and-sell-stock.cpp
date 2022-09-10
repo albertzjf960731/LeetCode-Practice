@@ -66,12 +66,12 @@ public:
         return ans;
  
 
-        // int buy=INT_MIN, sell=INT_MIN;
-        // for (int p: prices) {
-        //     buy = max(buy, -p);
-        //     sell = max(sell, buy+p);
-        // }
-        // return max(0, sell);
+        int buy=INT_MIN, sell=INT_MIN;
+        for (int p: prices) {
+            buy = max(buy, -p);
+            sell = max(sell, buy+p);
+        }
+        return max(0, sell);
 
 
         int n = prices.size();

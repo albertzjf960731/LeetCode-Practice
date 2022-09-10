@@ -67,6 +67,8 @@ public:
         vector<int> preorder;
         while (in>>val) 
             preorder.push_back(stoi(val));
+
+        idx_ = 0;
         return deserialize(preorder);
     }
 
@@ -79,7 +81,7 @@ private:
         serialize(root->right, out);
     }
 
-    int idx_ = 0;
+    int idx_;
     TreeNode* deserialize(vector<int>& preorder, int bound=INT_MAX) {
         if (idx_==preorder.size() || preorder[idx_]>bound) 
             return NULL;

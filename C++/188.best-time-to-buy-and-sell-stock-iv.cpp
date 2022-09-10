@@ -88,6 +88,19 @@ public:
 
         }
         return dp[k][n-1];    
+
+
+        vector<int> buy(k, INT_MIN), sell(k, INT_MIN);
+        for(int price: prices) {
+            buy[0] = max(buy[0], -price);
+            sell[0] = max(sell[0], buy[0]+price);
+            
+            for(int j=1; j<k; j++) {
+                buy[j] = max(buy[j], sell[j-1]-price);        
+                sell[j] = max(sell[j], buy[j]+price);
+            }
+        }
+        return sell[k-1];
     }
 };
 // @lc code=end

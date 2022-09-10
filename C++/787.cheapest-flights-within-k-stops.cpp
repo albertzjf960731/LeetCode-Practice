@@ -68,22 +68,17 @@ class Solution {
 public:
     // Bellman Ford
     int findCheapestPrice(int n, vector<vector<int>>& flights, int src, int dst, int K) {
-        vector<int> dists(n, INT_MAX);
-        dists[src] = 0;
-
-        vector<int> temp;
-        for (int i=0; i<=K; i++) {
-            temp = dists; // 只能用上一条信息
-            for (vector<int> edge: flights) {
-                int s=edge[0], d=edge[1], w=edge[2];
-                if(dists[s]!=INT_MAX & temp[d]-w>dists[s]) {
-                    temp[d] = dists[s] + w;
-                }
-            }
-            dists = temp;
+        vector<int> dist(n, 1e9);
+        dist[src] = 0;
+        for (int i=0; i<=k; i++) {
+            vector<int> tmp = dist; 
+            for (vector<int> e: flights) 
+                tmp[e[1]] = min(tmp[e[1]], dist[e[0]]+e[2]);
+            dist = tmp;
         }
-        int ans = dists[dst];
-        return ans==INT_MAX? -1: ans;
+        int ans = dist[dst];
+        return ans==1e9? -1: ans;
+    }
 
 
         vector<vector<pair<int,int>>> adj(n, vector<pair<int,int>>());

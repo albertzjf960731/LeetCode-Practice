@@ -39,36 +39,35 @@ using namespace std;
 // @lc code=start
 class Solution {
 public:
-    int maxSumSubmatrix(vector<vector<int>>& matrix, int k) {
-        if (matrix.empty()) 
-            return 0;
-        
+    int maxSumSubmatrix(vector<vector<int>>& nums, int k) {
+        int rows = nums.size(), cols = nums[0].size();
         int ans = INT_MIN;
-        int rows=matrix.size(), cols=matrix[0].size();
-        for (int l=0; l<cols; l++) {
-
-            vector<int> sums(rows, 0);
-            for (int r=l; r<cols; r++) {
-                for (int i=0; i<rows; i++) 
-                    sums[i] += matrix[i][r];
+        
+        vector<int> sums(rows, 0);
+        for (int i=0; i<cols; ++i) {
+            fill(sums.begin(), sums.end(), 0);
+            
+            for (int j=i; j<cols; ++j) {
+                for (int k=0; k<rows; ++k)
+                    sums[k] += nums[k][j];
                 ans = max(ans, maxSubarray(sums, k));
             }
         }
         return ans;
     }
-
+    
     int maxSubarray(vector<int>& nums, int k) {
-        int ans = INT_MIN;
-
-        set<int> sums;
-        sums.insert(0);
-
-        for (int i=0, sum=0; i<nums.size(); i++) {
-            sum += nums[i];
-            auto it = sums.lower_bound(sum-k);
-            if (it != sums.end())
+        int ans = INT_MIN, sum = 0;
+        set<int> hset{0};
+        for (int num: nums) {
+            sum += num;
+            
+            // num >= sum - k
+            auto it = hset.lower_bound(sum - k);
+            if (it != hset.end())
                 ans = max(ans, sum-*it);
-            sums.insert(sum);
+            
+            hset.insert(sum);
         }
         return ans;
     }

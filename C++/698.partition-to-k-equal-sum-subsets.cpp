@@ -49,6 +49,7 @@ public:
         for (int num: nums) sum += num;
         if (k<=0 || sum%k!=0) return false;
         
+        sort(nums.begin(), nums.end(), greater<int>());
         vector<int> visited(nums.size(), 0);
         return DFS(nums, visited, 0, k, 0, sum/k);
     }
