@@ -72,22 +72,28 @@ class Solution {
 public:
     int maximumScore(vector<int>& nums, vector<int>& multipliers) {
         int n = nums.size(), m = muls.size();
+        int ans = INT_MIN;
         
         vector<vector<int>> dp(m+1, vector<int>(m+1, 0));
-        for (int k=1; k<=m; k++) {
-            for (int l=0; l<=k; l++) {
-                int left = INT_MIN;
-                if (l>0) left = dp[l-1][k-l] + muls[k-1]*nums[l-1];
+        for(int k=1; k<=m; ++k){
+            for(int l=0; l<=k; l++){
+                int r = k - l;
                 
-                int right = INT_MIN;
-                if (l<k) right = dp[l][k-l-1] + muls[k-1]*nums[n-k+l];
-                
-                dp[l][k-l] = max(left, right);
+                if(l==0) {
+                    dp[l][r] = dp[l][r-1] + nums[n-r]*muls[k-1];
+                }
+                else if(r==0) {
+                    dp[l][r] = dp[l-1][r] + nums[l-1]*muls[k-1];
+                }
+                else {
+                    dp[l][r] = max(
+                        dp[l][r-1] + nums[n-r] * muls[k-1], 
+                        dp[l-1][r] + nums[l-1] * muls[k-1]
+                    );
+                }
+                if(k==m) ans = max(ans, dp[l][r]);
             }
         }
-        
-        int ans = INT_MIN;
-        for (int l=0; l<=m; ++l) ans = max(ans, dp[l][m-l]);
         return ans;
     }
 };

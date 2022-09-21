@@ -65,19 +65,20 @@ public:
         // }
         // return q.size();
         
-        int n = citations.size();
-        if (n==0) return 0;
-        
-        int left=0, right=n-1;
-        while (left<right) {
-            int mid = left + (right-left)/2;
-
-            if(citations[mid] >= n-mid)
-                right = mid;
-            else 
-                left = mid+1;
+        int left = 0, right = nums.size()-1;
+        while (left <= right) {
+            int mid =  left + (right - left) / 2;
+            
+            int cnt = nums.size() - mid;
+            
+            // reality: cnt >= nums[mid];
+            // expect: cnt >= cnt;
+            if (nums[mid] == cnt) return cnt;
+            if (nums[mid] < cnt) left = mid + 1;
+            else right = mid - 1;
         }
-        return citations[left]>=n-left? n-left : 0;
+        int cnt = nums.size()-left;
+        return cnt;
     }
 };
 // @lc code=end

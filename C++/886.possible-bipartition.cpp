@@ -89,10 +89,11 @@ public:
         }
         
         vector<int> colors(N + 1);
+        queue<int> q;
         for (int i=1; i<=N; ++i) {
             if (colors[i] != 0) continue;
             colors[i] = 1;
-            queue<int> q{{i}};
+            q.push(i)
             
             while (!q.empty()) {
                 int node = q.front(); 

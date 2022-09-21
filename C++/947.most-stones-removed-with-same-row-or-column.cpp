@@ -88,7 +88,7 @@ public:
         vector<int> root(n, -1);
         // for (int i=0; i<n; ++i) root[i] = i;
         
-        int cnt = n;
+        int ans = 0;
         for (int i=0; i<n; ++i) {
             for (int j = i+1; j<n; ++j) {
                 if (stones[i][0]==stones[j][0] || stones[i][1]==stones[j][1]) {
@@ -96,12 +96,12 @@ public:
                     int p2 = findRoot(root, j);
                     if (p1 != p2) {
                         root[p1] =  p2;
-                        cnt --;
+                        ans += 1;
                     }
                 }
             }
         }
-        return n - cnt;
+        return ans;
     }
     
     int findRoot(vector<int>& root, int i) {

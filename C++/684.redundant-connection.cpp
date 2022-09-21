@@ -75,7 +75,10 @@ using namespace std;
 class Solution {
 public:
     vector<int> findRedundantConnection(vector<vector<int>>& edges) {
-        vector<int> root(2000, -1);
+        int n = edges.size();
+        vector<int> root(n+1, -1);
+        for (int i=0; i<=n; ++i) root[i] = i;
+
         for (auto edge: edges) {
             int p1 = findRoot(root, edge[0]);
             int p2 = findRoot(root, edge[1]);
@@ -85,7 +88,11 @@ public:
         return {};
     }
     int findRoot(vector<int>& root, int i) {
-        while (root[i] != -1) i = root[i];
+        // while (root[i] != -1) i = root[i];
+        while (root[i] != i) {
+            root[i] = root[root[i]];
+            i = root[i];
+        }
         return i;
     }
 };

@@ -14,11 +14,11 @@ public:
         vector<int> colors(graph.size(), 0);
         
         
+        queue<int> q;
         for (int i=0; i<graph.size(); ++i) {
             if (colors[i] != 0) continue;
             colors[i] = 1;
-            
-            queue<int> q{{i}};
+            q.push(i);
             while (!q.empty()) {
                 int node = q.front(); 
                 q.pop();

@@ -99,9 +99,12 @@ public:
             else 
                 stack.push_back(ch);
         }
-        for (string ch: stack)
-            res+= "/" + ch;
-        return res.empty() ? "/" : res;
+        string ans = "/";
+        for (int i=0; i<stack.size(); ++i) {
+            ans += stack[i];
+            if (i!=stack.size()-1) ans += "/";
+        }
+        return ans;
     }
 };
 // @lc code=end

@@ -74,6 +74,10 @@ public:
     // }
 
     vector<vector<int>> palindromePairs(vector<string>& words) {
+        // 1 <= words.length <= 5000
+        // 0 <= words[i].length <= 300
+        // words lenght is much bigger than average word length,
+
         unordered_map<string, int> hash_map;
         vector<vector<int>> res;
 

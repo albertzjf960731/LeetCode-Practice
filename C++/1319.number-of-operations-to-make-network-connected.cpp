@@ -80,32 +80,29 @@ using namespace std;
 class Solution {
 public:
     int makeConnected(int n, vector<vector<int>>& connections) {
-        vector<int> nodes(n, -1);
-        // for(int i=0;i<n;i++) nodes[i]=i;
+        vector<int> root(n);
+        for (int i=0; i<n; ++i) root[i] = i;
         
         int extra = 0;
-        for(int i=0;i<connections.size();i++) {
-            int rooti = findRoot(nodes, connections[i][0]);
-            int rootj = findRoot(nodes, connections[i][1]);
-            if(rooti==rootj)
-                extra++;
-            else
-                nodes[rootj] = rooti;
+        for (vector<int>& edge: connections) {
+            int p1 = findRoot(root, edge[0]);
+            int p2 = findRoot(root, edge[1]);
+            if (p1 != p2) root[p1] = p2;
+            else extra += 1;
         }
         
-        int comp = 0;
-        for(int i=0; i<n; i++) {
-            if(nodes[i] == -1)
-                comp++;
-        }
+        int group = 0;
+        for (int i=0; i<n; ++i) if (root[i] == i) group += 1;
         
-        if(extra >= comp-1)
-            return comp-1;
-        return -1;
+        if (extra >= group-1) return group - 1;
+        else return -1;
     }
-
+    
     int findRoot(vector<int>& root, int i) {
-        while(root[i] != -1) i = root[i];
+        while (root[i] != i) {
+            root[i] = root[root[i]];
+            i = root[i];
+        }
         return i;
     }
 };

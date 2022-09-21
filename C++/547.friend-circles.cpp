@@ -96,8 +96,8 @@ public:
     int findCircleNum(vector<vector<int>>& nums) {
         int n = nums.size(), ans = n;
         
-        vector<int> root(n, -1);
-        // for (int i=0; i<n; ++i) root[i] = i;
+        // vector<int> root(n, -1);
+        for (int i=0; i<n; ++i) root[i] = i;
         
         for (int i=0; i<n; ++i) {
             for (int j=i+1; j<n; ++j) {
@@ -115,9 +115,9 @@ public:
     }
     
     int findRoot(vector<int>& root, int i) {
-        while (-1 != root[i]) {
-        // while (i != root[i]) {
-            // root[i] = root[root[i]]; // 路径压缩
+        // while (-1 != root[i]) {
+        while (i != root[i]) {
+            root[i] = root[root[i]]; // 路径压缩
             i = root[i];
         }
         return i;

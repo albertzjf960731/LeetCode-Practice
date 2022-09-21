@@ -61,22 +61,16 @@ public:
         while (pq.top()<pq.size()) pq.pop();
         return pq.size();
 
-        int size = citations.size();
-        // int buckets[size] = {0};
-        vector<int> buckets(size+1, 0);
 
-        for (int c: citations) {
-            if (c>=size)
-                buckets[size]++;
-            else
-                buckets[c]++;
+        vector<int> cnts(nums.size()+1, 0);
+        for (int num: nums) {
+            if (num >= nums.size()) cnts[nums.size()] += 1;
+            else cnts[num] += 1;
         }
-
-        int count = 0;
-        for (int i=size; i>-1; i--){
-            count += buckets[i];  
-            if (count>=i)
-                return i;
+        
+        for (int idx=nums.size(), cnt=0; idx>=0; --idx) {
+            cnt += cnts[idx];
+            if (cnt >= idx) return idx;
         }
         return 0;
     }

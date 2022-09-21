@@ -99,24 +99,30 @@ public:
         vector<int> root(26);
         for (int i=0; i<26; ++i) root[i] = i;
         
-        for (string str: equations) {
-            if (str[1]=='=')
-                root[findRoot(root, str[0]-'a')] = findRoot(root, str[3]-'a');
+        for (string s: equations) {
+            if (s[1] == '=') {
+                char c1 = s[0], c2 = s[3];
+                int p1 = findRoot(root, c1-'a'), p2 = findRoot(root, c2-'a');
+                root[p1] = p2;
+            }
         }
         
-        for (string str: equations) {
-            if (str[1]=='!') {
-                if (findRoot(root, str[0]-'a')==findRoot(root, str[3]-'a'))
-                    return false;
+        for (string s: equations) {
+            if (s[1] == '!') {
+                char c1 = s[0], c2 = s[3];
+                int p1 = findRoot(root, c1-'a'), p2 = findRoot(root, c2-'a');
+                if (p1 == p2) return false;
             }
         }
         return true;
     }
-
+    
     int findRoot(vector<int>& root, int i) {
-        while (i != root[i]) i = root[i];
+        while (root[i] != i) {
+            root[i] = root[root[i]];
+            i = root[i];
+        }
         return i;
-    }
 };
 // @lc code=end
 

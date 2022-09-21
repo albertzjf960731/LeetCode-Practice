@@ -80,19 +80,36 @@ class Solution {
 public:
     int scoreOfParentheses(string str) {
     	int ans = 0;
-    	for (int i=0; i<str.size(); ++i) {
-    		if (str[i] == ')') continue;
+    	for (int i=0; i<s.size(); ++i) {
+    		if (s[i] == ')') continue;
             
 			int j=i+1;
-            for (int cnt=1; j<str.size() && cnt!=0; ++j) {
-                if (str[j]=='(') cnt++;
-                else if (str[j]==')') cnt--;
+            for (int cnt=1; j<s.size(); ++j) {
+                if (s[j]=='(') cnt++;
+                else if (s[j]==')') cnt--;
+                if (cnt == 0) break;
     		}
-    		int sub_ans = scoreOfParentheses(str.substr(i+1, j-i-2));
+            
+    		int sub_ans = scoreOfParentheses(s.substr(i+1, j-i-1));
     		ans += max(2*sub_ans, 1);
-    		i= j-1;
+    		i = j;
     	}
     	return ans;
+
+        int ans = 0;
+        vector<int> stack;
+        
+    	for (char c: s) {
+            if (c == '(') {
+                stack.push_back(ans);
+                ans = 0;
+            }
+            else {
+                ans = stack.back() + max(ans * 2, 1);
+                stack.pop_back();
+            }
+        }
+        return ans;
     }
 };
 // @lc code=end

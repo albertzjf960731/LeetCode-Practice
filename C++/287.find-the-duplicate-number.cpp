@@ -73,6 +73,10 @@ public:
         }
         return 0;
 
+        while (nums[0] != nums[nums[0]])
+            swap(nums[0], nums[nums[0]]);
+        return nums[0];
+
         for (int i=0; i<nums.size(); i++) {
             int p = abs(nums[i])-1;
             if(nums[p]>0)

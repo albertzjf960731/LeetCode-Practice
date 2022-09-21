@@ -63,15 +63,15 @@ public:
         }
         return right;
 
-        // long left=1, right=x;
-        // while (left<right) {
-        //     int mid = left + (right-left)/2 + 1;
-
-        //     if(mid==x/mid) return mid;
-        //     else if(mid<x/mid) left = mid;
-        //     else right = mid-1;
-        // }
-        // return right;
+        int left = 0, right = n;
+        while (left < right) {
+            int mid = right - (right - left) / 2;
+            int div = n / mid;
+            
+            if (mid > div) right = mid - 1;
+            else left = mid;
+        }
+        return right;
     }
 };
 // @lc code=end
