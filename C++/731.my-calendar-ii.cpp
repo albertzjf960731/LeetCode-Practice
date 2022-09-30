@@ -90,6 +90,30 @@ public:
         events.push_back({start, end});
         return true;
     }
+
+private:
+    map<int, int> hash_map;
+    
+public:
+    MyCalendarTwo() {
+        
+    }
+    
+    bool book(int start, int end) {
+        hash_map[start] += 1;
+        hash_map[end] -= 1;
+        
+        int cnt = 0;
+        for (auto& it: hash_map) {
+            cnt += it.second;
+            if (cnt >= 3) {
+                hash_map[start] -= 1;
+                hash_map[end] += 1;
+                return false;
+            }
+        }
+        return true;
+    }
 };
 
 /**

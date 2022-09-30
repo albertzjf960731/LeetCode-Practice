@@ -82,18 +82,18 @@ using namespace std;
 
 class MyHashSet {
 private:
-    vector<vector<int>> data;
+    vector<vector<bool>> data;
     
 public:
     /** Initialize your data structure here. */
     MyHashSet() {
-        data.resize(1000, vector<int>());   
+        data.resize(1000, vector<bool>());   
     }
     
     void add(int key) {
         int hash_key = key % 1000;
         if (data[hash_key].empty())
-            data[hash_key].resize(1000);
+            data[hash_key].resize(1000, false);
         data[hash_key][key/1000] = 1;
     }
     

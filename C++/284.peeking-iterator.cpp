@@ -88,7 +88,7 @@ public:
 	}
 	
 	bool hasNext() const {
-	    return Iterator::hasNext();
+	    return flag || Iterator::hasNext();
 	}
 };
 // @lc code=end

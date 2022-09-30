@@ -36,15 +36,15 @@ using namespace std;
 class Solution {
 public:
     vector<int> findDuplicates(vector<int>& nums) {
-        vector<int> res;
+        vector<int> ans;
 
         for (int i=0; i<nums.size(); i++) {
-            int p = abs(nums[i])-1;
-            nums[p] *= -1;
-            if(nums[p]>0)
-                res.push_back(p+1);
+            int idx = abs(nums[i])-1;
+            if(nums[idx] < 0) ans.push_back(idx+1);
+
+            nums[idx] = -nums[idx];
         }
-        return res;
+        return ans;
 
 
         // for (int i=0; i<nums.size(); i++) {

@@ -61,6 +61,20 @@ public:
 #include <climits>
 using namespace std;
 
+class Solution {
+public:
+    vector<int> twoSum(vector<int>& nums, int target) {
+        int left = 0, right = nums.size()-1;
+        while (left < right) {
+            int sum = nums[left] + nums[right];
+            if (sum == target) break;
+            else if (sum < target) left++;
+            else right--;
+        }
+        return {left+1, right+1};
+    }
+};
+
 // Function to find a pair in an array with minimum absolute sum
 void findPair(int arr[], int n)
 {

@@ -45,15 +45,17 @@ using namespace std;
 class Solution {
 public:
     vector<int> corpFlightBookings(vector<vector<int>>& bookings, int n) {
-        vector<int> cnts(n);
-        for (auto &b : bookings) {
-            cnts[b[0]-1] += b[2];
+        vector<int> ans(n, 0);
+        for (vector<int>& b : bookings) {
+            ans[b[0]-1] += b[2];
             if (b[1] < n)
-                cnts[b[1]] -= b[2];
+                ans[b[1]] -= b[2];
         }
-        for (int i=1; i<n; ++i)
-            cnts[i] += cnts[i-1];
-        return cnts;
+        
+        for (int i=1; i<n; ++i) {
+            ans[i] += ans[i-1];
+        }
+        return ans;
     }
 };
 // @lc code=end

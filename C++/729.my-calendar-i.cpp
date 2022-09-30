@@ -71,7 +71,8 @@ public:
     
     bool book(int start, int end) {
         for (auto& event: events) {
-            if ((max(event[0], start) < min(event[1], end))) return false;
+            if ((max(event[0], start) < min(event[1], end))) 
+                return false;
         }
         events.push_back({start, end});
         return true;

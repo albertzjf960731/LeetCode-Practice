@@ -82,7 +82,7 @@ public:
     /** Compose a new tweet. */
     void postTweet(int userId, int tweetId) {
         follow(userId, userId);
-        tweet_map[userId].push_back({time++, tweetId});
+        tweet_map[userId].push_back(make(time++, tweetId));
     }
     
     /** Retrieve the 10 most recent tweet ids in the user's news feed. Each item in the news feed must be posted by users who the user followed or by the user herself. Tweets must be ordered from most recent to least recent. */
