@@ -65,26 +65,26 @@ class Solution {
 public:
     vector<vector<int>> getSkyline(vector<vector<int>>& buildings) {
         vector<pair<int, int>> heights;
-        for (auto &item : buildings) {
-            heights.push_back({item[0], -item[2]});
-            heights.push_back({item[1], item[2]});
+        for (vector<int>& b: buildings) {
+            heights.push_back({b[0], -b[2]});
+            heights.push_back({b[1], b[2]});
         }
         sort(heights.begin(), heights.end());
         
-        vector<vector<int>> res;
-        multiset<int> hash_set;
+        vector<vector<int>> ans;
+        multiset<int> hash_set{0};
         int pre = 0, cur = 0;
-        hash_set.insert(0);
-        for (auto &h : heights) {
-            if (h.second<0) hash_set.insert(-h.second);
+        for (pair<int, int>& h: heights) {
+            if (h.second < 0) hash_set.insert(-h.second);
             else hash_set.erase(hash_set.find(h.second));
+            
             cur = *hash_set.rbegin();
             if (cur != pre) {
-                res.push_back({h.first, cur});
+                ans.push_back({h.first, cur});
                 pre = cur;
             }
         }
-        return res;
+        return ans;
     }
 };
 // @lc code=end

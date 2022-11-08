@@ -84,6 +84,25 @@ public:
             cur = cur->right;
         }
         return false;
+
+        vector<int> nums;
+        Inorder(root, nums);
+        
+        int i = 0, j = nums.size()-1;
+        while (i < j) {
+            int sum = nums[i] + nums[j];
+            if (sum == k) return true;
+            else if (sum > k) j -= 1;
+            else i += 1;
+        }
+        return false;
+    }
+    
+    void Inorder(TreeNode* root, vector<int>& nums) {
+        if (!root) return;
+        Inorder(root->left, nums);
+        nums.push_back(root->val);
+        Inorder(root->right, nums);
     }
 };
 // @lc code=end

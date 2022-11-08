@@ -89,33 +89,34 @@ class Solution {
 public:
     int minMutation(string start, string end, vector<string>& bank) {
         if (bank.empty()) return -1;
-        unordered_set<string> gene_set(bank.begin(), bank.end());
-        if (!gene_set.count(end)) return -1;
+        vector<char> genes{'A', 'C', 'G', 'T'};
+        unordered_set<string> hset(bank.begin(), bank.end());
         
         int ans = 0;
+        
         queue<string> q;
-        q.push(start);
-        while (!q.empty()) {
+        q.push(startGene);
+        while(!q.empty()) {
             int q_size = q.size();
-            while (q_size--) {
-                string gene = q.front();
+            while (q_size --) {
+                string cur = q.front();
                 q.pop();
                 
-                if (gene==end)
-                    return ans;
-                for (int i=0; i<gene.size(); i++) {
-                    char ch = gene[i];
-                    for (char j: vector<int>{'A', 'C', 'G', 'T'}) {
-                        gene[i] = j;
-                        if (gene_set.count(gene)) {
-                            q.push(gene);
-                            gene_set.erase(gene);
+                if (cur == endGene) return ans;
+                
+                for (int i=0; i<cur.size(); ++i) {
+                    char c = cur[i];
+                    for (char t: genes) {
+                        cur[i] = t;
+                        if (hset.count(cur)) {
+                            q.push(cur);
+                            hset.erase(cur);
                         }
                     }
-                    gene[i] = ch;
+                    cur[i] = c;
                 }
             }
-            ans ++;
+            ans += 1;
         }
         return -1;
     }
