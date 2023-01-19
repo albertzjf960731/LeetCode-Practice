@@ -100,6 +100,22 @@ public:
         reverse(s.begin(), s.begin()+n);
         
         return string(s.begin(), s.begin()+n);
+
+
+
+        vector<string> strs;
+        istringstream in(s);
+        
+        string w;
+        while (in >> w) strs.push_back(w);
+        reverse(strs.begin(), strs.end());
+        
+        string ans;
+        for (int i=0; i<strs.size(); ++i) {
+            ans += strs[i];
+            if (i < strs.size()-1) ans += " ";
+        }
+        return ans;
     }
 };
 // @lc code=end

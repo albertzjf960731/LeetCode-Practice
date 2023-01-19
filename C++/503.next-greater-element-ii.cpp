@@ -52,8 +52,7 @@ public:
                 res[monostack.back()] = nums[i%n];
                 monostack.pop_back();
             }
-            if (i<n) 
-                monostack.push_back(i);
+            monostack.push_back(i%n);
         }
         return res;
     }

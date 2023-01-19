@@ -58,7 +58,22 @@ public:
             return 0;
         return 1 + countNodes(root->left) + countNodes(root->right);
         
+        if (!root) return 0;
         
+        int l_h = 0, r_h = 0;
+        TreeNode *l_tree = root, *r_tree = root;
+        while (l_tree) {
+            l_h += 1;
+            l_tree = l_tree->left;
+        }
+        while (r_tree) {
+            r_h += 1;
+            r_tree = r_tree->right;
+        }
+        
+        if (l_h == r_h) return pow(2, l_h) - 1;
+        return countNodes(root->left) + countNodes(root->right) + 1;
+
         TreeNode *node = root;
         int height = 0;
         while(node!=NULL) {

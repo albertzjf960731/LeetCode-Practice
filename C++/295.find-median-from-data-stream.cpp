@@ -64,31 +64,30 @@ class MedianFinder {
 private:
     priority_queue<int> max_pq;
     priority_queue<int, vector<int>, greater<int>> min_pq;
-
 public:
-    /** initialize your data structure here. */
-    // MedianFinder() {
+    MedianFinder() {
         
-    // }
+    }
     
     void addNum(int num) {
-        if(min_pq.size()==max_pq.size()){
-            min_pq.push(num);
-            max_pq.push(min_pq.top());
-            min_pq.pop();
-        }
-        else {
+        if (min_pq.size() < max_pq.size()) {
             max_pq.push(num);
             min_pq.push(max_pq.top());
             max_pq.pop();
         }
+        else {
+            min_pq.push(num);
+            max_pq.push(min_pq.top());
+            min_pq.pop();
+        }
     }
     
     double findMedian() {
-        if (min_pq.size() == max_pq.size())
-            return (min_pq.top() + max_pq.top())/ 2.0;
+        if (min_pq.size() == max_pq.size()) 
+            return (min_pq.top() + max_pq.top()) / 2.0;
         else 
             return max_pq.top();
+    }  return max_pq.top();
     }
 
 // private:

@@ -68,7 +68,6 @@ public:
         }
         return ans_len == INT_MAX ? "" : s.substr(ans_left, ans_len);
     }
-    }
 };
 // @lc code=end
 
