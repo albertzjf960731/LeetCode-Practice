@@ -65,49 +65,50 @@ using namespace std;
 class LFUCache {
 private:
     int cap, minFreq;
-    unordered_map<int, pair<int, int>> key2val_freq;
+    unordered_map<int, int> key2val, key2freq;
     unordered_map<int, list<int>> freq2keys;
     unordered_map<int, list<int>::iterator> key2iter;
-    
+
 public:
     LFUCache(int capacity) {
         cap = capacity;
     }
     
     int get(int key) {
-        if (!key2val_freq.count(key)) return -1;
+        if (!key2val.count(key)) return -1;
 
-        int freq = key2val_freq[key].second; 
+        int freq = key2freq[key];
         freq2keys[freq].erase(key2iter[key]);
 
-        freq ++;
-        key2val_freq[key].second = freq;
-        freq2keys[freq].push_back(key);
-        key2iter[key] = --freq2keys[freq].end();
-        // key2iter[key] = freq2keys[freq].rbegin();
+        freq += 1;
+        key2freq[key] = freq;
+        freq2keys[freq].push_front(key);
+        key2iter[key] = freq2keys[freq].begin();
+        if (freq2keys[minFreq].size() == 0) minFreq += 1;
 
-        if (freq2keys[minFreq].size()==0) ++minFreq;
-        return key2val_freq[key].first;
+        return key2val[key];
     }
     
     void put(int key, int value) {
-        if (cap <= 0) return;
-
-        if (get(key)!=-1) {
-            key2val_freq[key].first = value;
+        if (cap == 0) return;
+        
+        if (get(key) != -1) {
+            key2val[key] = value;
             return;
         }
 
-        if (key2val_freq.size() == cap) {
-            int k = freq2keys[minFreq].front();
-            key2val_freq.erase(k);
+        if (key2val.size() == cap) {
+            int k = freq2keys[minFreq].back();
+            key2val.erase(k);
+            key2freq.erase(k);
             key2iter.erase(k);
-            freq2keys[minFreq].pop_front();
+            freq2keys[minFreq].pop_back();
         }
-        key2val_freq[key] = {value, 1};
-        freq2keys[1].push_back(key);
-        key2iter[key] = --freq2keys[1].end();
 
+        key2val[key] = value;
+        key2freq[key] = 1;
+        freq2keys[1].push_front(key);
+        key2iter[key] = freq2keys[1].begin();
         minFreq = 1;
     }
 };

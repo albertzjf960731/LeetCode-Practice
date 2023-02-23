@@ -32,31 +32,34 @@ using namespace std;
 class Solution {
 public:
     vector<string> restoreIpAddresses(string s) {
-        vector<string> res;
-        string path;
-        DFS(s, 0, 0, path, res);
-        return res;
+        vector<string> ans;
+        vector<int> path;
+        DFS(s, 0, path, ans);
+        return ans;
     }
-    void DFS(string s,int start,int step,string path,vector<string>& res){
-        int s_size = s.size();
-        if (start == s_size && step==4) {
-            path.erase(path.end()-1);
-            res.push_back(path);
+
+    void DFS(string s, int idx, vector<int>& path, vector<string>& ans) {
+        if (path.size()==4) {
+            if (idx < s.size()) return;
+
+            string tmp = "";
+            for (int num: path) tmp = tmp + to_string(num) + ".";
+            tmp.pop_back();
+            ans.push_back(tmp);
             return;
         }
-    
-        if(s.size()-start > (4-step)*3) return; // pruning
-        // if(s.size()-start < (4-step)) return;
 
-        int num=0;
-        for(int i=start; i<start+3; i++){
-            num=num*10+(s[i]-'0');
-            if(num<=255){
-                path += s[i];
-                DFS(s, i+1, step+1, path+'.', res);
-            }
-            if(num==0) break;
+        int num = 0;
+        for (int i=idx; i<s.size(); ++i) {
+            num = num * 10 + (s[i]-'0');
+            if (num > 255) break;
+
+            path.push_back(num);
+            DFS(s, i+1, path, ans);
+            path.pop_back();
+            if (num == 0) break;
         }
+        return;
     }
 };
 // @lc code=end

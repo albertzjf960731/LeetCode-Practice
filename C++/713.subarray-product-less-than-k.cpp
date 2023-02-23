@@ -42,14 +42,12 @@ using namespace std;
 class Solution {
 public:
     int numSubarrayProductLessThanK(vector<int>& nums, int k) {
-        int ans=0, prod=1;
-        
-        int left=0, right=0;
-        while (right < nums.size()) {
-            prod *= nums[right++];
-            while (left<right && prod>=k) 
+        int ans = 0, prod = 1;
+        for(int left=0, right=0; right<nums.size(); ++right) {
+            prod *= nums[right];
+            while (prod >= k && left <= right) 
                 prod /= nums[left++];
-            ans += right-left;
+            ans += right - left + 1;
         }
         return ans;
     }

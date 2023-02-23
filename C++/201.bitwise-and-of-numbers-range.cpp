@@ -34,11 +34,12 @@
 class Solution {
 public:
     int rangeBitwiseAnd(int m, int n) {
-        while (n > m) {
-            n = n & (n-1);
-        }
-        return n;
+        // while (n > m) {
+        //     n = n & (n-1);
+        // }
+        // return n;
 
+        // 最后的数是该数字范围内所有的数的左边共同的部分
         // unsigned int mask = 0xFFFFFFFF;
         // while ((m&mask) != (n&mask))
         //     mask <<= 1;
