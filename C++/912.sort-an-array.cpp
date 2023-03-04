@@ -86,6 +86,11 @@ public:
     }
     
     // 高效排序
+    {
+        random_shuffle(nums.begin(), nums.end());
+        qSort(nums, 0, nums.size()-1);
+        return nums;
+    }
     void quick_sort(vector<int>& nums, int left, int right) {
         if(left>=right)
             return;
