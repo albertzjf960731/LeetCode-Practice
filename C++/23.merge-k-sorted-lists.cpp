@@ -55,18 +55,37 @@ public:
 
     ListNode* mergeKLists(vector<ListNode*>& lists) {
 
-        priority_queue<ListNode*, vector<ListNode*>, heapComp> queue;
-        for (ListNode* node: lists){
-            if(node) queue.push(node);
-        }
+        // priority_queue<ListNode*, vector<ListNode*>, heapComp> queue;
+        // for (ListNode* node: lists){
+        //     if(node) queue.push(node);
+        // }
+
+        // ListNode dummy(0), *cur = &dummy;
+
+        // while(!queue.empty()) {
+        //     cur->next = queue.top();
+        //     queue.pop();
+        //     cur = cur->next;
+        //     if(cur->next) queue.push(cur->next);
+        // }
+        // return dummy.next;
+
+        if (lists.size() == 0) return NULL;
+
+        auto cmp = [](ListNode* a, ListNode* b) {
+            return a->val > b->val;
+        };
+        priority_queue<ListNode*, vector<ListNode*>, decltype(cmp)> pq(cmp);
+        for (ListNode* l: lists) if (l) pq.push(l);
 
         ListNode dummy(0), *cur = &dummy;
+        while (!pq.empty()) {
+            ListNode *node = pq.top();
+            pq.pop();
+            if(node->next) pq.push(node->next);
 
-        while(!queue.empty()) {
-            cur->next = queue.top();
-            queue.pop();
+            cur->next = node;
             cur = cur->next;
-            if(cur->next) queue.push(cur->next);
         }
         return dummy.next;
     }

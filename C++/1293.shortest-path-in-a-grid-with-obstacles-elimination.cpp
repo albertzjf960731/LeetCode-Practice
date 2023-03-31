@@ -8,7 +8,6 @@
 class Solution {
 public:
     int shortestPath(vector<vector<int>>& grid, int k) {
-    int shortestPath(vector<vector<int>>& grid, int k) {
         int n = grid.size(), m = grid[0].size();
         vector<vector<int>> dirs{{-1, 0}, {0, 1}, {1, 0}, {0, -1}};
         

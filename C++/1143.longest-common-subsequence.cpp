@@ -83,6 +83,17 @@ public:
             }
         }
         return dp[size1][size2];
+
+        vector<vector<string>> dp(s1.size()+1, vector<string>(s2.size()+1, ""));
+        for (int i=0; i<s1.size(); ++i) {
+            for (int j=0; j<s2.size(); ++j) {
+                if (s1[i] == s2[j]) 
+                    dp[i+1][j+1] = dp[i][j] + s1[i];
+                else   
+                    dp[i+1][j+1] = dp[i+1][j].size() > dp[i][j+1].size() ?  dp[i+1][j] : dp[i][j+1];
+            }
+        }
+        return dp[s1.size()][s2.size()];
     }
 
     // string getLCS(string text1, string text2, vector<vector<int>>& dp, 

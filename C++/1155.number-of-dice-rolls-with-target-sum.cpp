@@ -98,7 +98,6 @@ public:
         // }
         // return dp[target];
 
-        // 分组0/1背包的组合问题
         int mod = 1e9+7;
         vector<vector<int>> dp(n+1, vector<int>(target+1, 0));
         dp[0][0] = 1;
@@ -119,7 +118,7 @@ public:
         dp[0] = 1;
             
         for (int i=1; i<=n; ++i) {
-            vector<int> tmp(target+1);
+            vector<int> tmp(target+1, 0); // [i][j], [i-1][j] are different
             for (int j=i; j<=target; ++j) {
                 for (int k=1; k<=m && k<=j; ++k) {
                     tmp[j] = (tmp[j] + dp[j-k]) % mod;

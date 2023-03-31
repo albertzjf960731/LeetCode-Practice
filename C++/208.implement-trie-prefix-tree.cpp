@@ -69,6 +69,7 @@ public:
     bool isWord;
     TrieNode() : isWord(false) {
         for (auto &x: child) x = nullptr;
+        // for (int i=0; i<26; ++i) child[i] = NULL;
     }
 };
 
@@ -107,6 +108,7 @@ public:
         }
         return true;
     }
+};
 
 /**
  * Your Trie object will be instantiated and called as such:

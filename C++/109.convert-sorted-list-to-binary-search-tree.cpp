@@ -59,23 +59,19 @@ struct TreeNode {
 // @lc code=start
 class Solution {
 public:
-    TreeNode* sortedListToBST(ListNode* head) {
-        return DFS(head, NULL);
-    }
-    TreeNode* DFS(ListNode* head, ListNode* tail) {
-        if (head==tail) return NULL;
+    TreeNode* sortedListToBST(ListNode *head, ListNode *tail=NULL) {
+        if (head == tail) return NULL;
 
-        ListNode *slow=head, *fast=head;
+        ListNode *slow = head, *fast = head;
         while (fast!=tail && fast->next!=tail) {
             slow = slow->next;
             fast = fast->next->next;
         }
 
         TreeNode *root = new TreeNode(slow->val);
-        root->left = DFS(head, slow);
-        root->right = DFS(slow->next, tail);
+        root->left = sortedListToBST(head, slow);
+        root->right = sortedListToBST(slow->next, tail);
         return root;
-
     }
 };
 // @lc code=end

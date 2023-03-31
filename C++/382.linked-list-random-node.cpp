@@ -51,27 +51,18 @@ struct ListNode {
 // @lc code=start
 class Solution {
 private:
-    ListNode *head;
-    
+    ListNode* head;
 public:
-    /** @param head The linked list's head.
-        Note that the head is guaranteed to be not null, so it contains at least one node. */
-    Solution(ListNode* head) {
-        this->head = head;
-    }
+    Solution(ListNode* head) : head(head) {}
     
-    /** Returns a random node's value. */
     int getRandom() {
-        int ans = head->val;
-        
-        int i = 2;
-        ListNode *cur = head->next;
+        ListNode *cur = head;
+        int ans = -1, cnt = 1;
         while (cur) {
-            int j = rand() % i;
-            if (j==0) ans = cur->val;
-            
-            ++i;
+            if (rand()%cnt==0) ans = cur->val;
+
             cur = cur->next;
+            cnt += 1;
         }
         return ans;
     }

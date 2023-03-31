@@ -84,28 +84,45 @@ using namespace std;
 
 // @lc code=start
 class Solution {
+private:
+    unordered_map<string, unordered_map<string, bool>> dp;
+
 public:
     bool isScramble(string s1, string s2) {
         if (s1.size() != s2.size()) return false;
         if (s1 == s2) return true;
-        
-        string str1 = s1, str2 = s2;
-        sort(str1.begin(), str1.end());
-        sort(str2.begin(), str2.end());
-        if (str1 != str2) return false;
-        
-        for (int i=1; i<s1.size(); ++i) {
-            string s11 = s1.substr(0, i);
-            string s12 = s1.substr(i);
-            
-            string s21 = s2.substr(0, i);
-            string s22 = s2.substr(i);
-            if (isScramble(s11, s21) && isScramble(s12, s22)) return true;
-            
-            s21 = s2.substr(s1.size() - i);
-            s22 = s2.substr(0, s1.size() - i);
-            if (isScramble(s11, s21) && isScramble(s12, s22)) return true;
+
+        if (s1 > s2) return isScramble(s2, s1);
+        if (dp.count(s1) && dp[s1].count(s2)) return dp[s1][s2];
+
+        string tmp1 = s1, tmp2 = s2;
+        sort(tmp1.begin(), tmp1.end());
+        sort(tmp2.begin(), tmp2.end());
+        if (tmp1 != tmp2) {
+            dp[s1][s2] = false;
+            return false;
         }
+        
+        int n = s1.size();
+        for (int len=1; len<n; ++len) {
+            string s11 = s1.substr(0, len);
+            string s12 = s1.substr(len);
+
+            string s21 = s2.substr(0, len);
+            string s22 = s2.substr(len);
+            if (isScramble(s11, s21) && isScramble(s12, s22)) {
+                dp[s1][s2] = true;
+                return true;
+            }
+
+            s21 = s2.substr(n-len);
+            s22 = s2.substr(0, n-len);
+            if (isScramble(s11, s21) && isScramble(s12, s22)) {
+                dp[s1][s2] = true;
+                return true;
+            }
+        }
+        dp[s1][s2] = false;
         return false;
     }
 };
