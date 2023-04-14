@@ -25,6 +25,22 @@ public:
             }
         }
         return dp[0][n-1];
+
+        int n = nums.size();
+        vector<vector<int>> dp(n, vector<int>(n, 0));
+        helper(nums, 0, n-1, dp);
+        
+        return dp[0][n-1];
+    }
+
+    int helper(vector<int>& nums, int i, int j, vector<vector<int>>& dp) {
+        if (dp[i][j] != 0) return dp[i][j];
+        
+        for (int k=i+1; k<j; ++k) {
+            dp[i][j] = min(dp[i][j]==0?INT_MAX: dp[i][j], 
+                helper(nums, i, k, dp) + nums[i]*nums[k]*nums[j] + helper(nums, k, j, dp));
+        }
+        return dp[i][j];
     }
 };
 // @lc code=end

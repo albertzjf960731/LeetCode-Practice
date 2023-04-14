@@ -50,6 +50,8 @@ public:
         nums.insert(nums.begin(), 1);
         nums.push_back(1);
         
+        // divide and conquer, reverse thinking
+        // divide the problem by the last balloon to burst.
         vector<vector<int>> dp(n+2, vector<int>(n+2, 0));
         for (int len=1; len<=n; ++len) {
             for (int i=1; i<=n-len+1; ++i) {

@@ -141,26 +141,27 @@ public:
         // return copies[node];
 
     
-      if (node==NULL) return node;
-        
-        Node* node_c = new Node(node->val, {});
-        copies[node] = node_c;
+        if (node==NULL) return NULL;
+
+        unordered_map<Node*, Node*> hmap;
+        hmap[node] = new Node(node->val, {});
         
         queue<Node*> q;
         q.push(node);
+
         while (!q.empty()) {
             Node* cur = q.front();
             q.pop();
-            
-            for (Node* neigh : cur->neighbors) {
-                if (!copies.count(neigh)) {
-                    copies[neigh] = new Node(neigh->val, {});
-                    q.push(neigh);
+
+            for (Node* nei: cur->neighbors) {
+                if (!hmap.count(nei)) {
+                    hmap[nei] = new Node(nei->val, {});
+                    q.push(nei);
                 }
-                copies[cur]->neighbors.push_back(copies[neigh]);
+                hmap[cur]->neighbors.push_back(hmap[nei]);
             }
         }
-        return node_c;
+        return hmap[node];
     }
 };
 // @lc code=end

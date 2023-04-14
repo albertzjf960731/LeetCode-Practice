@@ -68,10 +68,14 @@ using namespace std;
 class Solution {
 public:
     int numRescueBoats(vector<int>& people, int limit) {
-        sort(people.begin(), people.end());
+        sort(nums.rbegin(), nums.rend());
+        
         int ans = 0;
-        for (int i=0, j=people.size()-1; i<=j; --j, ++ans)
-            if (people[i] + people[j] <= limit) i++;
+        for (int i=0, j=nums.size()-1; i<=j; ++i) {
+            if (nums[i] + nums[j] <= limit) 
+                j--;
+            ans += 1;
+        }
         return ans;
     }
 };

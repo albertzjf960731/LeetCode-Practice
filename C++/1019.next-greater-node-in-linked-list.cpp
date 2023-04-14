@@ -94,7 +94,26 @@ public:
         }
         for (int i: stack) 
             res[i] = 0;
-        return res;        
+        return res;
+
+
+        vector<int> nums;
+        while (head) {
+            nums.push_back(head->val);
+            head = head->next;
+        }
+
+        int n = nums.size();
+        vector<int> stack, ans(n, 0);
+
+        for (int i=0; i<n; ++i) {
+            while (!stack.empty() && nums[i] > nums[stack.back()]) {
+                ans[stack.back()] = nums[i];
+                stack.pop_back();
+            }
+            stack.push_back(i);
+        }
+        return ans;   
     }
 };
 // @lc code=end
