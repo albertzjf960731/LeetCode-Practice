@@ -62,7 +62,22 @@ class Solution(object):
         #         return i 
         # return 0
 
+        # binary search
 
+        n = len(citations)
+        left, right = 0, n
+        while left < right:
+            mid = right - (right - left) // 2
+            cnt = 0
+            for num in citations:
+                cnt += (num >= mid)
+            # expectation: cnt >= mid
+            if cnt >= mid:
+                left = mid
+            else:
+                right = mid - 1
+        return right
+    
         # keep updating the priority queue so that it only contains numbers greater than the current H-index and remove the rest.
 
         from queue import PriorityQueue

@@ -94,6 +94,39 @@ public:
             ans[i] = flower;
         }
         return ans; 
+
+
+        vector<vector<int>> graph(n, vector<int>());
+        for (vector<int>& p: paths) {
+            graph[p[0]-1].push_back(p[1]-1);
+            graph[p[1]-1].push_back(p[0]-1);
+        }
+
+        vector<int> path(n, 0);
+        DFS(graph, path, 0);
+        return path;
+    }
+
+    bool DFS(vector<vector<int>>& graph, vector<int>& path, int i) {
+        if (i == path.size()) {
+            return true;
+        }
+
+        for (int c=1; c<=4; ++c) {
+            if (check(graph, path, i, c)) {
+                path[i] = c;
+                if (DFS(graph, path, i+1)) return true;;
+            }
+        }
+        return false;
+    }
+
+    bool check(vector<vector<int>>& graph, vector<int>& path, int i, int c) {
+        for (int j: graph[i]) {
+            if (path[j] == 0) continue;
+            if (path[j] == c) return false;
+        }
+        return true;
     }
 };
 // @lc code=end

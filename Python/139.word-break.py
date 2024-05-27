@@ -61,7 +61,19 @@ class Solution(object):
         :type wordDict: List[str]
         :rtype: bool
         """
+
+        # if s == "":
+        #     return True 
+
+        # for i in range(len(s)):
+        #     if s[0:i+1] in wordDict:
+        #         if self.wordBreak(s[i+1:], wordDict):
+        #         if dp[i+1]: # top-down
+        #             return True
+        # return False
+
         # dp[i] means s[:i+1] can be segmented into words in the wordDicts 
+        # dp = brute force + memoization
         dp = [False] * (len(s) + 1)
         dp[0] = True
         for i in range(len(s)):

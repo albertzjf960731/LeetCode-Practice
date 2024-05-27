@@ -65,16 +65,19 @@ class Solution(object):
 
         # return len(queue)
 
-
         n = len(citations)
-        l, r = 0, n-1
-        while l <= r:
-            mid = (l+r)/2
-            if citations[mid] >= n-mid:
-                r = mid - 1
+        left, right = 0, n-1
+        while left < right:
+            mid = left + (right - left) // 2
+            if n-mid > citations[mid]:
+                left = mid + 1
             else:
-                l = mid + 1
-        return n-l
+                right = mid
+
+        if n-left <= citations[left]:
+            return n-left
+        else:
+            return 0
 
 
         

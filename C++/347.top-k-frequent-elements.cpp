@@ -47,28 +47,21 @@ using namespace std;
 class Solution {
 public:
     vector<int> topKFrequent(vector<int>& nums, int k) {
-        unordered_map<int, int> counts;
-        for (int num: nums) 
-            counts[num]++;
-        
-        // vector<vector<int>> buckets(nums.size()+1);
-        // for(auto it=counts.begin(); it!=counts.end(); ++it)
-        //     buckets[it->second].push_back(it->first);
-        
-        unordered_map<int, vector<int>> buckets;
-        for(auto it=counts.begin(); it!=counts.end(); ++it)
-            buckets[it->second].push_back(it->first);
+        unordered_map<int, int> cnts;
+        for (int num: nums) cnts[num] += 1;
 
-        vector<int> res;
-        for (int count=nums.size(); count>0; count--) {
-            if (buckets.count(count)) {
-                for (int num: buckets[count]) 
-                    res.push_back(num);
-            }
-            if (res.size()>=k)
-                break;
+        vector<vector<int>> bins(nums.size()+1);
+        for (auto& [num, cnt]: cnts) bins[cnt].push_back(num);
+
+        vector<int> ans;
+        for (int i=nums.size(); i>=0; --i) {
+            if (bins[i].empty()) continue;
+            
+            ans.insert(ans.end(), bins[i].begin(), bins[i].end());
+            if (ans.size() >= k) break;
         }
-        return res;
+        return ans;
+
     }
 };
 // @lc code=end
