@@ -45,14 +45,14 @@ class Solution(object):
                     
         # return res         
 
-        res = [0 for _ in range(len(nums))]
+        ans = [0] * len(nums)
         stack = []
         for i in range(len(nums)):
-            while stack and nums[i] > nums[stack[-1]]:
-                cur = stack.pop()
-                res[cur] = i-cur
+            while(stack and nums[i]>nums[stack[-1]]):
+                idx = stack.pop()
+                ans[idx] = i - idx
             stack.append(i)
-        return res 
+        return ans
 
 # @lc code=end
 

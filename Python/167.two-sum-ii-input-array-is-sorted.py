@@ -44,13 +44,6 @@ class Solution(object):
         :type target: int
         :rtype: List[int]
         """
-        # hash_table = {}
-        # for index, value in enumerate(nums):
-        #     sub = target - value
-        #     if sub in hash_table:
-        #         return [hash_table[sub]+1, index+1]
-        #     hash_table[value] = index
-        
         l, r = 0, len(nums)-1   
         while l<r:
             s = nums[l] + nums[r]
@@ -60,6 +53,7 @@ class Solution(object):
                 l += 1
             else:
                 r -= 1
+        return [-1, -1]
 
 
 # @lc code=end

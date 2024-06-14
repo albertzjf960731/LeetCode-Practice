@@ -47,17 +47,17 @@ class Solution(object):
         :type t: str
         :rtype: bool
         """
-        # return len(s) == len(t) and set(s) == set(t)
         # return sorted(s) == sorted(t)
         
-        dict_s, dict_t = dict(), dict()
-
+        cnts = [0] * 26
         for c in s:
-            dict_s[c] = dict_s.get(c, 0) + 1
+            cnts[ord(c)-ord('a')] += 1
         for c in t:
-            dict_t[c] = dict_t.get(c, 0) + 1
-        return dict_s == dict_t
-
+            cnts[ord(c)-ord('a')] -= 1
+        for num in cnts:
+            if num != 0:
+                return False
+        return True
 
 
 # @lc code=end

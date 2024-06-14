@@ -67,27 +67,23 @@ class Solution(object):
         :type tokens: List[str]
         :rtype: int
         """
+        # int(float(a)/b) is used to truncate towards zero
         stack = []
-        
-        for ch in tokens:
-            if ch not in "+-*/":
-                stack.append(int(ch))
+        for token in tokens:
+            if token not in "+-*/":
+                stack.append(int(token))
             else:
-                num2 = stack.pop()
-                num1 = stack.pop()
-                if ch == '+':
-                    num3 = num1 + num2
-                elif ch == '-':
-                    num3 = num1 - num2
-                elif ch == '*':
-                    num3 = num1 * num2
-                elif ch == '/':
-                    if num1 * num2 < 0 and num1%num2 != 0:
-                        num3 = (num1//num2) + 1
-                    else:
-                        num3 = num1//num2
-                stack.append(num3)
-        return stack[-1]
+                b = stack.pop()
+                a = stack.pop()
+                if token == "+":
+                    stack.append(a+b)
+                elif token == "-":
+                    stack.append(a-b)
+                elif token == "*":
+                    stack.append(a*b)
+                else:
+                    stack.append(int(float(a)/b))
+        return stack[0]
                 
 # @lc code=end
 

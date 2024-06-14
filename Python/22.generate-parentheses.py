@@ -52,19 +52,20 @@ class Solution(object):
         #                 res.append('('+l+')'+ r)
         # return res
 
+        ans = []
+        self.dfs("", n, n, ans)
+        return ans
+        
+    def dfs(cur, left, right, ans):
+        if left == 0 and right == 0:
+            ans.append(cur)
+            return
 
-        # 回溯
-        res = []
-        self.helper(n, n, res, '')
-        return res
-    def helper(self, left, right, res, path):
-        if left:
-            self.helper(left-1, right, res, path+'(')
-        if right>left:
-            self.helper(left, right-1, res, path+')')
-        if not right:
-            res.append(path) 
-        return res
+        if left > 0:
+            self.dfs(cur+'(', left-1, right, ans)
+
+        if right>0 and right>left:
+            self.dfs(cur+')', left, right-1, ans)
 
 # @lc code=end
 

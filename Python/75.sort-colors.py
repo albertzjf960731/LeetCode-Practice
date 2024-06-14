@@ -69,24 +69,24 @@ class Solution(object):
         #         nums[i] = 2
         #         num_two -= 1
         
-        zero, one, two = -1, -1, -1
-        for num in nums:
-            if num == 0:
-                two += 1
-                nums[two] = 2
-                one += 1
-                nums[one] = 1
-                zero += 1
-                nums[zero] = 0 
-            if num == 1:
-                two += 1
-                nums[two] = 2
-                one += 1 
-                nums[one] = 1 
-            if num == 2:
-                two += 1
-                nums[two] = 2
-                   
+        idx0, idx1, idx2 = 0, 0, 0
+        for i in range(len(nums)):
+            if nums[i] == 0:
+                nums[idx2] = 2
+                nums[idx1] = 1
+                nums[idx0] = 0
+                idx2 += 1
+                idx1 += 1
+                idx0 += 1
+            elif nums[i] == 1:
+                nums[idx2] = 2
+                nums[idx1] = 1
+                idx2 += 1
+                idx1 += 1
+            elif nums[i] == 2:
+                nums[idx2] = 2
+                idx2 += 1
+
 
 
 # @lc code=end

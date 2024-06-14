@@ -48,92 +48,48 @@ class Solution(object):
         :type target: int
         :rtype: int
         """
-        # if not nums:
-        #     return -1
-        # middle = len(nums) // 2
-        # if target == nums[middle]:
-        #     return middle
-        # elif target < nums[middle]:
-        #     return self.search(nums[:middle], target)
-        # else:
-        #     return self.search(nums[middle+1:], target) + middle+1
-        # return self.bi_search(nums, 0, len(nums)-1, target)
-
-    # def bi_search(self, nums, start, end, target):
-    #     middle = (end-start) // 2 + start
-
-    #     if nums[middle] == target:
-    #         return middle
-    #     elif start == end:
-    #         return -1
-    #     elif target < nums[middle]:
-    #         return self.bi_search(nums, start, middle-1, target)
-    #     else:
-    #         return self.bi_search(nums, middle+1, end, target)
-
-        # left, right = 0, len(nums)-1    
-        # while left <= right:
-        #     mid = left + (right-left) // 2   
-        #     num = nums[mid]
-        #     if (nums[mid] < nums[0]) == (target < nums[0]):
-        #         num = nums[mid]
-        #     else:
-        #         num = float('-inf') if target < nums[0] else float('inf')
-
-        #     if target == num:
-        #         return mid
-        #     elif target > num:
+        # left, right = 0, len(nums) - 1
+        # while left < right:
+        #     mid = left + (right - left) // 2
+        #     if nums[mid] > nums[right]:
         #         left = mid + 1
-        #     elif target < num:
-        #         right = mid - 1
-
-        # return -1
+        #     else:
+        #         right = mid
         
-
-        l, r = 0, len(nums)-1
-        while l<r:
-            m = (l+r)//2 
-            if nums[m] > nums[r]:
-                l = m+1
-            else:
-                r = m
-
-        # l=r is the index of the smallest value and the number of places rotated
-        rotated = l 
-        l, r = 0, len(nums)-1
-        while l<=r:
-            m = (l+r)//2 
-            real_m = (m+rotated) % len(nums)
-            if nums[real_m] == target:
-                return real_m
-            if nums[real_m]<target:
-                l = (m+1) #% len(nums)
-            else:
-                r = (m-1) #% len(nums)
-        return -1
-
-
+        # rot = left
+        # n = len(nums)
         # left, right = 0, len(nums) - 1
         # while left <= right:
-        #     mid = (left + right) // 2
-        #     if target == nums[mid]:
-        #         return mid
-            
-        #     # 左半段是有序的
-        #     if nums[left] <= nums[mid]:
-        #         if nums[left] <= target and target <=nums[mid]:
-        #             right = mid - 1
-        #         else:
-        #             left = mid + 1
-            
-        #     # 右半段是有序的
+        #     mid = left + (right - left) // 2
+        #     roted_idx = (mid + rot) % n
+        #     if nums[roted_idx] == target:
+        #         return roted_idx
+        #     elif nums[roted_idx] < target:
+        #         left = mid + 1
         #     else:
-        #         if nums[mid] <= target and target <= nums[right]:
-        #             left = mid + 1  
-        #         else:
-        #             right = mid - 1
+        #         right = mid - 1
         # return -1
 
+        left, right = 0, len(nums) - 1
+        while left <= right:
+            mid = (left + right) // 2
+            if target == nums[mid]:
+                return mid
+            
+            # left part is sorted
+            if nums[left] <= nums[mid]:
+                if nums[left] <= target and target <=nums[mid]:
+                    right = mid - 1
+                else:
+                    left = mid + 1
+            
+            # right part is sorted
+            else:
+                if nums[mid] <= target and target <= nums[right]:
+                    left = mid + 1  
+                else:
+                    right = mid - 1
+        return -1
 
 
 # @lc code=end

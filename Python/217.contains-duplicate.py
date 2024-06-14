@@ -46,5 +46,13 @@ class Solution(object):
         :rtype: bool
         """
         return len(nums) != len(set(nums))
+
+        hset = set()
+        for num in nums:
+            if num in hset:
+                return True
+            else:
+                hset.add(num)
+        return False
 # @lc code=end
 

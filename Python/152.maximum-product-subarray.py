@@ -41,40 +41,21 @@ class Solution(object):
         :rtype: int
         """
 
-        # # 因为存在负数，所以需要同时考虑最大乘积和最小乘积
-        # dp_max = [0 for _ in range(len(nums))]
-        # dp_min = [0 for _ in range(len(nums))]
+        n = len(nums)
+        maxProd, minProd = [1] * n, [1] * n
+        maxProd[0] = minProd[0] = ans = nums[0]
+        for i in range(1, n):
+            if nums[i] > 0:
+                maxProd[i] = max(nums[i], maxProd[i-1] * nums[i])
+                minProd[i] = min(nums[i], minProd[i-1] * nums[i])
+            elif nums[i] < 0:
+                maxProd[i] = max(nums[i], minProd[i-1] * nums[i])
+                minProd[i] = min(nums[i], maxProd[i-1] * nums[i])
+            elif nums[i] == 0:
+                maxProd[i] = 0
+                minProd[i] = 0
+            ans = max(ans, maxProd[i])
+        return ans
 
-        # dp_max[0] = dp_min[0] = ans = nums[0]   
-
-        # for i in range(1, len(nums)):
-        #     if nums[i] < 0:
-        #         dp_max[i] = max(dp_min[i-1]*nums[i], nums[i])
-        #         dp_min[i] = min(dp_max[i-1]*nums[i], nums[i])
-        #     else:
-        #         dp_max[i] = max(dp_max[i-1]*nums[i], nums[i])
-        #         dp_min[i] = min(dp_min[i-1]*nums[i], nums[i])
-        #     ans = max(ans, dp_max[i])
-        # return ans 
-
-
-        dp_max = dp_min = ans = nums[0]   
-
-        for i in range(1, len(nums)):
-            if nums[i] < 0:
-                tmp = dp_max
-                dp_max = max(dp_min*nums[i], nums[i])
-                dp_min = min(tmp*nums[i], nums[i])
-            else:
-                dp_max = max(dp_max*nums[i], nums[i])
-                dp_min = min(dp_min*nums[i], nums[i])
-            ans = max(ans, dp_max)
-        return ans 
-
-
-
-
-
-        
 # @lc code=end
 

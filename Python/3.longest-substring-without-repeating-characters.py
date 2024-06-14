@@ -94,14 +94,15 @@ class Solution(object):
 
         # 双指针
         ans = 0
-        i = -1
-        hash_dict = {}
-        for j in range(len(s)):
-            if s[j] in hash_dict:
-                i = max(hash_dict[s[j]], i) # 只能往后跳，不能往前跳
-            ans = max(ans, j - i)
-            hash_dict[s[j]] = j
-        return ans 
+        left, right = 0, 0
+        last_seen = {}
+        while right < len(s):
+            if s[right] in last_seen:
+                left = max(left, last_seen[s[right]] + 1)
+            ans = max(ans, right - left + 1)
+            last_seen[s[right]] = right
+            right += 1
+        return ans
 
 
 # @lc code=end

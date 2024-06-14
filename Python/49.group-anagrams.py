@@ -42,18 +42,15 @@ class Solution(object):
         :type strs: List[str]
         :rtype: List[List[str]]
         """
-        dic = dict()
 
+        hmap = {}
         for s in strs:
-            s_sort = ''.join(
-                (lambda x: (x.sort(), x)[1])
-                (list(s))
-                )
-            if s_sort not in dic:
-                dic[s_sort] = []
-            dic[s_sort].append(s)
-            
-        return [ v for _, v in dic.items()]
+            k = ''.join(sorted(s))
+            if k not in hmap:
+                hmap[k] = []
+            hmap[k].append(s)
+        return hmap.values()
+
         
 # @lc code=end
 
