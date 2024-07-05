@@ -75,31 +75,29 @@ class Solution(object):
         # 先排序，固定一个数，之后双指针二分查找优化
         # nlog(n) + nlog(n)
         nums.sort()
-        result = []
+
+        ans = []
         for i in range(len(nums)-2):
-            
-            # 为了保证不加入重复的 list,因为是有序的，所以如果和前一个元素相同，只需要继续后移就可以
-            if i == 0 or (i>0 and nums[i] != nums[i-1]):
-                
-                l = i+1
-                r = len(nums)-1
-                s = 0-nums[i]
+            if i > 0 and nums[i] == nums[i-1]:
+                continue
 
-                while l<r:
-                    if nums[l] + nums[r] == s:
-                        result.append([nums[i], nums[l], nums[r]])
-                        while l<r and nums[l] == nums[l+1]:
-                            l+=1
-                        while l<r and nums[r] == nums[r-1]:
-                            r-=1
-                        l +=1
-                        r -=1
+            target = -nums[i]
+            l, r = i + 1, len(nums) - 1
+            while l < r:
+                if nums[l] + nums[r] == target:
+                    ans.append([nums[i], nums[l], nums[r]])
+                    while l < r and nums[l] == nums[l+1]:
+                        l += 1
+                    while l < r and nums[r] == nums[r-1]:
+                        r -= 1
 
-                    elif nums[l] + nums[r] < s:
-                        l+=1
-                    else:
-                        r-=1
-        return result
+                    l += 1
+                    r -= 1
+                elif nums[l] + nums[r] < target:
+                    l += 1
+                else:
+                    r -= 1
+        return ans
 
 # @lc code=end
 

@@ -48,33 +48,24 @@ class Solution(object):
         # return res  
 
         nums.sort()
-        s_min = nums[0] + nums[1] + nums[2]
-        s_max = nums[-3] + nums[-2] + nums[-1]
 
-        if target < s_min:
-            return s_min 
-        elif target > s_max:
-            return s_max
-        else: 
-            ans = 0
-            d_min = float('inf')
-            for i in range(len(nums)-2):
-                l, r = i+1, len(nums)-1 
-                while l < r:
-                    s = nums[i] + nums[l] + nums[r]
-                    d = abs(s - target)
+        ans = float('inf')
+        for i in range(len(nums)-2):
+            if i > 0 and nums[i] == nums[i-1]:
+                continue
 
-                    if d < d_min:
-                        d_min = d
-                        ans = s 
+            l, r = i + 1, len(nums) - 1
+            while l < r:
+                s = nums[i] + nums[l] + nums[r]
+                if abs(target - s) < abs(target - ans):
+                    ans = s
 
-                    if s < target:
-                        l += 1
-                    elif s == target:
-                        return s 
-                    else:
-                        r -= 1
-
+                if nums[l] + nums[r] < target - nums[i]:
+                    l += 1
+                elif nums[l] + nums[r] > target - nums[i]:
+                    r -= 1
+                else:
+                    return ans
         return ans
 
 # @lc code=end

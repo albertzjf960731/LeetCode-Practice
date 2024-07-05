@@ -127,9 +127,10 @@ class Solution(object):
 
         if not root:
             return True
-        
+
         stack = []
         pre = None
+        prev = float('-inf')
         while root or stack:
             while root:
                 stack.append(root)

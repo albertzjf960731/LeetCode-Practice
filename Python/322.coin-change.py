@@ -47,20 +47,14 @@ class Solution(object):
         """
         # 因为硬币可以重复使用，因此这是一个完全背包问题。完全背包只需要将 0-1 背包的逆序遍历 dp 数组改为正序遍历即可。
 
-        if not amount:
-            return 0
-
-        dp = [-1 for _ in range(amount+1)]
+        # dp[i] 表示凑成金额 i 所需的最少硬币数量
+        dp = [float('inf')] * (amount+1)
+        dp[0] = 0
         for coin in coins:
             for i in range(coin, amount+1):
-                if i == coin:
-                    dp[i] = 1
-                elif dp[i] == -1 and dp[i-coin] != -1:
-                    dp[i] = dp[i-coin] +1
-                elif dp[i-coin] != -1:
-                    dp[i] = min(dp[i], dp[i-coin]+1)
-        return dp[-1]
-
+                dp[i] = min(dp[i], dp[i-coin]+1)
+        return dp[amount] if dp[amount]!=float('inf') else -1
+    
 
         # combination
         self.ans = float('inf')

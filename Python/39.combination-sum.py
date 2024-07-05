@@ -54,61 +54,23 @@
 
 # @lc code=start
 class Solution(object):
-    # def __init__(self):
-    #     self.res = []
-
-    # def combinationSum(self, candidates, target):
-    #     """
-    #     :type candidates: List[int]
-    #     :type target: int
-    #     :rtype: List[List[int]]
-    #     """
-    #     # res = []
-
-    #     # for i in range(len(candidates)):
-    #     #     if candidates[i] == target:
-    #     #         res.append([candidates[i]])
-            
-    #     #     for j in range(i, len(candidates)):
-    #     #         if candidates[i] + candidates[j] == target:
-    #     #             res.append([candidates[i], candidates[j]])
-                
-    #     #         for k in range(j, len(candidates)):
-    #     #             if candidates[i] + candidates[j] + candidates[k] == target:
-    #     #                 res.append([candidates[i], candidates[j], candidates[k]])
-        
-    #     # return res
-    #     candidates.sort()
-    #     self.backtrack([], candidates, target, 0)
-    #     return self.res   
-
-    # def backtrack(self,temp_res, candidates, remain, start):
-    #     # if remain < 0:
-    #     #     return 
-    #     if remain == 0:
-    #         self.res.append(temp_res.copy())
-    #     else:
-    #         for i in range(start, len(candidates)):
-    #             if remain-candidates[i] < 0:
-    #                 break
-                
-    #             temp_res.append(candidates[i])
-    #             self.backtrack(temp_res, candidates, remain-candidates[i], i)
-    #             temp_res.pop()
     def combinationSum(self, candidates, target):
-        res = []
         candidates.sort()
-        self.dfs(candidates, target, 0, [], res)    
-        return res
+        ans = []
+        path = []
+        self.dfs(candidates, target, 0, path, ans)
+        return ans
 
-    def dfs(self, nums, target, index, path, res):
-        if target < 0:
-            return 
-        elif target == 0:
-            res.append(path)
-        else:
-            for i in range(index, len(nums)):
-                self.dfs(nums, target-nums[i], i, path + [nums[i]], res)
+    def dfs(self, nums, target, idx, path, ans):
+        if target == 0:
+            ans.append(path.copy())
+            return
+        for i in range(idx, len(nums)):
+            if nums[i] > target:
+                return
+            path.append(nums[i])
+            self.dfs(nums, target-nums[i], i, path, ans)
+            path.pop()
 
         
 # @lc code=end

@@ -66,13 +66,18 @@ class Solution(object):
 
         target = (target+sum(nums)) // 2
 
-        dp = [0 for _ in range(target+1)]
-        dp[0] = 1
-
+        dp = [1] + [0] * (target)
         for num in nums:
-            for w in range(target, num-1, -1):
-                dp[w] = dp[w] + dp[w-num]
+            # tmp = dp.copy()
+            # tmp = dp[:]
+            # tmp = list(dp)
+            # for i in range(num, target+1):
+            #     tmp[i] = tmp[i] + dp[i-num]
+            # dp = tmp
+            for i in range(target, num-1, -1):
+                dp[i] += dp[i-num]
         return dp[target]
+            
 
 
 

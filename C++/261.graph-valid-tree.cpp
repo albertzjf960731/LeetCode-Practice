@@ -33,7 +33,7 @@ public:
         }
         return edges.size() == n -1;
     }
-    int find(vector<int>& roots, int i) {
+    int findRoot(vector<int>& roots, int i) {
         while (roots[i] != -1) i = roots[i];
         return i;
     }

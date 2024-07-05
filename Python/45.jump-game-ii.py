@@ -42,17 +42,27 @@ class Solution(object):
         :type nums: List[int]
         :rtype: int
         """
-        last_pos = 0 # 当前能跳到的最远的
-        max_pos = 0
-        steps = 0
+        # last_pos = 0 # 当前能跳到的最远的
+        # max_pos = 0
+        # steps = 0
 
-        for i in range(len(nums)-1):
-            max_pos = max(max_pos, nums[i] + i)
-            if i == last_pos:
-                last_pos = max_pos
-                steps += 1
+        # for i in range(len(nums)-1):
+        #     max_pos = max(max_pos, nums[i] + i)
+        #     if i == last_pos:
+        #         last_pos = max_pos
+        #         steps += 1
 
-        return steps
+        # return steps
+
+        ans = 0
+        left, right = 0, 0
+        while right < len(nums) - 1:
+            ans += 1
+            max_right = right
+            for i in range(left, right + 1):
+                max_right = max(max_right, i + nums[i])
+            left, right = right + 1, max_right
+        return ans
 
 # @lc code=end
 sol = Solution()
