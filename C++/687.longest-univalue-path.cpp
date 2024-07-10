@@ -84,18 +84,16 @@ public:
         return ans;
     }
 
-    // 以该结 点为终点的最长路径长度
     int DFS(TreeNode* node, int& ans) {
         if (node==NULL) return 0;
-        
-        int left = DFS(root->left, ans);
-        int right = DFS(root->right, ans);
-        
-        if (root->left && root->left->val != root->val) left = 0;
-        if (root->right && root->right->val != root->val) right = 0;
-        
-        ans = max(ans, left+right+1);
-        return max(left, right) + 1;
+        int tmp_left = DFS(node->left, ans);
+        int tmp_right = DFS(node->right, ans);
+
+        int left_path = 0, right_path = 0;
+        if (node->left && node->left->val==node->val) left_path = tmp_left+1;
+        if (node->right && node->right->val==node->val) right_path = tmp_right+1;
+        ans = max(ans, left_path + right_path);
+        return max(left_path, right_path);
     }
 };
 // @lc code=end

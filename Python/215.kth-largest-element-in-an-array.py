@@ -56,37 +56,30 @@ class Solution(object):
         return self.findKthSmallest(nums, len(nums)-k+1)
 
     def findKthSmallest(self, nums, k):
-        l, r = 0, len(nums)-1
-
-        while l<=r:
-            pos = self.partition(nums, l, r)
-
-            if pos+1==k:
-                return nums[pos]
-            elif pos+1<k:
-                l = pos+1
+        left, right = 0, len(nums) - 1
+        while left <= right:
+            idx = self.partition(nums, left, right)
+            if idx == k-1:
+                return nums[idx]
+            elif idx > k-1:
+                right = idx - 1
             else:
-                r = pos-1
-
-        # if k > pos+1:
-        #     return self.findKthSmallest(nums[pos+1:], k-pos-1)
-        # elif k < pos+1:
-        #     return self.findKthSmallest(nums[:pos], k)
-        # else:
-        #     return nums[pos]
+                left = idx + 1
+        return -1
     
-    # choose the right-most element as pivot   
-    def partition(self, nums, l, r):
-        pos = l
-
-        while l<r:
-            if nums[l] < nums[r]:
-                nums[l], nums[pos] = nums[pos], nums[l]
-                pos += 1
-            l += 1
-
-        nums[pos], nums[r] = nums[r], nums[pos]
-        return pos
+    def partition(self, nums, left, right):
+        l, r = left + 1, right
+        while l <= r:
+            if nums[l] < nums[left] and nums[r] > nums[left]:
+                nums[l], nums[r] = nums[r], nums[l]
+                l += 1
+                r -= 1
+            if nums[l] >= nums[left]:
+                l += 1
+            if nums[r] <= nums[left]:
+                r -= 1
+        nums[left], nums[r] = nums[r], nums[left]
+        return r
 
 
         

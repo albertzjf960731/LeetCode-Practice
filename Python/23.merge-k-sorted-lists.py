@@ -93,18 +93,20 @@ class Solution(object):
         # return head.next
 
 
-        from heapq import heappush, heappop, heapify
-
-        dummy = cur = ListNode(0)
-
-        min_heap = [(node.val, node) for node in lists if node]
-        heapify(min_heap)
-
-        while min_heap:
-            val, node = heappop(min_heap)
+        pq = []
+        for node in lists:
+            if node:
+                heapq.heappush(pq, (node.val, id(node), node))
+        
+        dummy = ListNode(-1)
+        cur = dummy
+        
+        while pq:
+            _, _, node = heapq.heappop(pq)
             if node.next:
-                heappush(min_heap, (node.next.val, node.next))
-            cur.next = node 
+                heapq.heappush(pq, (node.next.val, id(node.next), node.next))
+
+            cur.next = node
             cur = cur.next
         return dummy.next
 

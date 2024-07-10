@@ -63,20 +63,23 @@ class Solution(object):
         if not root:
             return 0
 
-        return self.dfs(root, target) + self.pathSum(root.left, target) + self.pathSum(root.right, target)
+        # prefix sum 
+        prefix_sum = {0: 1}
+        return self.dfs(root, 0, target, prefix_sum)
     
-    def dfs(self, root, target):
+    def dfs(self, root, curr_sum, target, prefix_sum):
         if not root:
-            return 0 
-        # if target<0:
-        #     return 0 
+            return 0
 
-        ans = 0
-        if root.val == target:
-            ans += 1
-        ans += self.dfs(root.left, target-root.val)
-        ans += self.dfs(root.right, target-root.val)
-        return ans 
+        curr_sum += root.val
+        count = prefix_sum.get(curr_sum - target, 0)
+        prefix_sum[curr_sum] = prefix_sum.get(curr_sum, 0) + 1
+
+        count += self.dfs(root.left, curr_sum, target, prefix_sum)
+        count += self.dfs(root.right, curr_sum, target, prefix_sum)
+
+        prefix_sum[curr_sum] -= 1
+        return count
 
 # @lc code=end
 

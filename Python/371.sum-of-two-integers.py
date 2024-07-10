@@ -58,10 +58,10 @@ class Solution(object):
             a, b = (a ^ b) & mask, ((a & b) << 1) & mask
         
         # a is negative if the first bit is 1
-        if (a >> 31) & 1:
-            return ~(a ^ mask)
-        else:
+        if a <= 0x7fffffff:
             return a
+        else:
+            return ~(a ^ mask)
  
         # return sum([a, b])
 

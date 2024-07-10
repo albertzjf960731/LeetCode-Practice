@@ -69,40 +69,19 @@ class Solution(object):
         :rtype: int
         """
 
-        # intervals.sort(key=lambda x:x[1])
-        # ans = 0
+        intervals.sort()
 
-        # i, j = 0, 1
-        # while i < len(intervals) and j < len(intervals):
-        #     while intervals[i][1] > intervals[j][0]:
-        #         ans += 1
-        #         j += 1
-        #         if j >= len(intervals):
-        #             break
-        #     i = j
-        #     j = i+1
-        # return ans 
-
-
-        # 选择的区间结尾越小，留给后面的区间的空间越大，那么后面能够选择的区间个数也就越大
-        if not intervals:
-            return 0 
-
-        intervals.sort(key=lambda x:(x[1]))
-
-        count = 1
         ans = 0
-        # 多设置一个变量
-        last_end = intervals[0][1]
+        last = 0
         for i in range(1, len(intervals)):
-            if intervals[i][0] < last_end:
-                # ans += 1
-                continue
-            # else: 
-            last_end = intervals[i][1]  
-            count += 1
-        return len(intervals) - count
-        # return ans
+            if intervals[i][0] < intervals[last][1]:
+                ans += 1
+                # choose the interval with the smallest end
+                if (intervals[i][1] < intervals[last][1]):
+                    last = i
+            else: 
+                last = i
+        return ans
         
 # @lc code=end
 

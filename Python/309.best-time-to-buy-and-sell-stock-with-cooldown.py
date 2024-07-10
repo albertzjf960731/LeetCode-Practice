@@ -53,9 +53,9 @@ class Solution(object):
         # sell[i] = max(buy[i-1]+price, sell[i-1])
         # rest[i] = max(sell[i-1], buy[i-1], rest[i-1])
 
-        # rest[i] = sell[i-1]
-        # buy[i] = max(sell[i-2]-price, buy[i-1])
-        # sell[i] = max(buy[i-1]+price, sell[i-1])
+        rest[i] = sell[i-1]
+        buy[i] = max(sell[i-2]-price, buy[i-1])
+        sell[i] = max(buy[i-1]+price, sell[i-1])
 
         # if len(prices) < 2:
         #     return 0
@@ -66,6 +66,18 @@ class Solution(object):
         #     prev_sell = sell
         #     sell = max(prev_buy + price, prev_sell)
         # return sell
+
+        # n = len(prices)
+        # if (n <= 1):
+        #     return 0
+
+        # buy = [0] * n
+        # sell = [0] * n
+        # buy[0] = -prices[0]
+        # for i in range(1, n):
+        #     buy[i] = max(sell[max(i-2, 0)]-prices[i], buy[i-1])
+        #     sell[i] = max(buy[i-1]+prices[i], sell[i-1])
+        # return sell[-1]
 
 
         n = len(prices)
@@ -82,7 +94,6 @@ class Solution(object):
             hold[i] = max(buy[i-1], hold[i-1])
             sell[i] = max(buy[i-1], hold[i-1]) + prices[i]
             rest[i] = max(rest[i-1], sell[i-1])
-        # return sell[-1]
         return max(sell[-1], rest[-1])
 
 # @lc code=end

@@ -51,55 +51,6 @@ class Solution(object):
         :type sum: int
         :rtype: bool
         """
-
-    #     stack = []
-    #     stack_sum = []
-    #     cur = root 
-    #     cur_sum = 0 
-    #     while cur or stack:
-    #         while cur:
-    #             stack.append(cur)
-                
-    #             cur_sum += cur.val
-    #             stack_sum.append(cur_sum)
-                
-    #             cur = cur.left
-            
-    #         # if self.stack_sum(stack) == target and not cur:
-    #         #     return True
-            
-    #         cur = stack.pop()
-            
-    #         cur_sum = stack_sum.pop()
-    #         if cur_sum == target and not cur.left and not cur.right:
-    #             return True
-
-    #         cur = cur.right
-    #     return False
-    
-    # def stack_sum(self, stack):
-    #     s = 0
-    #     for node in stack:
-    #         s += node.val 
-    #     return s
-
-    # === 递归 === 
-    #     if not root:
-    #         return False
-
-    #     return self.dfs(root, target)
-    
-    # def dfs(self, root, target):
-    #     if not root.left and not root.right:
-    #         return root.val == target
-    #     elif not root.left:
-    #         return self.dfs(root.right, target-root.val)
-    #     elif not root.right:
-    #         return self.dfs(root.left, target-root.val)
-    #     else:
-    #         return self.dfs(root.left, target-root.val) or self.helper(root.right, target-root.val)
-
-
         if not root:
             return False
         if not root.left and not root.right:
