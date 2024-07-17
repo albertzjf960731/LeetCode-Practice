@@ -71,19 +71,21 @@ class Solution(object):
         :type t: str
         :rtype: int
         """
-        # l1, l2 = len(s), len(t)
+        n1, n2 = len(s), len(t)
+        
+        dp = [[0] * (n2+1) for _ in range(n1+1)]
+        for i in range(n1+1):
+            dp[i][0] = 1
 
-        # dp = [[1 for _ in range(l2+1)] for _ in range(l1+1)]
-
-        # for j in range(1, l2+1):
-        #     dp[0][j] = 0
-        # for i in range(1, l1+1):
-        #     for j in range(1, l2+1):
-        #         if s[i-1] == t[j-1]:
-        #             dp[i][j] = dp[i-1][j] + dp[i-1][j-1]
-        #         else:
-        #             dp[i][j] = dp[i-1][j] 
-        # return dp[-1][-1]
+        for i in range(n1):
+            for j in range(n2):
+                if s[i] == t[j]:
+                    # use s[i] to match t[j] or not
+                    dp[i+1][j+1] = dp[i][j] + dp[i][j+1]
+                else:
+                    # not use s[i] to match t[j]
+                    dp[i+1][j+1] = dp[i][j+1]
+        return dp[-1][-1]
 
 
         l1, l2 = len(s), len(t)

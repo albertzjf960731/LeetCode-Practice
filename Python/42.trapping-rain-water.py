@@ -52,64 +52,61 @@ class Solution(object):
         #             start = True
         # return res
 
-        # 按列求
-        res = 0
-        for i in range(1, len(height)-1):
-            
-            max_left = max(height[:i])
-            max_right = max(height[i+1:])
-
-            if min(max_left, max_right) > height[i]:
-                res += (min(max_left, max_right)) - height[i]
-        return res
-
-        # 动态规划 sum 函数是挺慢的
+        # # 按列求
         # res = 0
-        # max_left = [0 for _ in range(len(height))]
-        # max_right = [0 for _ in range(len(height))]
         # for i in range(1, len(height)-1):
-        #     max_left[i] = max(max_left[i-1], height[i-1])
-        # for i in range(len(height)-2, -1, -1):
-        #     max_right[i] = max(max_right[i+1], height[i+1])
-        # for i in range(1, len(height)-1):
-        #     h = min(max_left[i], max_right[i])
-        #     if h > height[i]:
-        #         res += h - height[i]
+            
+        #     max_left = max(height[:i])
+        #     max_right = max(height[i+1:])
+
+        #     if min(max_left, max_right) > height[i]:
+        #         res += (min(max_left, max_right)) - height[i]
         # return res
 
-        # 双指针
         res = 0
-        left = 1
-        right = len(height) - 2
-        max_left, max_right = 0, 0
+        max_left = [0 for _ in range(len(height))]
+        max_right = [0 for _ in range(len(height))]
         for i in range(1, len(height)-1):
-            if height[left-1] < height[right+1] :
-                max_left = max(max_left, height[left-1])
-                if max_left > height[left]:
-                    res += (max_left - height[left])
-                left += 1
-            else:
-                max_right = max(max_right, height[right+1])
-                if max_right > height[right]:
-                    res += max_right - height[right]
-                right -= 1
+            max_left[i] = max(max_left[i-1], height[i-1])
+        for i in range(len(height)-2, -1, -1):
+            max_right[i] = max(max_right[i+1], height[i+1])
+        for i in range(1, len(height)-1):
+            h = min(max_left[i], max_right[i])
+            if h > height[i]:
+                res += h - height[i]
         return res
+
+        # # 双指针
+        # res = 0
+        # left = 1
+        # right = len(height) - 2
+        # max_left, max_right = 0, 0
+        # for i in range(1, len(height)-1):
+        #     if height[left-1] < height[right+1] :
+        #         max_left = max(max_left, height[left-1])
+        #         if max_left > height[left]:
+        #             res += (max_left - height[left])
+        #         left += 1
+        #     else:
+        #         max_right = max(max_right, height[right+1])
+        #         if max_right > height[right]:
+        #             res += max_right - height[right]
+        #         right -= 1
+        # return res
 
         # # 栈
-        # res = 0
-        # stack = []
-        # i = 0
-        # while i < len(height):
-        #     while stack and height[i] > height[stack[-1]]:
-        #         h = height[stack.pop()]
-        #         if not stack:
-        #             break
-        #         w = i - stack[-1] - 1
-        #         res += w * (min(height[stack[-1]], height[i]) - h)
-        #     stack.append(i)
-        #     i += 1
+        ans = 0
+        monostack = []
+        for i in range(len(height)):
+            while monostack and height[i] > height[monostack[-1]]:
+                h = height[monostack.pop()]
+                if not monostack:
+                    break
+                w = i - monostack[-1] - 1
+                ans += w * (min(height[i], height[monostack[-1]]) - h)
+            monostack.append(i)
+        return ans
 
-        return res
 # @lc code=end
 
 sol = Solution()

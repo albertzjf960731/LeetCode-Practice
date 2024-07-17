@@ -57,7 +57,7 @@ class Solution(object):
         :type K: int
         :rtype: int
         """
-        # # Dijkstra
+        # # Dijkstra with heap
         # adj = collections.defaultdict(list)
         # for u, v, w in times:
         #     adj[u].append((v, w))
@@ -87,7 +87,16 @@ class Solution(object):
                     q.append((dist+w, v))
         ans = max(dists)
         return ans if ans < float('inf') else -1 
-
+    
+        # Bellman-Ford
+        dists = [0] + [float('inf')] * n
+        dists[k] = 0
+        for _ in range(n):
+            for u, v, w in times:
+                if dists[u] + w < dists[v]:
+                    dists[v] = dists[u] + w
+        ans = max(dists)
+        return ans if ans < float('inf') else -1
 # @lc code=end
 
 sol = Solution()

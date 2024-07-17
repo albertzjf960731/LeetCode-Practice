@@ -42,45 +42,31 @@ class Solution(object):
         :type t: str
         :rtype: str
         """
-        
-        # 滑动窗口前后指针都从起始位置开始，先移动后指针使得窗口内数组符合要求，然后移动前指针直到窗口内数组不再符合要求，随后再次移动后指针，依此类推。
 
-        # from collections import Counter
-        # count_t = Counter(t)
-        
-        count_t = {}
-        for c in t:
-            count_t[c] = count_t.get(c, 0) + 1
+        t_cnts = collections.Counter(t) 
+        needed = len(t)
 
-        ans_l, ans_r = 0, -1
-        ans_len = len(s)+1
-        missing = len(t)
+        min_len = float('inf')
+        min_str = ""
 
-        l, r = 0, 0
-        while r<len(s):
-            c_r = s[r]
+        left, right = 0, 0
+        while right < len(s):
+            if t_cnts[s[right]] > 0:
+                needed -= 1
+            t_cnts[s[right]] -= 1 # t_cnts[s[right]] < 0 means s[right] is not needed
 
-            missing -= count_t[c_r] > 0
-            count_t[c_r] -= 1
+            while needed == 0:
+                if right - left + 1 < min_len:
+                    min_len = right - left + 1
+                    min_str = s[left: right+1]
+                    
+                t_cnts[s[left]] += 1
+                if t_cnts[s[left]] > 0:
+                    needed += 1
+                left += 1
+            right += 1
 
-            # 如果当前窗口包含所有字母，就进入循环
-            # 开始移动左指针，减小窗口
-            while missing == 0:
-
-                temp_len = r-l+1
-                if temp_len < ans_len:
-                    ans_l, ans_r = l, r
-                    ans_len = temp_len
-
-                c_l = s[l]
-                count_t[c_l] += 1
-                if count_t[c_l] > 0:
-                    missing += 1   
-                l += 1
-                
-            r += 1
-        return s[ans_l: ans_r+1]
-
+        return min_str
 
 # @lc code=end
 sol = Solution()

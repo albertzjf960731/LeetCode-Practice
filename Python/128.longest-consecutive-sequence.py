@@ -56,19 +56,19 @@ class Solution(object):
 
         if not nums:
             return 0
-
-        hash_set = set(nums)
-
+        
         ans = 1
+        hset = set(nums)
         for num in nums:
-            if num-1 not in hash_set:
-                count = 0
-                while num in hash_set:
-                    count += 1
-                    num += 1
-                ans = max(ans, count)
-            # hash_set.remove(num)
-        return ans 
+            if num - 1 in hset:
+                continue
+            
+            cnt = 1
+            while num + 1 in hset:
+                cnt += 1
+                num += 1
+            ans = max(ans, cnt)
+        return ans
         
 # @lc code=end
 

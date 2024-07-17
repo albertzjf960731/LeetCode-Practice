@@ -59,54 +59,56 @@ class Solution(object):
         # else:
         #     return nums3[n//2]
         
-        n = len(nums1)
-        m = len(nums2)
+        # two pointers, time complexity O(m+n)
+        n, m = len(nums1), len(nums2)
 
-        left, right = -1, -1
+        num1, num2 = 0, 0
         i, j = 0, 0
-
         for _ in range((n+m)//2+1):
-
-            left = right
-            if i < n and (j>=m or nums1[i]<nums2[j]):
-                right = nums1[i]
+            num2 = num1
+            if i < n and (j >= m or nums1[i] < nums2[j]):
+                num1 = nums1[i]
                 i += 1
             else:
-                right = nums2[j]
+                num1 = nums2[j]
                 j += 1
 
         if (n+m) & 1 == 0:
-            return (left + right) / 2
+            return (num1 + num2) / 2
         else: 
-            return right
-
+            return num1
+        
 
         # 两个sorted list 的 kth 问题
+        # at each step, we cut one half off from either nums1 or nums2
+        # if one of the arrays is empty, we return the kth element of the other array
+        # time complexity O(log(n) + log(m))
         l = len(nums1) + len(nums2)
-        if l & 1 == 0:
-            return (self.kth(nums1, nums2, l//2) + self.kth(nums1, nums2, l//2-1))/2
+        if l % 2 == 0:
+            return (self.findKth(nums1, nums2, l//2) + self.findKth(nums1, nums2, l//2-1))/2
         else:
-            return self.kth(nums1, nums2, l//2)  
+            return self.findKth(nums1, nums2, l//2)  
             
-    def kth(self, nums1, nums2, k):
+    def findKth(self, nums1, nums2, k):
         if not nums1:
             return nums2[k]
         if not nums2:
             return nums1[k]
         
-        i, j = len(nums1)//2, len(nums2)//2
-        m1, m2 = nums1[i], nums2[j]
+        mid1, mid2 = len(nums1) // 2, len(nums2) // 2
+        num1, num2 = nums1[mid1], nums2[mid2]
 
-        if i+j <k:
-            if m1>m2:
-                return self.kth(nums1, nums2[j+1:], k-j-1)
+        # cut half of one of the arrays
+        if mid1 + mid2 < k:
+            if num1 > num2:
+                return self.findKth(nums1, nums2[mid2+1:], k-mid2-1)
             else:
-                return self.kth(nums1[i+1:], nums2, k-i-1)
+                return self.findKth(nums1[mid1+1:], nums2, k-mid1-1)
         else:
-            if m1>m2:
-                return self.kth(nums1[:i], nums2, k)
+            if num1 > num2:
+                return self.findKth(nums1[:mid1], nums2, k)
             else:
-                return self.kth(nums1, nums2[:j], k) 
+                return self.findKth(nums1, nums2[:mid2], k) 
 
 # @lc code=end
 

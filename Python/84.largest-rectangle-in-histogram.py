@@ -67,7 +67,7 @@ class Solution(object):
   
         # return max_area
 
-        
+
         # if len(heights) == 0:
         #     return 0
         # left_less = [-1 for _ in range(len(heights))]
@@ -100,14 +100,14 @@ class Solution(object):
         # 当前柱子的高度小于栈顶柱子的高度。那么就把栈顶柱子出栈，当做解法四中的当前要求面积的柱子。而右边第一个小于当前柱子的下标就是当前在遍历的柱子，左边第一个小于当前柱子的下标就是当前新的栈顶。
 
         heights.append(0)   
-        stack = [-1]    
+        monostack = [-1]    
         ans = 0    
         for i in range(len(heights)):
-            while heights[i] < heights[stack[-1]]:
-                h = heights[stack.pop()]
-                w = i - stack[-1] - 1
+            while heights[i] < heights[monostack[-1]]:
+                h = heights[monostack.pop()]
+                w = i - monostack[-1] - 1
                 ans = max(ans, h*w)
-            stack.append(i)
+            monostack.append(i)
         # heights.pop()
         return ans
 

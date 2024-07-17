@@ -65,7 +65,7 @@ import heapq
 
 # @lc code=start
 class Solution(object):
-    def findCheapestPrice(self, n, flights, src, dst, K):
+    def findCheapestPrice(self, n, flights, src, dst, k):
         """
         :type n: int
         :type flights: List[List[int]]
@@ -74,6 +74,31 @@ class Solution(object):
         :type K: int
         :rtype: int
         """
+
+        # Dijkstra
+        adj = collections.defaultdict(list)
+        for u, v, w in flights:
+            adj[u].append((v, w))
+
+        ans = float('inf')
+        stop = 0
+        queue = collections.deque([(src, 0)])
+        while queue:
+            for _ in range(len(queue)):
+                node, cost = queue.popleft()
+                if node == dst:
+                    ans = min(ans, cost)
+                
+                for nei, w in adj[node]:
+                    if cost + w >= ans:
+                        continue
+                    queue.append((nei, cost + w))
+            if stop > k:
+                break
+            stop += 1
+        return ans if ans < float('inf') else -1
+    
+        # Dijkstra with heap
         adj = collections.defaultdict(list)
         for u, v, w in flights:
             adj[u].append((v, w))
@@ -87,6 +112,18 @@ class Solution(object):
                 for v, w in adj[node]:
                     heapq.heappush(q, (dist+w, v, stop-1))
         return -1
+    
 
+        # Bellman-Ford
+        dist = [float('inf')] * n
+        dist[src] = 0
+        for _ in range(K+1):
+            tmp = dist[:]
+            for u, v, w in flights:
+                tmp[v] = min(tmp[v], dist[u] + w)
+            dist = tmp
+        return dist[dst] if dist[dst] < float('inf') else -1
+    
+    
 # @lc code=end
 

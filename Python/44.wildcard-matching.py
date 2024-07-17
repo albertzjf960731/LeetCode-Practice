@@ -128,7 +128,7 @@ class Solution(object):
         for i in range(len(s)):
             for j in range(len(p)):
                 if p[j] == '*':
-                    # * 表示空 or * 表示任意值
+                    # empty or pop one char in s
                     dp[i+1][j+1] = dp[i][j+1] or dp[i+1][j]
                 if p[j] == s[i] or p[j] == '?':
                     dp[i+1][j+1] = dp[i][j]

@@ -56,43 +56,29 @@ class Solution(object):
         :rtype: int
         """
 
-        if not matrix: 
-            return 0
+        dp = [[-1] * len(matrix[0]) for _ in range(len(matrix))]
 
-        n = len(matrix)
-        m = len(matrix[0])
-
-        self.directions = [(1,0),(-1,0),(0,1),(0,-1)]
-        self.cache = [[-1 for _ in range(m)] for _ in range(n)]
-
-
-        ans = 0        
-        for i in range(n):
-            for j in range(m):
-                cur_len = self.dfs(matrix, i, j)
-                ans = max(ans, cur_len)
+        ans = 1
+        for i in range(len(matrix)):
+            for j in range(len(matrix[0])):
+                l = self.dfs(matrix, i, j, dp)
+                ans = max(ans, l)
         return ans
-                
-                
-    def dfs(self, matrix, i, j):
-        # when dfs called, meaning its caller already verified this point 
-        if self.cache[i][j] != -1:
-            return self.cache[i][j]
 
-        n = len(matrix)
-        m = len(matrix[0])
-
+    def dfs(self, matrix, i, j, dp):
+        if dp[i][j] != -1:
+            return dp[i][j]
         max_len = 1
-        for d in self.directions:
+        for d in [[0, 1], [0, -1], [1, 0], [-1, 0]]:
             x, y = i + d[0], j + d[1]
-
-            if x < 0 or x >= n or y < 0 or y >= m or matrix[x][y] <= matrix[i][j]:
+            if x < 0 or x >= len(matrix) or y < 0 or y >= len(matrix[0]):
                 continue
-            length = self.dfs(matrix, x, y) + 1
-            max_len = max(max_len, length)
-        
-        self.cache[i][j] = max_len
-        return max_len
+            if matrix[x][y] <= matrix[i][j]:
+                continue
+            max_len = max(max_len, self.dfs(matrix, x, y, dp) + 1)
+        dp[i][j] = max_len
+        return dp[i][j]
+
 
 # @lc code=end
 

@@ -62,55 +62,55 @@ class Solution(object):
         #             max_area = max(max_area, heigth * min_width)
         # return max_area
 
-    #     if not matrix:
-    #         return 0 
-    #     max_area = 0
-    #     heights = [0 for _ in range(len(matrix[0]))]
-    #     for i in range(len(matrix)):
-    #         for j in range(len(matrix[0])):
-    #             if matrix[i][j] == '1':
-    #                 heights[j] += 1
-    #             else:
-    #                 heights[j] = 0
-    #         max_area = max(max_area, self.largestRectangleArea(heights))
-    #     return max_area
-
-    # def largestRectangleArea(self, heights):
-    #     heights.append(0)   
-    #     stack = [-1]    
-    #     max_area = 0    
-    #     for i in range(len(heights)):
-    #         while heights[i] < heights[stack[-1]]:
-    #             h = heights[stack.pop()]
-    #             w = i - stack[-1] - 1
-    #             max_area = max(max_area, h*w)
-    #         stack.append(i)
-    #     heights.pop()
-    #     return max_area
-
-
         if not matrix:
             return 0 
         max_area = 0
-        
-        heights = [0 for _ in range(len(matrix[0])+1)]
+        heights = [0 for _ in range(len(matrix[0]))]
         for i in range(len(matrix)):
-            stack = [-1]
-
-            for j in range(len(heights)):
-                if j < len(matrix[0]):
-                    if matrix[i][j] == '1':
-                        heights[j] += 1
-                    else:
-                        heights[j] = 0
-                
-                while heights[j] < heights[stack[-1]]:
-                    h = heights[stack.pop()]
-                    w = j - stack[-1] - 1
-                    max_area = max(max_area, h*w)
-                stack.append(j)
-
+            for j in range(len(matrix[0])):
+                if matrix[i][j] == '1':
+                    heights[j] += 1
+                else:
+                    heights[j] = 0
+            max_area = max(max_area, self.largestRectangleArea(heights))
         return max_area
+
+    def largestRectangleArea(self, heights):
+        heights.append(0)   
+        stack = [-1]    
+        max_area = 0    
+        for i in range(len(heights)):
+            while heights[i] < heights[stack[-1]]:
+                h = heights[stack.pop()]
+                w = i - stack[-1] - 1
+                max_area = max(max_area, h*w)
+            stack.append(i)
+        heights.pop()
+        return max_area
+
+
+        # if not matrix:
+        #     return 0 
+        # max_area = 0
+        
+        # heights = [0 for _ in range(len(matrix[0])+1)]
+        # for i in range(len(matrix)):
+        #     stack = [-1]
+
+        #     for j in range(len(heights)):
+        #         if j < len(matrix[0]):
+        #             if matrix[i][j] == '1':
+        #                 heights[j] += 1
+        #             else:
+        #                 heights[j] = 0
+                
+        #         while heights[j] < heights[stack[-1]]:
+        #             h = heights[stack.pop()]
+        #             w = j - stack[-1] - 1
+        #             max_area = max(max_area, h*w)
+        #         stack.append(j)
+
+        # return max_area
 
 
         # 动态规划

@@ -51,38 +51,35 @@ class Solution(object):
         :type k: int
         :rtype: List[int]
         """
-        # if not nums:
-        #     return []
-            
-        # l, r = 0, k 
-        # res = []
-        # while r <= len(nums):
+        ans = []
+        pq = []
+        for i in range(k):
+            heapq.heappush(pq, (-nums[i], i))
+        ans.append(-pq[0][0])
 
+        for i in range(k, len(nums)):
+            heapq.heappush(pq, (-nums[i], i))
 
-        #     res.append(max(nums[l:r])) 
-            
-        #     l += 1
-        #     r += 1
-
-        # return res
+            while pq[0][1] <= i - k:
+                heapq.heappop(pq)
+            ans.append(-pq[0][0])
+        return ans
         
-        # 递减窗口队列递减
-        queue = []
-        res = []
+
+        # monoqueue
+        monoqueue = deque()
+        ans = []
 
         for i, num in enumerate(nums):
-            while queue and nums[queue[-1]] < num:
-                queue.pop()
+            while monoqueue and nums[monoqueue[-1]] < num:
+                monoqueue.pop()
+            monoqueue.append(i)
 
-            queue.append(i) 
-
-            if queue[0] == i-k:
-                queue.pop(0)
-
+            if monoqueue[0] == i - k:
+                monoqueue.popleft()
             if i >= k-1:
-                res.append(nums[queue[0]])
-        return res 
-
+                ans.append(nums[monoqueue[0]])
+        return ans
 
 
 # @lc code=end

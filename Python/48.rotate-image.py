@@ -93,31 +93,25 @@ class Solution(object):
         #         matrix2[i2][j2] = matrix[i][j]
         # return matrix2
 
-        # for i in range(len(matrix)):
-        #     for j in range(i):
-        #         if i == j:
-        #             continue
-        #         temp = matrix[i][j]
-        #         matrix[i][j] = matrix[j][i]
-        #         matrix[j][i] = temp 
-        
-        # for i in range(len(matrix)):
-        #     for j in range(len(matrix)//2):
-        #         temp = matrix[i][j]
-        #         matrix[i][j] = matrix[i][len(matrix)-j-1]
-        #         matrix[i][len(matrix)-j-1] = temp
-
-
         n = len(matrix)
-        for i in range(n//2):
-            for j in range(i, n-i-1):
-                temp = matrix[i][j]
-                matrix[i][j] = matrix[n-j-1][i]
-                matrix[n-j-1][i] = matrix[n-i-1][n-j-1]
-                matrix[n-i-1][n-j-1] = matrix[j][n-i-1]
-                matrix[j][n-i-1] = temp
+        for i in range(n):
+            for j in range(n // 2):
+                matrix[i][j], matrix[i][n-j-1] = matrix[i][n-j-1], matrix[i][j]
+        
+        for i in range(n):
+            for j in range(n-i):
+                matrix[i][j], matrix[n-1-j][n-1-i] = matrix[n-1-j][n-1-i], matrix[i][j]
 
-        matrix[:] = zip(*matrix[::-1])
+        # n = len(matrix)
+        # for i in range(n//2):
+        #     for j in range(i, n-i-1):
+        #         temp = matrix[i][j]
+        #         matrix[i][j] = matrix[n-j-1][i]
+        #         matrix[n-j-1][i] = matrix[n-i-1][n-j-1]
+        #         matrix[n-i-1][n-j-1] = matrix[j][n-i-1]
+        #         matrix[j][n-i-1] = temp
+
+        # matrix[:] = zip(*matrix[::-1])
 
 # @lc code=end
 

@@ -61,23 +61,6 @@ public:
         int n = nums.size();
         if(n%k != 0) return false;
 
-        map<int,int> cnts;
-        for(int num:nums) cnts[num]++;
-        
-        for(auto it: cnts) {
-            if(it.second > 0) {
-                int cnt = it.second;
-                
-                for(int i=0; i<k; i++) {
-                    cnts[it.first+i] -= cnt;
-                    if(cnts[it.first+i] < 0) {
-                        return false;
-                    }
-                }
-            }
-        }
-        return true;
-
         map<int, int> cnts;
         for (int num: nums) cnts[num] += 1;
         

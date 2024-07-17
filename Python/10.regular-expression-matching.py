@@ -134,13 +134,12 @@ class Solution(object):
 
         for i in range(len(s)):
             for j in range(len(p)):
-                if p[j] == '*':
-                    # *=0
-                    dp[i+1][j+1] = dp[i+1][j-1] #or dp[i+1][j]
-                    if p[j-1] == s[i] or p[j-1] == '.':
-                        dp[i+1][j+1] |= dp[i][j+1]
                 if p[j] == s[i] or p[j] == '.':
                     dp[i+1][j+1] = dp[i][j]
+                if p[j] == '*':
+                    dp[i+1][j+1] = dp[i+1][j-1] # zero of the preceding element
+                    if p[j-1] == s[i] or p[j-1] == '.':
+                        dp[i+1][j+1] |= dp[i][j+1] # pop one char from s
         return dp[-1][-1]
 
 # @lc code=end
