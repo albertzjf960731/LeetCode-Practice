@@ -67,5 +67,19 @@ class Solution(object):
                 pre = pre + num
             ans = max(ans, pre)
         return ans
+    
+    def maxSumMatrix(self, matrix):
+        if not matrix:
+            return 0
+        rows, cols = len(matrix), len(matrix[0])
+        ans = float('-inf')
+        for i in range(rows):
+            dp = [0 for _ in range(cols)]
+            for j in range(i, rows):
+                for k in range(cols):
+                    dp[k] += matrix[j][k]
+                ans = max(ans, self.maxSubArray(dp))
+        return ans
+
 # @lc code=end
 

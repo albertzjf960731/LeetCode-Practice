@@ -97,12 +97,13 @@ class Solution(object):
         #             count += 1
         # return i + 1
 
-        i = 1
-        for j in range(i+1, len(nums)):
-            if nums[j] != nums[i-2+1]:
-                i += 1
-                nums[i] = nums[j]
-        return i+1
+        idx = 2
+        for i in range(2, len(nums)):
+            # if nums[i] == nums[idx-2], then nums[i] == nums[idx-1] == nums[idx-2]
+            if nums[i] != nums[idx-2]:
+                nums[idx] = nums[i]
+                idx += 1
+        return idx
 
 # @lc code=end
 

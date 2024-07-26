@@ -56,24 +56,25 @@ class Solution(object):
         :rtype: ListNode
         """
 
-        count = 0
-        pre = head
-        while pre:
-            count += 1
-            pre = pre.next
-        if k <= 1 or count< k:
+        if not head or k == 1:
             return head
-        
-        pre = None
+
         cur = head
-        for _ in range(k):      
-            nex = cur.next 
+        for _ in range(k):
+            if not cur:
+                return head
+            cur = cur.next
+
+        cur = head
+        pre = None
+        for _ in range(k):
+            nxt = cur.next
             cur.next = pre
             pre = cur
-            cur = nex
-            
+            cur = nxt
+
         head.next = self.reverseKGroup(cur, k)
         return pre
-        
+
 # @lc code=end
 

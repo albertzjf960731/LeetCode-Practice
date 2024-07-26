@@ -88,7 +88,13 @@ class Solution(object):
                 nums[i] = nums[j]
         return i+1
 
-        
+        idx = 1
+        for i in range(1, len(nums)):
+            if nums[i] != nums[idx-1]:
+                nums[idx] = nums[i]
+                idx += 1
+        return idx
+    
 # @lc code=end
 
 sol = Solution()

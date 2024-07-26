@@ -52,93 +52,37 @@ class Solution(object):
         :type s: str
         :rtype: int
         """
-        # ans = 0
-        # stack = []
-
-        # for c in s:
-        #     if c.isdigit():
-        #         ans = ord(c)-ord('0')
-        #         while stack and stack[-1]!='(':
-        #             op = stack.pop()
-        #             num1 = stack.pop()
-        #             if op == '+':
-        #                 ans = num1 + ans
-        #             elif op == '-':
-        #                 ans = num1 - ans
-        #         stack.append(ans)
-
-        #     elif c in ('+-('):
-        #         stack.append(c)
-
-        #     elif c == ')':
-        #         ans = stack.pop()
-        #         stack.pop()
-        #         while stack and stack[-1]!='(':
-        #             op = stack.pop()
-        #             num1 = stack.pop()
-        #             if op == '+':
-        #                 ans = num1 + ans
-        #             elif op == '-':
-        #                 ans = num1 - ans
-        #         stack.append(ans)
-
-        #     elif c == ' ':
-        #         continue
-
-        # return stack[-1]
-
-        # i = 0
-        # ans = 0
-        # signs = [1, 1]
-        # while i < len(s):
-        #     c = s[i]
-
-        #     if c.isdigit():
-        #         start = i
-        #         while i < len(s) and s[i].isdigit():
-        #             i+=1
-        #         ans += signs.pop() * int(s[start:i])
-        #         continue
-        #     if c in '+-(':
-        #         signs.append(signs[-1] * (1, -1)[c=='-'])
-        #     if c == ')':
-        #         signs.pop()
-        #     i += 1
-        # return ans
-
-        res = 0
         stack = []
-
         num = 0
+
+        cur = 0
         sign = 1
         for c in s:
             if c.isdigit():
-                num = num * 10 + ord(c) - ord('0')
-            elif c == "+":
-                res += sign * num
+                num = num * 10 + int(c)
+            if c == "+":
+                cur += sign * num
                 num = 0
                 sign = 1
-            elif c == '-':
-                res += sign * num
+            if c == '-':
+                cur += sign * num
                 num = 0
                 sign = -1
-            elif c == '(':
-                stack.append(res)
+            if c == '(':
+                stack.append(cur)
                 stack.append(sign)
-                sign = 1
-                res = 0
-            elif c == ')':
-                res += sign * num 
-                num = 0
-                sign = stack.pop()
-                res = res * sign + stack.pop()
-                sign = 1
-            else:
-                continue
-        if num:
-            res += sign * num
-        return res 
 
+                cur = 0
+                sign = 1
+            if c == ')':
+                cur += sign * num
+                cur = stack.pop() * cur + stack.pop() 
+
+                num = 0
+                sign = 1
+        if num:
+            cur += sign * num
+        return cur
 
 # @lc code=end
 

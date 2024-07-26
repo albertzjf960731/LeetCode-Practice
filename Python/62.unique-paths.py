@@ -56,17 +56,17 @@ class Solution(object):
         :type n: int
         :rtype: int
         """
-        # matrix = [[1]*n for _ in range(m)]
+        dp = [[0 for _ in range(n)] for _ in range(m)]
 
-        # for i in range(m):
-        #     matrix[i][0] = i 
-        # for j in range(n):
-        #     matrix[0][j] = j
-
-        # for i in range(1, m):
-        #     for j in range(1, n):
-        #         matrix[i][j] = matrix[i-1][j] + matrix[i][j-1]
-        # return matrix[m-1][n-1]
+        for i in range(m):
+            dp[i][0] = 1
+        for j in range(n):
+            dp[0][j] = 1
+        
+        for i in range(1, m):
+            for j in range(1, n):
+                dp[i][j] = dp[i-1][j] + dp[i][j-1]
+        return dp[-1][-1]
 
         # # 按行更新
         # dp = [1 for _ in range(n)]
@@ -75,12 +75,12 @@ class Solution(object):
         #         dp[j] = dp[j] + dp[j-1]
         # return dp[-1]
 
-        all = m+n-2
-        down = m-1
-        ans = 1
-        for i in range(1, down+1):
-            ans = ans * (all-down+i)/i
-        return ans 
+        # all = m+n-2
+        # down = m-1
+        # ans = 1
+        # for i in range(1, down+1):
+        #     ans = ans * (all-down+i)/i
+        # return ans 
 
 # @lc code=end
 

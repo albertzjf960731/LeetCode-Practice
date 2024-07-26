@@ -47,24 +47,29 @@ class Solution(object):
         :type input: str
         :rtype: List[int]
         """
+        return self.dfs(s)
+
+    def dfs(self, s):
         if s.isdigit():
             return [int(s)]
-        res = []
-        for i, c in enumerate(s):
-            if c in '+-*':
-                left =  self.diffWaysToCompute(s[:i])
-                right = self.diffWaysToCompute(s[i+1:])
-                for a in left:
-                    for b in right:
-                        if c == '+':
-                            ans = a+b
-                        elif c == '-':
-                            ans = a-b   
-                        elif c == '*':
-                            ans = a*b
-                        res.append(ans)
-        return res 
-        
+
+        ans = []
+        for i in range(len(s)):
+            if s[i] in ['+', '-', '*']:
+                left_vals = self.dfs(s[:i])
+                right_vals = self.dfs(s[i+1:])
+                for l in left_vals:
+                    for r in right_vals:
+                        ans.append(self.cal(l, r, s[i]))
+        return ans
+    
+    def cal(self, num1, num2, op):
+        if op == '+':
+            return num1 + num2
+        if op == '-':
+            return num1 - num2
+        if op == '*':
+            return num1 * num2
 # @lc code=end
 
 sol = Solution()

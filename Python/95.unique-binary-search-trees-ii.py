@@ -55,35 +55,21 @@ class Solution(object):
         :rtype: List[TreeNode]
         """
 
-        # 递归
-        res = []
-        if n == 0:
-            return res 
-        return self.helper(1, n)
+        return self.dfs(1, n)
 
-    def helper(self, start, end):
-        res = []
+    def dfs(self, start, end):
         if start > end:
-            res.append(None)
-            return res
-        
-        # if start == end:
-        #     tree = TreeNode(start)
-        #     res.append(tree)
-        #     return res
-
-        for i in range(start, end+1):
-            lefts = self.helper(start, i-1)
-            rights = self.helper(i+1, end)
-
+            return [None]
+            
+        trees = []
+        for root in range(start, end+1):
+            lefts = self.dfs(start, root-1)
+            rights = self.dfs(root+1, end)
             for left in lefts:
                 for right in rights:
-                    root = TreeNode(i)
-                    root.left = left
-                    root.right = right
+                    trees.append(TreeNode(root, left, right))
+        return trees    
 
-                    res.append(root)
-        return res
 
         # 动态规划
 

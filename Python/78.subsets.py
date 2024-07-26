@@ -68,24 +68,27 @@ class Solution(object):
 
 
         # 递归
-    #     result = []
-    #     self.dfs(nums, 0, [], result)
-    #     return result
+        path = []
+        ans = []
+        self.dfs(nums, 0, path, ans)
+        return ans
 
-    # def dfs(self, nums, index, path, result):
-    #     result.append(path)
-    #     for i in range(index, len(nums)):
-    #         self.dfs(nums, i+1, path+[nums[i]], result)
-
-        # 位操作
-        result = []
-        for i in range(1<<len(nums)):
-            temp = []
-            for j in range(len(nums)):
-                if i & (1<<j):
-                    temp.append(nums[j])
-            result.append(temp)
-        return result
+    def dfs(self, nums, idx, path, ans):
+        ans.append(path.copy())
+        for i in range(idx, len(nums)):
+            path.append(nums[i])
+            self.dfs(nums, i+1, path, ans)
+            path.pop()
+        
+        # # 位操作
+        # result = []
+        # for i in range(1<<len(nums)):
+        #     temp = []
+        #     for j in range(len(nums)):
+        #         if i & (1<<j):
+        #             temp.append(nums[j])
+        #     result.append(temp)
+        # return result
 
 # @lc code=end
 

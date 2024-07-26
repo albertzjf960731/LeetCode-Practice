@@ -40,62 +40,31 @@ class Solution(object):
         :type s: str
         :rtype: str
         """
-    #     start, end = 0, 1
-    #     for i in range(len(s)-1):
-    #         for j in range(i, len(s)+1):
-    #             if self.is_palindrome(s[i: j]):
-    #                 if j-i > end-start:
-    #                     sub = s[i: j]
-    #                     start, end = i, j
-    #     return s[start: end]
+        if len(s) == 1:
+            return s
+            
+        n = len(s)
+        dp = [[False for _ in range(n)] for _ in range(n)]
         
-    # def is_palindrome(self, s):
-    #     s_rev = ''
-    #     for i in reversed(range(len(s))):
-    #         s_rev += s[i]
-    #     return s == s_rev
+        for i in range(n):
+            dp[i][i] = True
+        for i in range(n-1):
+            if s[i] == s[i+1]:
+                dp[i][i+1] = True
 
-        # if not s:
-        #     return ''
+        for l in range(3, n+1):
+            for i in range(n-l+1):
+                j = i + l - 1
+                if s[i] == s[j]:
+                    dp[i][j] = dp[i+1][j-1]
 
-        # s_rev = s[::-1]
-
-        # arr = [[0 for i in range(len(s) +1)] 
-        #           for j in range(len(s) + 1)]
-        # max_len, max_end = 0, 0
-
-        # for i in range(len(s)):
-        #     for j in range(len(s)):
-        #         if s[i] == s_rev[j]:
-        #             if i == 0 and j == 0:
-        #                 arr[i][j] = 1
-        #             else:
-        #                 arr[i][j] = arr[i-1][j-1] + 1
-               
-        #         if arr[i][j] > max_len:
-        #             j_rev = len(s) - j -1
-        #             if j_rev + arr[i][j] - 1 == i:
-        #                 max_len = arr[i][j]
-        #                 max_end = i
-
-        # return s[max_end-max_len+1: max_end+1]
-
-        # arr = [[False for i in range(len(s)+1)]
-        #           for j in range(len(s)+1)]
-        # max_len = 0
-        # max_pal = ''
-        # for length in range(1, len(s)+1):
-        #     for start in range(len(s)):
-        #         end = start + length -1 
-        #         if end >= len(s):
-        #             break
-                
-        #         arr[start][end] = length==1 or (length==2 or arr[start+1][end-1]) and s[start]==s[end]
-
-        #         if arr[start][end] and length > max_len:
-        #             max_pal = s[start: end+1]
-        #             max_len = length
-        # return max_pal
+        ans = ""
+        for i in range(n):
+            for j in range(n):
+                if dp[i][j] and j - i + 1 > len(ans):
+                    ans = s[i:j+1]
+        return ans
+                    
 
         # 扩展中心法
         # 遍历所有的回文串中心（考虑奇数、偶数长度），从中心向外扩展可以用O(n)的时间找到该中心位置对应的最长回文串，这个思路其实相当直接，但时空复杂度相对于上面两个动规反而更好

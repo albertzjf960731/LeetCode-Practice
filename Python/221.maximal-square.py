@@ -46,6 +46,7 @@ class Solution(object):
         for i in range(len(matrix)):
             for j in range(len(matrix[0])):
                 if matrix[i][j] == '1':
+                    # max length of square ending at (i, j)
                     dp[i+1][j+1] = min(dp[i][j], dp[i][j+1], dp[i+1][j])+1
                     ans = max(ans, dp[i+1][j+1])
         return ans*ans

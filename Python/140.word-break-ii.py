@@ -72,74 +72,40 @@ class Solution(object):
         :type wordDict: List[str]
         :rtype: List[str]
         """
-        # 递归
-    #     self.wordDict = wordDict
-
-    #     res = []
-    #     self.dfs(s, 0, '', res)
-    #     return res    
-
-    # def dfs(self, s, i, path, res):
-
-    #     if i == len(s):
-    #          res.append(path[1:])
-
-    #     for j in range(i, len(s)):
-    #         if s[i:j+1] in self.wordDict:
-    #             self.dfs(s, j+1, path+' '+s[i:j+1], res)
-
-        # 递归+cache
-        # 嵌套函数应该可以节约空间
-
-        # res = {len(s): ['']}
-
-        # def dfs(i):
-        #     if i not in res:
-        #         res[i] = [s[i:j+1] + (tail and ' ' + tail) 
-        #                for j in range(i, len(s))
-        #                if s[i:j+1] in wordDict
-        #                for tail in dfs(j+1)]
-        #     return res[i]
-
-        # def dfs(i):
-        #     if i not in res:
-        #         for j in range(i, len(s)):
-        #             if s[i:j+1] in wordDict:
-        #                 for tail in dfs(j+1):
-        #                     if i not in res:
-        #                         res[i] = [s[i:j+1] + (tail and ' ' + tail)]
-        #                     else:
-        #                         res[i].append(s[i:j+1] + (tail and ' ' + tail))
-        #     return res[i]
-
-        # return dfs(0)
-            
+        ans = []
+        self.dfs(s, 0, wordDict, "", ans)
+        return ans
     
+    def dfs(self, s, idx, wordDict, path, ans):
+        if idx == len(s):
+            ans.append(path[1:])
+
+        for i in range(idx, len(s)):
+            if s[idx: i+1] in wordDict:
+                self.dfs(s, i+1, wordDict, path+" "+s[idx: i+1], ans)
+
+
+        # dfs with memoization
+        dp = {}
+        return self.dfs(s, wordDict, dp)
+    
+    def dfs(self, s, wordDict, dp):
+        if s in dp:
+            return dp[s]
         
-        def dfs(s, cache):
-
-            if s in cache: 
-                return cache[s]
-            if not s: 
-                return []
-            
-            res = []
-            for word in wordDict:
-                if not s.startswith(word):
-                    continue
-
-                if len(word) == len(s):
-                    res.append(word)
-                else:
-                    tails = dfs(s[len(word):], cache)
-                    for tail in tails:
-                        tail = word + ' ' + tail
-                        res.append(tail)
-            
-            cache[s] = res
-            return res
-        return dfs(s, {})
-
+        ans = []
+        for w in wordDict:
+            if not s.startswith(w):
+                continue
+            if w == s:
+                ans.append(w)
+            else:
+                tails = self.dfs(s[len(w):], wordDict, dp)
+                for t in tails:
+                    t = w + " " + t
+                    ans.append(t)
+        dp[s] = ans
+        return ans
       
 # @lc code=end
 

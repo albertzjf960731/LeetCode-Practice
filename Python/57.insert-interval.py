@@ -66,9 +66,27 @@ class Solution(object):
         #         i += 1
         # return intervals
 
+        ans = []
+        idx, n = 0, len(intervals)
+        while idx < n and newInterval[0] > intervals[idx][1]:
+            ans.append(intervals[idx])
+            idx += 1
+        
+        while idx < n and not (newInterval[0] > intervals[idx][1] or newInterval[1] < intervals[idx][0]):
+            newInterval[0] = min(newInterval[0], intervals[idx][0])
+            newInterval[1] = max(newInterval[1], intervals[idx][1])
+            idx += 1
+        ans.append(newInterval)
+
+        while idx < n:
+            ans.append(intervals[idx])
+            idx += 1
+        return ans
+    
+    def insert(self, intervals, newInterval):
         s, e = newInterval[0], newInterval[1]
-        left = [i for i in intervals if i[1] < newInterval[0]]
-        right = [i for i in intervals if i[0] > newInterval[1]]
+        left = [x for x in intervals if x[1] < newInterval[0]]
+        right = [x for x in intervals if x[0] > newInterval[1]]
 
         if left + right != intervals:
             s = min(newInterval[0], intervals[len(left)][0])

@@ -91,21 +91,15 @@ class Solution(object):
         roman_symbol = {'I': 1, 'V': 5, 'X': 10, 'L': 50, 'C': 100, 'D': 500, 'M': 1000}
 
         num = 0
-        if len(s) == 0:
-            return 0
-        else:
-            for i in range(len(s) -1):
-                num_i = roman_symbol[s[i]]
-                num_j = roman_symbol[s[i+1]]
-                if num_i < num_j:
-                    num -= num_i
-                else:
-                    num += num_i
-            num += roman_symbol[s[-1]] 
-            return num
-            
-            
-
+        for i in range(len(s) -1):
+            num_i = roman_symbol[s[i]]
+            num_j = roman_symbol[s[i+1]]
+            if num_i < num_j:
+                num -= num_i
+            else:
+                num += num_i
+        num += roman_symbol[s[-1]] 
+        return num
 
         
 # @lc code=end

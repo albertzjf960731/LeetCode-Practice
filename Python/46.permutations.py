@@ -41,28 +41,30 @@ class Solution(object):
         """
 
     #     # === 回溯 ===
-    #     res = []
-    #     self.dfs(nums, res, [])
-    #     return res
-   
-    # def dfs(self, nums, res, path):
-    #     if len(path) == len(nums):
-    #         res.append(path)
-    #         return 
-
-    #     for i in range(len(nums)):
-    #         if nums[i] not in path:
-    #             self.dfs(nums, res, path+[nums[i]])
-
-        res = [[]]
-        for i in range(len(nums)):
-            temp = []
-            for item in res:
-                for j in range(len(item)+1):
-                    # 插入
-                    temp.append(item[:j] + [nums[i]] + item[j:])
-            res = temp
-        return res
+        path = []
+        ans = []
+        self.dfs(nums, path, ans)
+        return ans
+    
+    def dfs(self, nums, path, ans):
+        if len(path) == len(nums):
+            ans.append(path.copy())
+        
+        for num in nums:
+            if num not in path:
+                path.append(num)
+                self.dfs(nums, path, ans)
+                path.pop()
+    
+        # res = [[]]
+        # for i in range(len(nums)):
+        #     temp = []
+        #     for item in res:
+        #         for j in range(len(item)+1):
+        #             # 插入
+        #             temp.append(item[:j] + [nums[i]] + item[j:])
+        #     res = temp
+        # return res
 # @lc code=end
 
 sol = Solution()
