@@ -50,72 +50,58 @@
 #
 
 # @lc code=start
-from collections import defaultdict
-
-class TrieNode():
+class TrieNode:
     def __init__(self):
-        self.children = defaultdict(TrieNode)
-        self.isWord = False 
+        self.children = {}
+        self.isWord = False
 
 class Trie():
     def __init__(self):
-        self.root= TrieNode()
+        self.root = TrieNode()
     def insert(self, word):
-        node = self.root 
-        for w in word:
-            node = node.children[w]
-        node.isWord = True 
+        cur = self.root
+        for ch in word:
+            if ch not in cur.children:
+                cur.children[ch] = TrieNode()
+            cur = cur.children[ch]
+        cur.isWord = True
     def search(self, word):
-        node = self.root
-        for w in word:
-            node = node.children.get(w)
-            if not node:
-                return False 
-        return node.isWord
+        cur = self.root
+        for ch in word:
+            if ch not in cur.children:
+                return False
+            cur = cur.chidren[ch]
+        return cur.isWord
 
-class Solution(object):
-    def findWords(self, board, words):
-        """
-        :type board: List[List[str]]
-        :type words: List[str]
-        :rtype: List[str]
-        """
-        
-        if not board:
-            return False
-
-        result = []
+class Solution:
+    def findWords(self, board: List[List[str]], words: List[str]) -> List[str]:
         trie = Trie()
-        node = trie.root
-        for word in words:
-            trie.insert(word)
-
+        for w in words:
+            trie.insert(w)
+        
+        ans = []
         for i in range(len(board)):
             for j in range(len(board[0])):
-                self.dfs(board, node, i, j, '', result)
-        return result
-    
-    def dfs(self, board, node, i, j, path, result):
+                self.dfs(board, i, j, trie.root, "", ans)
+        return ans
+
+    def dfs(self, board, i, j, node, path, ans):
         if node.isWord:
-            result.append(path) 
-            node.isWord = False 
-
-
+            ans.append(path)
+            node.isWord = False
+        
         if i < 0 or i >= len(board) or j < 0 or j >= len(board[0]):
             return 
-
-        temp = board[i][j]
-        node = node.children.get(temp)
-        if not node:
-            return
-        board[i][j] = '#'
-
-        self.dfs(board, node, i+1, j, path+temp, result)
-        self.dfs(board, node, i-1, j, path+temp, result) 
-        self.dfs(board, node, i, j+1, path+temp, result) 
-        self.dfs(board, node, i, j-1, path+temp, result)
-
-        board[i][j] = temp
         
+        ch = board[i][j]
+        if ch not in node.children:
+            return
+        node = node.children[ch]
+        board[i][j] = '#'
+        self.dfs(board, i+1, j, node, path+ch, ans)
+        self.dfs(board, i-1, j, node, path+ch, ans)
+        self.dfs(board, i, j+1, node, path+ch, ans)
+        self.dfs(board, i, j-1, node, path+ch, ans)
+        board[i][j] = ch 
 # @lc code=end
 

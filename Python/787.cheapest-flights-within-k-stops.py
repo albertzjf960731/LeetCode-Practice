@@ -84,6 +84,7 @@ class Solution(object):
         stop = 0
         queue = collections.deque([(src, 0)])
         while queue:
+            # no for loop in Dijkstra with heap
             for _ in range(len(queue)):
                 node, cost = queue.popleft()
                 if node == dst:

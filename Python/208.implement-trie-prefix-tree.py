@@ -44,8 +44,8 @@ from collections import defaultdict
    
 class TrieNode():
     def __init__(self):
-        self.children = defaultdict(TrieNode)
-        self.isWord = False 
+        self.children = {} # ch: TrieNode
+        self.isWord = False
 
 class Trie(object):
 
@@ -61,10 +61,12 @@ class Trie(object):
         :type word: str
         :rtype: None
         """
-        node = self.root 
-        for w in word:
-            node = node.children[w]
-        node.isWord = True 
+        cur = self.root
+        for ch in word:
+            if ch not in cur.children:
+                cur.children[ch] = TrieNode()
+            cur = cur.children[ch]
+        cur.isWord = True
 
     def search(self, word):
         """
@@ -72,12 +74,12 @@ class Trie(object):
         :type word: str
         :rtype: bool
         """
-        node = self.root
-        for w in word:
-            node = node.children.get(w)
-            if not node:
-                return False 
-        return node.isWord    
+        cur = self.root
+        for ch in word:
+            if ch not in cur.children:
+                return False
+            cur = cur.children[ch]
+        return cur.isWord
 
     def startsWith(self, prefix):
         """
@@ -85,11 +87,11 @@ class Trie(object):
         :type prefix: str
         :rtype: bool
         """
-        node = self.root
-        for w in prefix:
-            node = node.children.get(w)
-            if not node:
+        cur = self.root
+        for ch in prefix:
+            if ch not in cur.children:
                 return False
+            cur = cur.children[ch]
         return True
 
 # Your Trie object will be instantiated and called as such:

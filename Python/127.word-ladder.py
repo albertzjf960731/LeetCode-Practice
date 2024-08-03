@@ -136,7 +136,7 @@ class Solution(object):
     #     return 0 
 
 
-        if endWord not in wordList or not endWord or not beginWord or not wordList:
+        if endWord not in wordList:
             return 0
 
         n = len(beginWord)

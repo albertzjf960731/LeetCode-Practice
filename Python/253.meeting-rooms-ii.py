@@ -38,6 +38,7 @@
 class Solution:
     def minMeetingRooms(self, intervals: List[List[int]]) -> int:
         # sweep line
+        # add events to a list rather than updating the events array in place
         events = []
         for start, end in intervals:
             events.append((start, 1))

@@ -43,30 +43,29 @@ class Solution(object):
         :rtype: List[int]
         """
 
-        # start, end = -1, -1
-        # for i in range(len(nums)):
-        #     if nums[i] == target and start == -1:
-        #         start = i      
-        #     if nums[i] == target and start != -1:
-        #         end = i
-        # return [start, end]
-
-        start, end = 0, len(nums)-1
-        while start <= end:
-            mid = (start + end) // 2
-
-            if nums[mid] < target:
-                start = mid + 1
-            elif nums[mid] > target:
-                end = mid - 1 
+        if not nums:
+            return [-1, -1]
+            
+        left, right = 0, len(nums) - 1
+        while left < right:
+            mid = left + (right - left) // 2
+            if nums[mid] >= target:
+                right = mid
             else:
-                start, end = mid, mid
-                while start >= 0 and nums[start]== target:
-                    start -= 1
-                while end < len(nums) and nums[end] == target:
-                    end += 1
-                return [start+1, end-1]
-        return [-1, -1]
+                left = mid + 1
+        if nums[left] != target:
+            return [-1, -1]
+        
+        ans = [left]
+        left, right = 0, len(nums) - 1
+        while left < right:
+            mid = right - (right - left) // 2
+            if nums[mid] <= target:
+                left = mid
+            else:
+                right = mid - 1
+        ans.append(right)
+        return ans
 # @lc code=end
 
 sol = Solution()

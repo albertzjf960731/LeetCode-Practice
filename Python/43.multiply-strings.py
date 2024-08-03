@@ -50,51 +50,20 @@ class Solution(object):
         :type num2: str
         :rtype: str
         """
-    #     res = ''
-    #     for j in range(len(num2)-1, -1, -1):
-    #         res = self.add(res, self.mul(num1, num2[j])+'0'*(len(num2)-1-j))
-    #     res = res.lstrip('0')
-    #     if not res:
-    #         res = '0'
-    #     return res
-
-    # def mul(self, num1, n2):
-    #     if num1=='0' or n2 == '0':
-    #         return '0'
-    #     res = ''
-    #     carry = 0
-    #     for n1 in num1[::-1]:
-    #         p = int(n1) * int(n2) + carry
-    #         carry = p // 10
-    #         res = str(p%10) + res
-    #     if carry:
-    #         res = str(carry) + res
-    #     return res
-
-    # def add(self, num1, num2):
-    #     res = ''
-    #     i = len(num1)-1
-    #     j = len(num2)-1
-    #     carry = 0
-    #     while i>=0 and j >=0:
-    #         s = int(num1[i]) + int(num2[j]) + carry
-    #         carry = s // 10
-    #         res = str(s%10) + res
-    #         i -= 1
-    #         j -= 1
-    #     while i >=0:
-    #         s = int(num1[i]) + carry
-    #         carry = s // 10
-    #         res = str(s%10) + res
-    #         i -= 1 
-    #     while j >=0:
-    #         s = int(num2[j]) + carry
-    #         carry = s // 10
-    #         res = str(s%10) + res
-    #         j -= 1 
-    #     if carry:
-    #         res = str(carry) + res
-    #     return res
+        vals = [0] * (len(num1) + len(num2))
+        for i in range(len(num1)):
+            for j in range(len(num2)):
+                vals[i+j+1] += int(num1[i]) * int(num2[j])
+        for k in range(len(num1)+len(num2)-1, 0, -1):
+            vals[k-1] += vals[k] // 10
+            vals[k] %= 10
+        
+        ans = ""
+        for v in vals:
+            if not ans and v == 0:
+                continue
+            ans += str(v)
+        return "0" if not ans else ans
     
         return str(int(num1)*int(num2))
 
