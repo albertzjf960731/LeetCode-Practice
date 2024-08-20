@@ -65,6 +65,7 @@ class Solution(object):
         # dp[4] = 4
         # dp[5] = 
 
+        # copy all means i has to be a factor of n
         if n == 1:
             return 0
         for i in range(2, int(n**0.5)+1):
